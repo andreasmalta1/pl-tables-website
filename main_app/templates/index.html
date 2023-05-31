@@ -17,21 +17,48 @@
     </form>
     <br>
 
-    {% if table %}
+    {% if results_table %}
+        <h2>Results</h2>
         <table>
             <thead>
                 <tr>
                     <th>Home Team</th>
                     <th>Away Team</th>
-                    <th>Score</th>
+                    <th>Home Score</th>
+                    <th>Away Score</th>
                 </tr>
             </thead>
             <tbody>
-                {% for row in table %}
+                {% for row in results_table %}
                     <tr>
                         <td>{{ row[0] }}</td>
                         <td>{{ row[1] }}</td>
                         <td>{{ row[2] }}</td>
+                        <td>{{ row[3] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+    {% if standing_table %}
+        <h2>Standing</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Team</th>
+                    <th>Played</th>
+                    <th>Points</th>
+                    <th>Goal Difference</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for team, stats in standing_table %}
+                    <tr>
+                        <td>{{ team }}</td>
+                        <td>{{ stats['played'] }}</td>
+                        <td>{{ stats['points'] }}</td>
+                        <td>{{ stats['goal_diff'] }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
