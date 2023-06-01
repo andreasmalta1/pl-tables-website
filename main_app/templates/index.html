@@ -2,7 +2,6 @@
 <html>
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <!-- <link rel="stylesheet" href="dist/styles/soccer.min.css" /> -->
     <title>Premier League Results</title>
 </head>
 <body>
@@ -68,6 +67,6 @@
         </table>
     {% endif %}
 
-    <!-- <script src="dist/scripts/soccer.min.js"></script> -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 </body>
 </html>

@@ -1,12 +1,12 @@
-import requests
-import os
+from requests import get, exceptions
+from os import getenv
 from collections import defaultdict
 
 
 # Function to generate the table of Premier League results
 def generate_results_table(start_date, end_date):
-    API_KEY = os.getenv("API_KEY")
-    API_URL = os.getenv("API_URL")
+    API_KEY = getenv("API_KEY")
+    API_URL = getenv("API_URL")
 
     API_URL = f"{API_URL}?dateFrom={start_date}&dateTo={end_date}"
     headers = {"X-Auth-Token": API_KEY}
