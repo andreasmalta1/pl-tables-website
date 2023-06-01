@@ -2,6 +2,7 @@
 <html>
 <head>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- <link rel="stylesheet" href="dist/styles/soccer.min.css" /> -->
     <title>Premier League Results</title>
 </head>
 <body>
@@ -43,9 +44,10 @@
 
     {% if standing_table %}
         <h2>Standing</h2>
-        <table>
+        <table class="standing-table">
             <thead>
                 <tr>
+                    <!-- <th></th> -->
                     <th>Team</th>
                     <th>Played</th>
                     <th>Points</th>
@@ -55,6 +57,7 @@
             <tbody>
                 {% for team, stats in standing_table %}
                     <tr>
+                        <!-- <td><img class="team-logo" src="{{ team['crestUrl'] }}" alt="{{ team['name'] }} Logo"></td> -->
                         <td>{{ team }}</td>
                         <td>{{ stats['played'] }}</td>
                         <td>{{ stats['points'] }}</td>
@@ -64,5 +67,7 @@
             </tbody>
         </table>
     {% endif %}
+
+    <!-- <script src="dist/scripts/soccer.min.js"></script> -->
 </body>
 </html>

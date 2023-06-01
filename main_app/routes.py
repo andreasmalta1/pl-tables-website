@@ -29,3 +29,5 @@ def index():
 # Add tables by season
 # Make sure correct dates
 # Date to = current date default
+
+# https://stackoverflow.com/questions/37259740/passing-variables-from-flask-to-javascript
