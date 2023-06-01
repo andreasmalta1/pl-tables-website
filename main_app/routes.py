@@ -28,10 +28,10 @@ def index():
 
 
 # TODO
-# CSS -> + logos maybe
+# V4 API
+# CSS + logos maybe
 # Add buttons -> since guardiola manager etc
 # Add tables by season
-# Make sure correct dates, flash message in html
-# Disable future dates js
+# Flash error message in html
 
 # https://stackoverflow.com/questions/37259740/passing-variables-from-flask-to-javascript

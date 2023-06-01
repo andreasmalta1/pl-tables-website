@@ -12,7 +12,7 @@ def generate_results_table(start_date, end_date):
     headers = {"X-Auth-Token": API_KEY}
 
     try:
-        response = requests.get(API_URL, headers=headers)
+        response = get(API_URL, headers=headers)
         response.raise_for_status()
 
         data = response.json()
@@ -37,7 +37,7 @@ def generate_results_table(start_date, end_date):
 
         return table
 
-    except requests.exceptions.RequestException as e:
+    except exceptions.RequestException as e:
         print("An error occurred:", str(e))
         return None
 
