@@ -1,0 +1,102 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  background: #52307C;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body, input, li, a, button {
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #EDF0F1;
+  text-decoration: none;
+}
+
+.navbar-container{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 30px 10px;
+  background: #29183E;
+}
+.navbar-title{
+  margin-right: auto;
+}
+
+.navbar-title a{
+  font-size: 1.8rem;
+}
+
+.navbar-list{
+  list-style: none;
+}
+
+.navbar-list li{
+  display: inline-block;
+  padding: 0px 20px;
+}
+
+.navbar-list li a{
+  transition: all 0.3s ease 0s;
+}
+
+.navbar-list li a:hover{
+  color: red
+}
+
+.footer-container{
+  background: #29183E;
+  height: auto;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  margin-top: auto;
+}
+
+.footer-title{
+  font-size: 1.2rem;
+  line-height: 3rem;
+}
+
+.footer-list{
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0 ;
+}
+
+.footer-item{
+  margin: 0 10px;
+}
+
+.footer-list a{
+  font-size: 1.1rem;
+  transition: all 0.3s ease 0s;
+}
+
+.footer-list a:hover i{
+  color: aqua;
+}
+
+.footer-bottom{
+  text-align: center;
+}
+
+.footer-bottom p{
+  font-size: 14px;
+  word-spacing: 2px;
+}
+
+.footer-bottom span{
+  opacity: .4;
+}

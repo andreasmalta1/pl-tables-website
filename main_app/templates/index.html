@@ -1,6 +1,7 @@
 {%   extends 'base.html' %}
 
-{% block title%} PL Tables | Home {% endblock %}
+{% block styles %} <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}"> {% endblock %}
+{% block title %} PL Tables | Home {% endblock %}
 
 {% block content %}
     <h1>Premier League Results</h1>

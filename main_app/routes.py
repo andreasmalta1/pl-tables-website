@@ -25,7 +25,7 @@ def index():
 # CSS
 # Add buttons -> since guardiola manager etc, Fergie's time in charge ...
 # Add tables by season
-# Footer -> Contact; GitHub, Twitter, LinkedIn, SupportMe
+# Footer -> Add send email and SupportMe
 # Landing page
 
 # https://stackoverflow.com/questions/37259740/passing-variables-from-flask-to-javascript
