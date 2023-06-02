@@ -22,7 +22,6 @@ body, input, li, a, button {
   align-items: center;
   padding: 30px 10px;
   background: #29183E;
-  
 }
 .navbar-title{
   margin-right: auto;
@@ -49,6 +48,45 @@ body, input, li, a, button {
   color: red
 }
 
+.footer-container{
+  background: #29183E;
+  height: auto;
+  padding: 30px 40px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.footer-title{
+  font-size: 1.8rem;
+  line-height: 3rem;
+}
+
+.footer-list{
+  list-style: none;
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0 3rem 0;
+}
+
+.footer-list{
+  margin: 0 10px
+}
+
+.footer-list a{
+  font-size: 1.1rem;
+  transition: all 0.3s ease 0s;
+}
+
+.footer-list a:hover i{
+  color: aqua;
+}
+
+/* .footer-bottom{
+  https://www.youtube.com/watch?v=zdA3qZNH1vc&ab_channel=CodeOpacity
+} */
 
 
 table {

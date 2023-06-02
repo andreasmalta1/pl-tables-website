@@ -21,10 +21,11 @@ def index():
 
 
 # TODO
-# CSS + logos maybe
+# Team logos
+# CSS
 # Add buttons -> since guardiola manager etc, Fergie's time in charge ...
 # Add tables by season
-# Do not show results table
 # Footer -> Contact; GitHub, Twitter, LinkedIn, SupportMe
+# Landing page
 
 # https://stackoverflow.com/questions/37259740/passing-variables-from-flask-to-javascript

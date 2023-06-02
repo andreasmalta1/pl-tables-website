@@ -4,6 +4,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>{% block title %}{% endblock %}</title>
 </head>
@@ -31,5 +32,24 @@
     {% block scripts %}
 
     {% endblock %}
+
+    <footer class="footer-container">
+        <h3 class="footer-title">Premier League Tables</h3>
+        <ul class="footer-list">
+            <li class="footer-item">
+                <a href="{{ url_for('index') }}"><i class="fa-brands fa-twitter"></i></i></a>
+            </li>
+            <li class="footer-item">
+                <a href="{{ url_for('index') }}"><i class="fa-brands fa-github"></i></a>
+            </li>
+            <li class="footer-item">
+                <a href="{{ url_for('index') }}"><i class="fa-brands fa-linkedin"></i></a>
+            </li>
+            </li>
+        </ul>
+        <div class="footer-bottom">
+            <p>copyright &copy; Andreas Calleja. Designed by <span>Andreas Calleja</span></p>
+        </div>
+    </navbar>
 </body>
 </html>
