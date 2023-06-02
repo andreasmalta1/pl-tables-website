@@ -2,6 +2,9 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+body{
   background: #52307C;
 }
 
@@ -13,24 +16,19 @@ body, input, li, a, button {
   text-decoration: none;
 }
 
-body{
-  margin-right: 5vw;
-  margin-left: 5vw;
-}
-
 .navbar-container{
   display: flex;
   justify-content: flex-end;
   align-items: center;
   padding: 30px 10px;
+  background: #29183E;
+  
 }
-
 .navbar-title{
   margin-right: auto;
 }
 
 .navbar-title a{
-  margin-right: auto;
   font-size: 1.8rem;
 }
 
