@@ -24,15 +24,12 @@ def generate_results_table(start_date, end_date):
         table = []
         headers = ["Home Team", "Away Team", "Score"]
 
-        # https://www.football-data.org/documentation/quickstart
-        # Check v2 vs v4
-
         # Create table rows with match details
         for match in matches:
             home_team = match["homeTeam"]["name"]
             away_team = match["awayTeam"]["name"]
-            home_score = match["score"]["fullTime"]["homeTeam"]
-            away_score = match["score"]["fullTime"]["awayTeam"]
+            home_score = match["score"]["fullTime"]["home"]
+            away_score = match["score"]["fullTime"]["away"]
             table.append([home_team, away_team, home_score, away_score])
 
         return table

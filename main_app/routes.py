@@ -28,9 +28,9 @@ def index():
 
 
 # TODO
-# V4 API
+# In table add num wins, losses, draws, matches played, GF, GA
 # CSS + logos maybe
-# Add buttons -> since guardiola manager etc
+# Add buttons -> since guardiola manager etc, Fergie's time in charge ...
 # Add tables by season
 # Flash error message in html
 
