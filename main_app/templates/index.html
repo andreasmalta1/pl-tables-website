@@ -15,30 +15,6 @@
     </form>
     <br>
 
-    {% if results_table %}
-        <h2>Results</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Home Team</th>
-                    <th>Away Team</th>
-                    <th>Home Score</th>
-                    <th>Away Score</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for row in results_table %}
-                    <tr>
-                        <td>{{ row[0] }}</td>
-                        <td>{{ row[1] }}</td>
-                        <td>{{ row[2] }}</td>
-                        <td>{{ row[3] }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% endif %}
-
     {% if standing_table %}
         <h2>Standing</h2>
         <table class="standing-table">

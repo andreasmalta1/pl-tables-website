@@ -15,9 +15,7 @@ def index():
         results_table = generate_results_table(start_date, end_date)
         standing_table = generate_standings_table(results_table)
 
-        return render_template(
-            "index.html", results_table=results_table, standing_table=standing_table
-        )
+        return render_template("index.html", standing_table=standing_table)
 
     return render_template("index.html")
 
@@ -26,7 +24,6 @@ def index():
 # CSS + logos maybe
 # Add buttons -> since guardiola manager etc, Fergie's time in charge ...
 # Add tables by season
-# Darken navbar
 # Do not show results table
 # Footer -> Contact; GitHub, Twitter, LinkedIn, SupportMe
 
