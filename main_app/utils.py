@@ -27,10 +27,32 @@ def generate_results_table(start_date, end_date):
         # Create table rows with match details
         for match in matches:
             home_team = match["homeTeam"]["name"]
-            away_team = match["awayTeam"]["name"]
+            home_team_id = match["homeTeam"]["id"]
             home_score = match["score"]["fullTime"]["home"]
+            away_team = match["awayTeam"]["name"]
+            away_team_id = match["awayTeam"]["id"]
             away_score = match["score"]["fullTime"]["away"]
-            table.append([home_team, away_team, home_score, away_score])
+            table.append(
+                [
+                    home_team,
+                    away_team,
+                    home_score,
+                    away_score,
+                    home_team_id,
+                    away_team_id,
+                ]
+            )
+
+            team_id = match["homeTeam"]["id"]
+            url = f"http://api.football-data.org/v4/teams/{team_id}"
+            headers = {"X-Auth-Token": API_KEY}
+            response = get(url, headers=headers)
+            response.raise_for_status()
+
+            data = response.json()
+
+            print(data["crest"])
+            return table
 
         return table
 
