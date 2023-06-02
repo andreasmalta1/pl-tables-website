@@ -16,8 +16,8 @@
     </form>
     <br>
 
-    {% if standing_table %}
-        <h2>Standing</h2>
+    {% if standings_table %}
+        <h2>Standings</h2>
         <table class="standing-table">
             <thead>
                 <tr>
@@ -34,7 +34,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for team, stats in standing_table %}
+                {% for team, stats in standings_table %}
                     <tr>
                         <!-- <td><img class="team-logo" src="{{ team['crestUrl'] }}" alt="{{ team['name'] }} Logo"></td> -->
                         <td>{{ team }}</td>
