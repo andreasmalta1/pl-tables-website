@@ -40,7 +40,18 @@ def generate_results_table(start_date, end_date):
 
 
 def generate_standings_table(results_table):
-    standing = defaultdict(lambda: {"played": 0, "points": 0, "goal_diff": 0})
+    standing = defaultdict(
+        lambda: {
+            "played": 0,
+            "win": 0,
+            "draw": 0,
+            "loss": 0,
+            "goals_for": 0,
+            "goals_against": 0,
+            "gd": 0,
+            "points": 0,
+        }
+    )
 
     for row in results_table:
         home_team = row[0]
@@ -52,23 +63,34 @@ def generate_standings_table(results_table):
         standing[home_team]["played"] += 1
         standing[away_team]["played"] += 1
 
+        standing[home_team]["goals_for"] += home_score
+        standing[away_team]["goals_for"] += away_score
+
+        standing[home_team]["goals_against"] += away_score
+        standing[away_team]["goals_against"] += home_score
+
+        standing[home_team]["gd"] += home_score - away_score
+        standing[away_team]["gd"] += away_score - home_score
+
         # Update points and goal differences based on the result
         if home_score > away_score:
+            standing[home_team]["win"] += 1
+            standing[away_team]["loss"] += 1
             standing[home_team]["points"] += 3
-            standing[home_team]["goal_diff"] += home_score - away_score
-            standing[away_team]["goal_diff"] += away_score - home_score
         elif home_score < away_score:
+            standing[home_team]["loss"] += 1
+            standing[away_team]["win"] += 1
             standing[away_team]["points"] += 3
-            standing[home_team]["goal_diff"] += home_score - away_score
-            standing[away_team]["goal_diff"] += away_score - home_score
         else:
+            standing[home_team]["draw"] += 1
+            standing[away_team]["draw"] += 1
             standing[home_team]["points"] += 1
             standing[away_team]["points"] += 1
 
     # Sort teams by points and goal differences
     standing_table = sorted(
         standing.items(),
-        key=lambda x: (x[1]["points"], x[1]["goal_diff"]),
+        key=lambda x: (x[1]["points"], x[1]["gd"]),
         reverse=True,
     )
 

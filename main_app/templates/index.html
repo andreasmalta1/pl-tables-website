@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <title>Premier League Results</title>
 </head>
@@ -48,9 +51,14 @@
                 <tr>
                     <!-- <th></th> -->
                     <th>Team</th>
-                    <th>Played</th>
-                    <th>Points</th>
-                    <th>Goal Difference</th>
+                    <th>MP</th>
+                    <th>W</th>
+                    <th>D</th>
+                    <th>L</th>
+                    <th>GF</th>
+                    <th>GA</th>
+                    <th>GD</th>
+                    <th>PTS</th>
                 </tr>
             </thead>
             <tbody>
@@ -59,8 +67,13 @@
                         <!-- <td><img class="team-logo" src="{{ team['crestUrl'] }}" alt="{{ team['name'] }} Logo"></td> -->
                         <td>{{ team }}</td>
                         <td>{{ stats['played'] }}</td>
+                        <td>{{ stats['win'] }}</td>
+                        <td>{{ stats['draw'] }}</td>
+                        <td>{{ stats['loss'] }}</td>
+                        <td>{{ stats['goals_for'] }}</td>
+                        <td>{{ stats['goals_against'] }}</td>
+                        <td>{{ stats['gd'] }}</td>
                         <td>{{ stats['points'] }}</td>
-                        <td>{{ stats['goal_diff'] }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
