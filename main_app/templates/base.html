@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <navbar class="navbar-container">
+        <h1 class="navbar-title">
+            <a href="#">Premier League Tables</a>
+        </h1>
+        <ul class="navbar-list">
+            <li class="navbar-item">
+                <a href="{{ url_for('index') }}">Custom</a>
+            <li class="navbar-item">
+                <a href="{{ url_for('index') }}">Seaons</a>
+            </li>
+            <li class="navbar-item">
+                <a href="{{ url_for('index') }}">PL Managers</a>
+            </li>
+        </ul>
+    </navbar>
+
+    {% block content %}
+
+    {% endblock %}
+
+    {% block scripts %}
+
+    {% endblock %}
+</body>
+</html>

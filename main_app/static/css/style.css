@@ -1,10 +1,57 @@
-body {
-  font-family: "Montserrat", sans-serif;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background: #52307C;
 }
 
-input{
+body, input, li, a, button {
   font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: #EDF0F1;
+  text-decoration: none;
 }
+
+body{
+  margin-right: 5vw;
+  margin-left: 5vw;
+}
+
+.navbar-container{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 30px 10px;
+}
+
+.navbar-title{
+  margin-right: auto;
+}
+
+.navbar-title a{
+  margin-right: auto;
+  font-size: 1.8rem;
+}
+
+.navbar-list{
+  list-style: none;
+}
+
+.navbar-list li{
+  display: inline-block;
+  padding: 0px 20px;
+}
+
+.navbar-list li a{
+  transition: all 0.3s ease 0s;
+}
+
+.navbar-list li a:hover{
+  color: red
+}
+
+
 
 table {
     border-collapse: collapse;

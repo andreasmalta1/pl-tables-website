@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <title>Premier League Results</title>
-</head>
-<body>
+{%   extends 'base.html' %}
+
+{% block title%} PL Tables | Home {% endblock %}
+
+{% block content %}
     <h1>Premier League Results</h1>
     <form action="/" method="POST">
         <label for="start_date">Start Date:</label>
@@ -79,7 +74,8 @@
             </tbody>
         </table>
     {% endif %}
+{% endblock %}
 
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
-</body>
-</html>
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>.
+{% endblock %}

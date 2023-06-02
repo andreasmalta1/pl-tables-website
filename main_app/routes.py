@@ -23,9 +23,11 @@ def index():
 
 
 # TODO
-# In table add num wins, losses, draws, matches played, GF, GA
 # CSS + logos maybe
 # Add buttons -> since guardiola manager etc, Fergie's time in charge ...
 # Add tables by season
+# Darken navbar
+# Do not show results table
+# Footer -> Contact; GitHub, Twitter, LinkedIn, SupportMe
 
 # https://stackoverflow.com/questions/37259740/passing-variables-from-flask-to-javascript
