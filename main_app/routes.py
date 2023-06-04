@@ -19,9 +19,8 @@ def index():
 
 
 # TODO
-# Error checking for when team name is not in dictionary
 # How many page viewers
-# Error if no matches
+# Show dates in date field after posting
 # Re-add error message for when start date is after end date
 # CSS
 # Add buttons -> since guardiola manager etc, Fergie's time in charge ...

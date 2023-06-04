@@ -74,8 +74,9 @@ def generate_table(start_date, end_date):
 
         for team in standings:
             if not standings[team]["url"]:
-                team_id = TEAMS[team]
-                standings[team]["url"] = f"{getenv('API_CREST_URL')}{team_id}.png"
+                team_id = TEAMS.get(team)
+                if team:
+                    standings[team]["url"] = f"{getenv('API_CREST_URL')}{team_id}.png"
 
         # Sort teams by points and goal differences
         standings_table = sorted(

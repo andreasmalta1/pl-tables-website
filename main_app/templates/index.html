@@ -35,7 +35,7 @@
             <tbody>
                 {% for team, stats in standings_table %}
                     <tr>
-                        <td><img class="team-logo" src="{{ stats['url'] }}" alt="{{ team['name'] }} Logo"></td>
+                        <td><img class="team-logo" src="{{ stats['url'] }}" alt="{{ team }}"></td>
                         <td>{{ team }}</td>
                         <td>{{ stats['played'] }}</td>
                         <td>{{ stats['win'] }}</td>
@@ -49,6 +49,8 @@
                 {% endfor %}
             </tbody>
         </table>
+    {% else %}
+        <h1>No matches were played in this date period</h1>
     {% endif %}
 {% endblock %}
 
