@@ -19,10 +19,8 @@ def index():
 
 
 # TODO
-# Team logos
-# Use only one util function to make the table since results table is redundant
+# Error checking for when team name is not in dictionary
 # How many page viewers
-# Date end js
 # Error if no matches
 # Re-add error message for when start date is after end date
 # CSS

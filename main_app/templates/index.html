@@ -4,7 +4,6 @@
 {% block title %} PL Tables | Home {% endblock %}
 
 {% block content %}
-    <h1>Premier League Results</h1>
     <form action="/" method="POST">
         <label for="start_date">Start Date:</label>
         <input type="date" id="start_date" name="start_date">
@@ -21,7 +20,7 @@
         <table class="standing-table">
             <thead>
                 <tr>
-                    <!-- <th></th> -->
+                    <th></th>
                     <th>Team</th>
                     <th>MP</th>
                     <th>W</th>
@@ -36,7 +35,7 @@
             <tbody>
                 {% for team, stats in standings_table %}
                     <tr>
-                        <!-- <td><img class="team-logo" src="{{ team['crestUrl'] }}" alt="{{ team['name'] }} Logo"></td> -->
+                        <td><img class="team-logo" src="{{ stats['url'] }}" alt="{{ team['name'] }} Logo"></td>
                         <td>{{ team }}</td>
                         <td>{{ stats['played'] }}</td>
                         <td>{{ stats['win'] }}</td>

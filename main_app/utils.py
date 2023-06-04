@@ -1,7 +1,8 @@
 from requests import get, exceptions
 from os import getenv
 from collections import defaultdict
-import pandas as pd
+
+from main_app.teams import TEAMS
 
 
 # Function to generate the table of Premier League results
@@ -23,6 +24,7 @@ def generate_table(start_date, end_date):
         standings = defaultdict(
             lambda: {
                 "team_id": None,
+                "url": None,
                 "played": 0,
                 "win": 0,
                 "draw": 0,
@@ -70,23 +72,17 @@ def generate_table(start_date, end_date):
                 standings[home_team]["points"] += 1
                 standings[away_team]["points"] += 1
 
+        for team in standings:
+            if not standings[team]["url"]:
+                team_id = TEAMS[team]
+                standings[team]["url"] = f"{getenv('API_CREST_URL')}{team_id}.png"
+
         # Sort teams by points and goal differences
         standings_table = sorted(
             standings.items(),
             key=lambda x: (x[1]["points"], x[1]["gd"]),
             reverse=True,
         )
-
-        # team_id = match["homeTeam"]["id"]
-        # url = f"{team_id}"
-        # headers = {"X-Auth-Token": API_KEY}
-        # response = get(url, headers=headers)
-        # response.raise_for_status()
-
-        # data = response.json()
-
-        # print(data["crest"])
-        # return table
 
         return standings_table
 
