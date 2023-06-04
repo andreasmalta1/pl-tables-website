@@ -7,6 +7,7 @@
 <h1>Current PL Managers</h1>
     <form action="" method="post">
         {% for manager in current_managers %}
+            <label for="manager"> <img class="team-logo" src="{{ current_managers[manager]['manager_url'] }}" alt="{{ team }}"></label>
             <input type="submit" name="manager" value="{{ manager }}"/>
             <label for="manager"> <img class="team-logo" src="{{ current_managers[manager]['nationality_url'] }}" alt="{{ team }}"></label>
             <label for="manager"> <img class="team-logo" src="{{ current_managers[manager]['club_url'] }}" alt="{{ team }}"></label>
@@ -27,6 +28,3 @@
         <input type="submit" name="manager" value="De Boer"/>
     </form>
 {% endblock %}
-
-
-<!-- Add club icon and club name nationality, date range and time in charge-->
