@@ -11,17 +11,24 @@ def index():
         start_date = request.form.get("start_date")
         end_date = request.form.get("end_date")
 
+        if end_date < start_date:
+            flash("End date must be after start date", category="error")
+            return render_template("index.html")
+
         standings_table = generate_table(start_date, end_date)
 
-        return render_template("index.html", standings_table=standings_table)
+        return render_template(
+            "index.html",
+            standings_table=standings_table,
+            start_date=start_date,
+            end_date=end_date,
+        )
 
     return render_template("index.html")
 
 
 # TODO
 # How many page viewers
-# Show dates in date field after posting
-# Re-add error message for when start date is after end date
 # CSS
 # Add buttons -> since guardiola manager etc, Fergie's time in charge ...
 # Add tables by season

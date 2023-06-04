@@ -26,6 +26,21 @@
         </ul>
     </navbar>
 
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                {% if category == "error" %}
+                    <div>
+                        {{ message }}
+                        <button data-dismiss="alert">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
     {% block content %} {% endblock %}
 
     <footer class="footer-container">

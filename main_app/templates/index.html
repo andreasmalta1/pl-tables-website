@@ -6,10 +6,18 @@
 {% block content %}
     <form action="/" method="POST">
         <label for="start_date">Start Date:</label>
-        <input type="date" id="start_date" name="start_date">
-
+        {% if start_date %}
+            <input type="date" id="start_date" name="start_date" value={{ start_date }}>
+        {% else %}
+            <input type="date" id="start_date" name="start_date">
+        {% endif %}
+        
         <label for="end_date">End Date:</label>
-        <input type="date" id="end_date" name="end_date">
+        {% if end_date %}
+            <input type="date" id="end_date" name="end_date" value={{ end_date }}>
+        {% else %}
+            <input type="date" id="end_date" name="end_date">
+        {% endif %}
 
         <input type="submit" value="Get Results">
     </form>
@@ -55,5 +63,14 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>.
+    {% if end_date %}
+        <script type="text/javascript">
+            let endDate = {{ end_date|tojson }}
+        </script>
+    {% else %}
+        <script type="text/javascript">
+            let endDate = null
+        </script>
+    {% endif %}
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 {% endblock %}
