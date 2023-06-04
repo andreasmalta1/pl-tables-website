@@ -143,17 +143,63 @@ memorable_managers = {
         "date_end": "today",
         "fotmob_id": 41636,
     },
-    # "Jürgen Klopp": {
-    #     "nationality": "Germany",
-    #     "club": "Liverpool FC",
-    #     "date_start": "2015-10-08",
-    #     "fotmob_id": 78660,
-    # },
-    # benitez
-    # mourinho
-    # mourinho utd
-    # mancini
-    # conte - chels
+    "Jürgen Klopp": {
+        "nationality": "Germany",
+        "club": "Liverpool FC",
+        "date_start": "2015-10-08",
+        "date_end": "today",
+        "fotmob_id": 78660,
+    },
+    "Rafael Benitez": {
+        "nationality": "Spain",
+        "club": "Liverpool FC",
+        "date_start": "2004-06-16",
+        "date_end": "2010-06-03",
+        "fotmob_id": 78630,
+    },
+    "Jose Mourinho CHE": {
+        "nationality": "Portugal",
+        "club": "Chelsea FC",
+        "date_start": "2004-06-02",
+        "date_end": "2007-09-20",
+        "fotmob_id": 78719,
+    },
+    "Jose Mourinho MU": {
+        "nationality": "Portugal",
+        "club": "Manchester United FC",
+        "date_start": "2016-05-27",
+        "date_end": "2018-12-18",
+        "fotmob_id": 78719,
+    },
+    "Jose Mourinho TOT": {
+        "nationality": "Portugal",
+        "club": "Tottenham Hotspur FC",
+        "date_start": "2019-11-20",
+        "date_end": "2021-04-19",
+        "fotmob_id": 78719,
+    },
+    "Roberto Mancini": {
+        "nationality": "Italy",
+        "club": "Manchester City FC",
+        "date_start": "2009-12-19",
+        "date_end": "2013-05-14",
+        "fotmob_id": 78702,
+    },
+    "Antonio Conte": {
+        "nationality": "Italy",
+        "club": "Chelsea FC",
+        "date_start": "2016-07-01",
+        "date_end": "2018-07-13",
+        "fotmob_id": None,
+    },
+    "Antonio Conte": {
+        "nationality": "Italy",
+        "club": "Tottenham Hotspur FC",
+        "date_start": "2021-11-02",
+        "date_end": "2023-03-26",
+        "fotmob_id": None,
+    },
+    # Ragnick
     # redknapp tott
     # ranieri
     # lampard everton
@@ -183,4 +229,5 @@ memorable_managers = {
     # Villas Boas
     # Nuno
     # Pardew Newcastle & Others
+    # LVG
 }
