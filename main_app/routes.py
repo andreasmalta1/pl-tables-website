@@ -1,7 +1,7 @@
 from flask import render_template, request, flash
 
 from main_app import app
-from main_app.utils import generate_results_table, generate_standings_table
+from main_app.utils import generate_table
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -11,21 +11,16 @@ def index():
         start_date = request.form.get("start_date")
         end_date = request.form.get("end_date")
 
-        results_table = generate_results_table(start_date, end_date)
-        results_table = generate_results_table(start_date, end_date)
-        standing_table = generate_standings_table(results_table)
+        standings_table = generate_table(start_date, end_date)
 
-        return render_template("index.html", standing_table=standing_table)
+        return render_template("index.html", standings_table=standings_table)
 
     return render_template("index.html")
 
 
 # TODO
-# Team logos
-# Use only one util function to make the table since results table is redundant
 # How many page viewers
-# Date end js
-# Error if no matches
+# Show dates in date field after posting
 # Re-add error message for when start date is after end date
 # CSS
 # Add buttons -> since guardiola manager etc, Fergie's time in charge ...
