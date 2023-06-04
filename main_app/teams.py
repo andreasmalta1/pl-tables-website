@@ -36,4 +36,5 @@ NATIONS = {
     "Belgium": 8263,
     "Italy": 8204,
     "Argentina": 6706,
+    "France": 6723,
 }

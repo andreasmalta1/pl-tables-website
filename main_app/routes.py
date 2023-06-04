@@ -5,7 +5,7 @@ import requests
 
 from main_app import app
 from main_app.utils import generate_table
-from main_app.managers import current_managers
+from main_app.managers import current_managers, memorable_managers
 from main_app.teams import TEAMS, NATIONS
 
 
@@ -64,7 +64,35 @@ def managers():
                 "club_url"
             ] = f"{getenv('API_CREST_URL')}{TEAMS.get(current_managers[manager]['club'])}.png"
 
-        return render_template("managers.html", current_managers=current_managers)
+        for manager in memorable_managers:
+            date_start = memorable_managers[manager]["date_start"].split("-")
+            date_end = memorable_managers[manager]["date_end"]
+            if date_end == "today":
+                date_end = date.today()
+            else:
+                date_end = date_end.split("-")
+                date_end = date(int(date_end[0]), int(date_end[1]), int(date_end[2]))
+
+            d0 = date(int(date_start[0]), int(date_start[1]), int(date_start[2]))
+            delta = date_end - d0
+
+            memorable_managers[manager]["days_in_charge"] = delta.days
+            if memorable_managers[manager]["fotmob_id"]:
+                memorable_managers[manager][
+                    "manager_url"
+                ] = f"{getenv('API_MANAGER_URL')}{memorable_managers[manager]['fotmob_id']}.png"
+            memorable_managers[manager][
+                "nationality_url"
+            ] = f"{getenv('API_CREST_URL')}{NATIONS.get(memorable_managers[manager]['nationality'])}.png"
+            memorable_managers[manager][
+                "club_url"
+            ] = f"{getenv('API_CREST_URL')}{TEAMS.get(memorable_managers[manager]['club'])}.png"
+
+        return render_template(
+            "managers.html",
+            current_managers=current_managers,
+            memorable_managers=memorable_managers,
+        )
 
 
 # TODO

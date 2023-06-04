@@ -120,3 +120,67 @@ current_managers = {
         "fotmob_id": 163300,
     },
 }
+
+memorable_managers = {
+    "Sir Alex Ferguson": {
+        "nationality": "Scotland",
+        "club": "Manchester United FC",
+        "date_start": "1986-11-06",
+        "date_end": "2013-05-19",
+        "fotmob_id": None,
+    },
+    "Arsène Wenger": {
+        "nationality": "France",
+        "club": "Arsenal FC",
+        "date_start": "1996-09-26",
+        "date_end": "2018-05-06",
+        "fotmob_id": None,
+    },
+    "Pep Guardiola": {
+        "nationality": "Spain",
+        "club": "Manchester City FC",
+        "date_start": "2016-07-01",
+        "date_end": "today",
+        "fotmob_id": 41636,
+    },
+    # "Jürgen Klopp": {
+    #     "nationality": "Germany",
+    #     "club": "Liverpool FC",
+    #     "date_start": "2015-10-08",
+    #     "fotmob_id": 78660,
+    # },
+    # benitez
+    # mourinho
+    # mourinho utd
+    # mancini
+    # conte - chels
+    # redknapp tott
+    # ranieri
+    # lampard everton
+    # lampard chels
+    # dyche burnley
+    # conte tott
+    # moyes everton
+    # moyes united
+    # de boer
+    # tucel
+    # cneclotti - chel
+    # sam allardycne
+    # kevin keegan
+    # paul jewell
+    # jan siewer
+    # les reed
+    # terry connor
+    # remi garde
+    # Chris Hutchings
+    # Solskjaer Cardiff
+    # Bob Bradley
+    # Felix Magath
+    # Nathan Jones
+    # Di Canio Sunderland
+    # Rene Meulensteen
+    # Juande Ramos
+    # Villas Boas
+    # Nuno
+    # Pardew Newcastle & Others
+}
