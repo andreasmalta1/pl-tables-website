@@ -1,0 +1,32 @@
+{%   extends 'base.html' %}
+
+{% block styles %} <link rel="stylesheet" href="{{ url_for('static', filename='css/managers.css') }}"> {% endblock %}
+{% block title %} PL Tables | Managers {% endblock %}
+
+{% block content %}
+<h1>Current PL Managers</h1>
+    <form action="" method="post">
+        {% for manager in current_managers %}
+            <input type="submit" name="manager" value="{{ manager }}"/>
+            <label for="manager"> <img class="team-logo" src="{{ current_managers[manager]['nationality_url'] }}" alt="{{ team }}"></label>
+            <label for="manager"> <img class="team-logo" src="{{ current_managers[manager]['club_url'] }}" alt="{{ team }}"></label>
+            <label for="manager">{{ current_managers[manager]['date_start'] }}</label>
+            <label for="manager">{{ current_managers[manager]['days_in_charge'] }}</label>
+            <br>
+        {% endfor %}
+    </form>
+<h1>Legendary PL Managers</h1>
+    <form action="" method="post">
+        <input type="submit" name="manager" value="Ferguson"/>
+        <input type="submit" name="manager" value="Guardiola"/>
+    </form>
+
+<h1>Memorable PL stints</h1>
+    <form action="" method="post">
+        <input type="submit" name="manager" value="Lampard"/>
+        <input type="submit" name="manager" value="De Boer"/>
+    </form>
+{% endblock %}
+
+
+<!-- Add club icon and club name nationality, date range and time in charge-->

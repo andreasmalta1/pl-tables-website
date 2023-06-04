@@ -1,7 +1,11 @@
 from flask import render_template, request, flash
+from os import getenv
+from datetime import date
 
 from main_app import app
 from main_app.utils import generate_table
+from main_app.managers import current_managers
+from main_app.teams import TEAMS, NATIONS
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -27,6 +31,28 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/mangers", methods=["GET", "POST"])
+def managers():
+    if request.method == "POST":
+        manager = request.form.get("manager")
+
+    for manager in current_managers:
+        date_start = current_managers[manager]["date_start"].split("-")
+        date_today = date.today()
+        d0 = date(int(date_start[2]), int(date_start[1]), int(date_start[0]))
+        delta = date_today - d0
+
+        current_managers[manager]["days_in_charge"] = delta.days
+        current_managers[manager][
+            "nationality_url"
+        ] = f"{getenv('API_CREST_URL')}{NATIONS.get(current_managers[manager]['nationality'])}.png"
+        current_managers[manager][
+            "club_url"
+        ] = f"{getenv('API_CREST_URL')}{TEAMS.get(current_managers[manager]['club'])}.png"
+
+    return render_template("managers.html", current_managers=current_managers)
+
+
 # TODO
 # How many page viewers
 # CSS
@@ -35,4 +61,4 @@ def index():
 # Footer -> Add send email and SupportMe
 # Landing page
 
-# https://stackoverflow.com/questions/37259740/passing-variables-from-flask-to-javascript
+# Add managers face

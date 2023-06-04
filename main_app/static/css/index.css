@@ -13,12 +13,6 @@ table {
     background-color: #f2f2f2;
   }
   
-  .team-logo {
-    width: 30px;
-    height: 30px;
-    vertical-align: middle;
-  }
-  
   .team-name {
     font-weight: bold;
   }

@@ -100,3 +100,9 @@ body, input, li, a, button {
 .footer-bottom span{
   opacity: .4;
 }
+
+.team-logo {
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+}
