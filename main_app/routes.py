@@ -38,13 +38,27 @@ def index():
 @app.route("/mangers", methods=["GET", "POST"])
 def managers():
     if request.method == "POST":
-        manager = request.form.get("manager")
-        manager_start = current_managers[manager]["date_start"]
+        current_manager = request.form.get("currentManager")
+        if current_manager:
+            manager_start = current_managers[current_manager]["date_start"]
+            data = {
+                "start_date": manager_start,
+                "end_date": datetime.strftime(date.today(), "%Y-%m-%d"),
+            }
 
-        data = {"start_date": manager_start, "end_date": "2023-06-04"}
+            response = requests.post(url_for("index", _external=True), data=data)
+            return response.content
 
-        response = requests.post(url_for("index", _external=True), data=data)
-        return response.content
+        memorable_manager = request.form.get("memorableManager")
+        if memorable_manager:
+            manager_start = memorable_managers[memorable_manager]["date_start"]
+            manager_end = memorable_managers[memorable_manager]["date_end"]
+            if manager_end == "today":
+                manager_end = datetime.strftime(date.today(), "%Y-%m-%d")
+            data = {"start_date": manager_start, "end_date": manager_end}
+
+            response = requests.post(url_for("index", _external=True), data=data)
+            return response.content
 
     if request.method == "GET":
         for manager in current_managers:
@@ -69,6 +83,9 @@ def managers():
             date_end = memorable_managers[manager]["date_end"]
             if date_end == "today":
                 date_end = date.today()
+                memorable_managers[manager]["date_end"] = datetime.strftime(
+                    date.today(), "%Y-%m-%d"
+                )
             else:
                 date_end = date_end.split("-")
                 date_end = date(int(date_end[0]), int(date_end[1]), int(date_end[2]))
@@ -81,6 +98,11 @@ def managers():
                 memorable_managers[manager][
                     "manager_url"
                 ] = f"{getenv('API_MANAGER_URL')}{memorable_managers[manager]['fotmob_id']}.png"
+            else:
+                memorable_managers[manager][
+                    "manager_url"
+                ] = f"{getenv('API_EMPTY_URL')}"
+
             memorable_managers[manager][
                 "nationality_url"
             ] = f"{getenv('API_CREST_URL')}{NATIONS.get(memorable_managers[manager]['nationality'])}.png"
@@ -97,9 +119,11 @@ def managers():
 
 # TODO
 # Going back multiple seasons is problematic with the API -> Find new API or build own model/API
-# Add Landmark managers buttons (Fergie's time in charge ...)
+# Managers with mutiple clubs
+# Add ability to save table as image / pdf -> maybe add an embed link
+# Add PL logo
 # Add tables by season
 # CSS
-# Landing page
+# Landing page -> show current table and all time pl table
 # Footer -> Add send email and SupportMe
 # How many page viewers
