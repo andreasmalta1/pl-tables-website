@@ -16,9 +16,10 @@ def generate_table(start_date, end_date):
     try:
         response = get(API_URL, headers=headers)
         data = response.json()
-        matches = data["matches"]
+        matches = data.get("matches")
 
-        if len(matches) == 0:
+        if not matches or len(matches) == 0:
+            print(data)
             return None
 
         standings = defaultdict(
