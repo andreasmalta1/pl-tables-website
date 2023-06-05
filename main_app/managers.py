@@ -126,14 +126,14 @@ memorable_managers = {
         "nationality": "Scotland",
         "club": "Manchester United FC",
         "date_start": "1986-11-06",
-        "date_end": "2013-05-19",
+        "date_end": "2013-06-30",
         "fotmob_id": None,
     },
     "Arsène Wenger": {
         "nationality": "France",
         "club": "Arsenal FC",
-        "date_start": "1996-09-26",
-        "date_end": "2018-05-06",
+        "date_start": "1996-10-01",
+        "date_end": "2018-06-30",
         "fotmob_id": None,
     },
     "Pep Guardiola": {
@@ -153,21 +153,21 @@ memorable_managers = {
     "Rafael Benitez": {
         "nationality": "Spain",
         "club": "Liverpool FC",
-        "date_start": "2004-06-16",
+        "date_start": "2004-07-01",
         "date_end": "2010-06-03",
         "fotmob_id": 78630,
     },
     "Jose Mourinho CHE": {
         "nationality": "Portugal",
         "club": "Chelsea FC",
-        "date_start": "2004-06-02",
+        "date_start": "2004-07-01",
         "date_end": "2007-09-20",
         "fotmob_id": 78719,
     },
     "Jose Mourinho MU": {
         "nationality": "Portugal",
         "club": "Manchester United FC",
-        "date_start": "2016-05-27",
+        "date_start": "2016-07-01",
         "date_end": "2018-12-18",
         "fotmob_id": 78719,
     },
@@ -182,7 +182,7 @@ memorable_managers = {
         "nationality": "Italy",
         "club": "Manchester City FC",
         "date_start": "2009-12-19",
-        "date_end": "2013-05-14",
+        "date_end": "2013-05-13",
         "fotmob_id": 78702,
     },
     "Antonio Conte": {
@@ -199,35 +199,270 @@ memorable_managers = {
         "date_end": "2023-03-26",
         "fotmob_id": None,
     },
-    # Ragnick
-    # redknapp tott
-    # ranieri
-    # lampard everton
-    # lampard chels
-    # dyche burnley
-    # conte tott
-    # moyes everton
-    # moyes united
-    # de boer
-    # tucel
-    # cneclotti - chel
-    # sam allardycne
-    # kevin keegan
-    # paul jewell
-    # jan siewer
-    # les reed
-    # terry connor
-    # remi garde
-    # Chris Hutchings
-    # Solskjaer Cardiff
-    # Bob Bradley
-    # Felix Magath
-    # Nathan Jones
-    # Di Canio Sunderland
-    # Rene Meulensteen
-    # Juande Ramos
-    # Villas Boas
-    # Nuno
-    # Pardew Newcastle & Others
-    # LVG
+    "Ralf Rangnick": {
+        "nationality": "Germany",
+        "club": "Manchester United FC",
+        "date_start": "2021-12-03",
+        "date_end": "2022-05-31",
+        "fotmob_id": 148889,
+    },
+    "Harry Redknapp": {
+        "nationality": "England",
+        "club": "Tottenham Hotspur FC",
+        "date_start": "2008-11-26",
+        "date_end": "2012-06-14",
+        "fotmob_id": None,
+    },
+    "Claudio Ranieri": {
+        "nationality": "Italy",
+        "club": "Leicester City FC",
+        "date_start": "2015-07-13",
+        "date_end": "2017-02-23",
+        "fotmob_id": 78620,
+    },
+    "Frank Lampard CHE": {
+        "nationality": "England",
+        "club": "Chelsea FC",
+        "date_start": "2023-04-06",
+        "date_end": "2023-06-30",
+        "fotmob_id": 942244,
+    },
+    "Frank Lampard EVE": {
+        "nationality": "England",
+        "club": "Everton FC",
+        "date_start": "2022-01-31",
+        "date_end": "2023-01-23",
+        "fotmob_id": 942244,
+    },
+    "Sean Dyche": {
+        "nationality": "England",
+        "club": "Everton FC",
+        "date_start": "2023-01-30",
+        "date_end": "today",
+        "fotmob_id": 24581,
+    },
+    "David Moyes EVE": {
+        "nationality": "Scotland",
+        "club": "Everton FC",
+        "date_start": "2002-03-14",
+        "date_end": "2013-06-30",
+        "fotmob_id": 78626,
+    },
+    "David Moyes MU": {
+        "nationality": "Scotland",
+        "club": "Everton FC",
+        "date_start": "2013-07-01",
+        "date_end": "2014-04-22",
+        "fotmob_id": 78626,
+    },
+    "Frank de Boer": {
+        "nationality": "Netherlands",
+        "club": "Crystal Palace FC",
+        "date_start": "2017-07-01",
+        "date_end": "2017-09-11",
+        "fotmob_id": 240019,
+    },
+    "Thomas Tuchel": {
+        "nationality": "Germany",
+        "club": "Chelsea FC",
+        "date_start": "2021-01-26",
+        "date_end": "2022-09-07",
+        "fotmob_id": 179347,
+    },
+    "Carlo Ancelotti": {
+        "nationality": "Italy",
+        "club": "Chelsea FC",
+        "date_start": "2009-07-01",
+        "date_end": "2011-05-22",
+        "fotmob_id": 78619,
+    },
+    "Sam Allardyce BOL": {
+        "nationality": "England",
+        "club": "Bolton Wanderers FC",
+        "date_start": "1999-10-19",
+        "date_end": "2007-05-30",
+        "fotmob_id": 78740,
+    },
+    "Sam Allardyce WHU": {
+        "nationality": "England",
+        "club": "West Ham United FC",
+        "date_start": "2011-11-07",
+        "date_end": "2015-06-30",
+        "fotmob_id": 78740,
+    },
+    "Sam Allardyce LEE": {
+        "nationality": "England",
+        "club": "Leeds United FC",
+        "date_start": "2023-05-03",
+        "date_end": "2023-06-30",
+        "fotmob_id": 78740,
+    },
+    "Kevin Keegan": {
+        "nationality": "England",
+        "club": "Newcastle United FC",
+        "date_start": "1992-02-05",
+        "date_end": "1997-01-08",
+        "fotmob_id": None,
+    },
+    "Paul Jewell": {
+        "nationality": "England",
+        "club": "Derby County FC",
+        "date_start": "2007-11-28",
+        "date_end": "2008-12-28",
+        "fotmob_id": None,
+    },
+    "Jan Siewert": {
+        "nationality": "Germany",
+        "club": "Huddersfield Town FC",
+        "date_start": "2019-01-21",
+        "date_end": "2019-08-16",
+        "fotmob_id": 1017904,
+    },
+    "Les Reed": {
+        "nationality": "England",
+        "club": "Charlton Athletic FC",
+        "date_start": "2006-11-16",
+        "date_end": "2006-12-24",
+        "fotmob_id": None,
+    },
+    "Terry Connor": {
+        "nationality": "England",
+        "club": "Wolverhampton Wanderers FC",
+        "date_start": "2012-02-13",
+        "date_end": "2012-06-30",
+        "fotmob_id": None,
+    },
+    "Remi Garde": {
+        "nationality": "France",
+        "club": "Aston Villa FC",
+        "date_start": "2015-11-03",
+        "date_end": "2016-03-29",
+        "fotmob_id": 270666,
+    },
+    "Chris Hutchings": {
+        "nationality": "England",
+        "club": "Wigan Athletic FC",
+        "date_start": "2007-07-01",
+        "date_end": "2007-11-05",
+        "fotmob_id": None,
+    },
+    "Ole Gunnar Solskjaer CAR": {
+        "nationality": "Norway",
+        "club": "Cardiff City FC",
+        "date_start": "2014-01-02",
+        "date_end": "2014-09-18",
+        "fotmob_id": None,
+    },
+    "Ole Gunnar Solskjaer MU": {
+        "nationality": "Norway",
+        "club": "Manchester United FC",
+        "date_start": "2018-12-19",
+        "date_end": "2021-11-21",
+        "fotmob_id": None,
+    },
+    "Bob Bradley": {
+        "nationality": "USA",
+        "club": "Swansea City FC",
+        "date_start": "2016-10-04",
+        "date_end": "2016-12-27",
+        "fotmob_id": 80653,
+    },
+    "Felix Magath": {
+        "nationality": "Germany",
+        "club": "Fulham FC",
+        "date_start": "2014-02-14",
+        "date_end": "2014-10-18",
+        "fotmob_id": 79318,
+    },
+    "Nathan Jones": {
+        "nationality": "Wales",
+        "club": "Southampton FC",
+        "date_start": "2022-11-10",
+        "date_end": "2023-02-12",
+        "fotmob_id": 519886,
+    },
+    "Paolo Di Canio": {
+        "nationality": "Italy",
+        "club": "Sunderland AFC",
+        "date_start": "2013-03-31",
+        "date_end": "2013-09-22",
+        "fotmob_id": 519886,
+    },
+    "René Meulensteen": {
+        "nationality": "Netherlands",
+        "club": "Fulham FC",
+        "date_start": "2013-12-01",
+        "date_end": "2014-02-14",
+        "fotmob_id": None,
+    },
+    "Juande Ramos": {
+        "nationality": "Spain",
+        "club": "Tottenham Hotspur FC",
+        "date_start": "2007-10-26",
+        "date_end": "2008-10-27",
+        "fotmob_id": None,
+    },
+    "André Villas-Boas TOT": {
+        "nationality": "Portugal",
+        "club": "Tottenham Hotspur FC",
+        "date_start": "2012-07-03",
+        "date_end": "2013-12-16",
+        "fotmob_id": 204241,
+    },
+    "André Villas-Boas CHE": {
+        "nationality": "Portugal",
+        "club": "Chelsea FC",
+        "date_start": "2011-07-01",
+        "date_end": "2012-03-04",
+        "fotmob_id": 204241,
+    },
+    "Nuno Espírito Santo": {
+        "nationality": "Portugal",
+        "club": "Tottenham Hotspur FC",
+        "date_start": "2021-07-01",
+        "date_end": "2021-11-01",
+        "fotmob_id": 361779,
+    },
+    "Alan Pardew": {
+        "nationality": "England",
+        "club": "Newcastle United FC",
+        "date_start": "2010-12-09",
+        "date_end": "2015-01-02",
+        "fotmob_id": 78637,
+    },
+    "Louis van Gaal": {
+        "nationality": "Netherlands",
+        "club": "Manchester United FC",
+        "date_start": "2014-07-14",
+        "date_end": "2016-05-23",
+        "fotmob_id": 109077,
+    },
+    "Mick McCarthy": {
+        "nationality": "Ireland",
+        "club": "Wolverhampton Wanderers FC",
+        "date_start": "2006-07-01",
+        "date_end": "2012-02-13",
+        "fotmob_id": 174657,
+    },
+    "Roberto Di Matteo": {
+        "nationality": "Italy",
+        "club": "Chelsea FC",
+        "date_start": "2012-03-04",
+        "date_end": "2012-11-21",
+        "fotmob_id": None,
+    },
+    "Avram Grant": {
+        "nationality": "Israel",
+        "club": "Chelsea FC",
+        "date_start": "2007-09-20",
+        "date_end": "2008-05-24",
+        "fotmob_id": None,
+    },
+    "Steven Gerrard": {
+        "nationality": "England",
+        "club": "Aston Villa FC",
+        "date_start": "2021-11-11",
+        "date_end": "2022-10-20",
+        "fotmob_id": None,
+    },
 }
