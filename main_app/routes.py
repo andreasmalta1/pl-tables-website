@@ -1,9 +1,12 @@
-from flask import render_template, request, flash, url_for
+from flask import render_template, request, flash, url_for, jsonify
 from os import getenv
 from datetime import date, datetime
 import requests
+import csv
 
 from main_app import app
+from main_app.models import Match
+from main_app import db
 from main_app.utils import generate_table
 from main_app.managers import current_managers, memorable_managers
 from main_app.teams import TEAMS, NATIONS
@@ -35,7 +38,7 @@ def index():
     return render_template("index.html")
 
 
-@app.route("/mangers", methods=["GET", "POST"])
+@app.route("/managers", methods=["GET", "POST"])
 def managers():
     if request.method == "POST":
         current_manager = request.form.get("currentManager")
@@ -117,9 +120,64 @@ def managers():
         )
 
 
+@app.route("/matches", methods=["GET", "POST"])
+def matches():
+    if request.method == "POST":
+        with open("pl_results.csv", encoding="utf-8") as csv_file:
+            csv_reader = csv.DictReader(csv_file)
+
+            # Convert each row into a dictionary and add it to data
+            for row in csv_reader:
+                match_date = row["date"].split("/")
+                match_date = date(
+                    int(match_date[2]), int(match_date[1]), int(match_date[0])
+                )
+                new_match = Match(
+                    season=row["season"],
+                    home_team=row["home_team"],
+                    away_team=row["away_team"],
+                    home_score=row["home_score"],
+                    away_score=row["away_score"],
+                    date=match_date,
+                )
+                db.session.add(new_match)
+
+        db.session.commit()
+        return jsonify({"msg": "Matches added successfully"})
+
+    if request.method == "GET":
+        matches = Match.query.limit(10).all()
+        if not matches:
+            return jsonify({"msg": "No Matches Found"})
+
+        data = []
+        for match in matches:
+            data.append(
+                {
+                    "season": match.season,
+                    "home_team": match.home_team,
+                    "home_score": match.home_score,
+                    "away_team": match.away_team,
+                    "away_score": match.away_score,
+                    "date": match.date,
+                }
+            )
+
+        return jsonify(data)
+
+
 # TODO
-# Going back multiple seasons is problematic with the API -> Find new API or build own model/API
+# package better the getting results part
+# add check to never add already posted matches
+# Add login so only I can add matches
+# Requirmeents, gitignore .env
+# Postgres
+# https://www.digitalocean.com/community/tutorials/how-to-query-tables-and-paginate-data-in-flask-sqlalchemy
+# hired_in_2021 = Employee.query.filter(db.and_(Employee.hire_date >= date(year=2021, month=1, day=1), Employee.hire_date < date(year=2022, month=1, day=1))).order_by(Employee.age).all()
+# Create get request for all matches (add query for season, date betweens)
+# Create get request for specific match by id
 # Managers with mutiple clubs
+# Sort managers list by days
 # Add ability to save table as image / pdf -> maybe add an embed link
 # Add PL logo
 # Add tables by season
