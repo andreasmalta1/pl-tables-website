@@ -7,7 +7,7 @@ import csv
 from main_app import app
 from main_app.models import Match
 from main_app import db
-from main_app.utils import generate_table
+from main_app.utils import generate_table, get_pl_matches
 from main_app.managers import current_managers, memorable_managers
 from main_app.teams import TEAMS, NATIONS
 
@@ -73,13 +73,13 @@ def managers():
             current_managers[manager]["days_in_charge"] = delta.days
             current_managers[manager][
                 "manager_url"
-            ] = f"{getenv('API_MANAGER_URL')}{current_managers[manager]['fotmob_id']}.png"
+            ] = f"{getenv('MANAGER_FACE_URL')}{current_managers[manager]['fotmob_id']}.png"
             current_managers[manager][
                 "nationality_url"
-            ] = f"{getenv('API_CREST_URL')}{NATIONS.get(current_managers[manager]['nationality'])}.png"
+            ] = f"{getenv('CREST_URL')}{NATIONS.get(current_managers[manager]['nationality'])}.png"
             current_managers[manager][
                 "club_url"
-            ] = f"{getenv('API_CREST_URL')}{TEAMS.get(current_managers[manager]['club'])}.png"
+            ] = f"{getenv('CREST_URL')}{TEAMS.get(current_managers[manager]['club'])}.png"
 
         for manager in memorable_managers:
             date_start = memorable_managers[manager]["date_start"].split("-")
@@ -100,18 +100,18 @@ def managers():
             if memorable_managers[manager]["fotmob_id"]:
                 memorable_managers[manager][
                     "manager_url"
-                ] = f"{getenv('API_MANAGER_URL')}{memorable_managers[manager]['fotmob_id']}.png"
+                ] = f"{getenv('MANAGER_FACE_URL')}{memorable_managers[manager]['fotmob_id']}.png"
             else:
                 memorable_managers[manager][
                     "manager_url"
-                ] = f"{getenv('API_EMPTY_URL')}"
+                ] = f"{getenv('EMPTY_FACE_URL')}"
 
             memorable_managers[manager][
                 "nationality_url"
-            ] = f"{getenv('API_CREST_URL')}{NATIONS.get(memorable_managers[manager]['nationality'])}.png"
+            ] = f"{getenv('CREST_URL')}{NATIONS.get(memorable_managers[manager]['nationality'])}.png"
             memorable_managers[manager][
                 "club_url"
-            ] = f"{getenv('API_CREST_URL')}{TEAMS.get(memorable_managers[manager]['club'])}.png"
+            ] = f"{getenv('CREST_URL')}{TEAMS.get(memorable_managers[manager]['club'])}.png"
 
         return render_template(
             "managers.html",
@@ -123,6 +123,8 @@ def managers():
 @app.route("/matches", methods=["GET", "POST"])
 def matches():
     if request.method == "POST":
+        get_pl_matches()
+
         with open("pl_results.csv", encoding="utf-8") as csv_file:
             csv_reader = csv.DictReader(csv_file)
 
@@ -168,7 +170,7 @@ def matches():
 
 # TODO
 # package better the getting results part
-# add check to never add already posted matches
+# add check to never add already posted matches and never get them from the link as well
 # Add login so only I can add matches
 # Requirmeents, gitignore .env
 # Postgres
