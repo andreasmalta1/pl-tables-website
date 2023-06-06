@@ -11,6 +11,11 @@ from main_app.utils import generate_table, get_pl_matches
 from main_app.managers import current_managers, memorable_managers
 from main_app.teams import TEAMS, NATIONS
 
+CREST_URL = getenv("CREST_URL")
+MANAGER_FACE_URL = getenv("MANAGER_FACE_URL")
+EMPTY_FACE_URL = getenv("EMPTY_FACE_URL")
+POST_KEY = getenv("POST_KEY")
+
 
 @app.route("/", methods=["GET", "POST"])
 @app.route("/home", methods=["GET", "POST"])
@@ -73,13 +78,13 @@ def managers():
             current_managers[manager]["days_in_charge"] = delta.days
             current_managers[manager][
                 "manager_url"
-            ] = f"{getenv('MANAGER_FACE_URL')}{current_managers[manager]['fotmob_id']}.png"
+            ] = f"{MANAGER_FACE_URL}{current_managers[manager]['fotmob_id']}.png"
             current_managers[manager][
                 "nationality_url"
-            ] = f"{getenv('CREST_URL')}{NATIONS.get(current_managers[manager]['nationality'])}.png"
+            ] = f"{CREST_URL}{NATIONS.get(current_managers[manager]['nationality'])}.png"
             current_managers[manager][
                 "club_url"
-            ] = f"{getenv('CREST_URL')}{TEAMS.get(current_managers[manager]['club'])}.png"
+            ] = f"{CREST_URL}{TEAMS.get(current_managers[manager]['club'])}.png"
 
         for manager in memorable_managers:
             date_start = memorable_managers[manager]["date_start"].split("-")
@@ -100,18 +105,16 @@ def managers():
             if memorable_managers[manager]["fotmob_id"]:
                 memorable_managers[manager][
                     "manager_url"
-                ] = f"{getenv('MANAGER_FACE_URL')}{memorable_managers[manager]['fotmob_id']}.png"
+                ] = f"{MANAGER_FACE_URL}{memorable_managers[manager]['fotmob_id']}.png"
             else:
-                memorable_managers[manager][
-                    "manager_url"
-                ] = f"{getenv('EMPTY_FACE_URL')}"
+                memorable_managers[manager]["manager_url"] = f"{EMPTY_FACE_URL}"
 
             memorable_managers[manager][
                 "nationality_url"
-            ] = f"{getenv('CREST_URL')}{NATIONS.get(memorable_managers[manager]['nationality'])}.png"
+            ] = f"{CREST_URL}{NATIONS.get(memorable_managers[manager]['nationality'])}.png"
             memorable_managers[manager][
                 "club_url"
-            ] = f"{getenv('CREST_URL')}{TEAMS.get(memorable_managers[manager]['club'])}.png"
+            ] = f"{CREST_URL}{TEAMS.get(memorable_managers[manager]['club'])}.png"
 
         return render_template(
             "managers.html",
@@ -120,7 +123,7 @@ def managers():
         )
 
 
-@app.route("/matches", methods=["GET", "POST"])
+@app.route(f"/{POST_KEY}/matches", methods=["GET", "POST"])
 def matches():
     if request.method == "POST":
         get_pl_matches()
@@ -169,13 +172,10 @@ def matches():
 
 
 # TODO
-# package better the getting results part
-# add check to never add already posted matches and never get them from the link as well
-# Add login so only I can add matches
-# Requirmeents, gitignore .env
-# Postgres
+# Add check to never add already posted matches and never double scrape data (Better to test during the season)
+# Use postgres database instead of sqlite
 # https://www.digitalocean.com/community/tutorials/how-to-query-tables-and-paginate-data-in-flask-sqlalchemy
-# hired_in_2021 = Employee.query.filter(db.and_(Employee.hire_date >= date(year=2021, month=1, day=1), Employee.hire_date < date(year=2022, month=1, day=1))).order_by(Employee.age).all()
+# Employee.query.filter(db.and_(Employee.hire_date >= date(year=2021, month=1, day=1), Employee.hire_date < date(year=2022, month=1, day=1))).order_by(Employee.age).all()
 # Create get request for all matches (add query for season, date betweens)
 # Create get request for specific match by id
 # Managers with mutiple clubs
