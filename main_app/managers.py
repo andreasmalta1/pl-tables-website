@@ -49,7 +49,7 @@ current_managers = {
     },
     "Paul Heckingbottom": {
         "nationality": "England",
-        "club": "Sheffield United FC",
+        "club": "Sheffield United",
         "date_start": "2021-11-25",
         "fotmob_id": 23250,
     },
@@ -91,7 +91,7 @@ current_managers = {
     },
     "Rob Edwards": {
         "nationality": "Wales",
-        "club": "Luton Town FC",
+        "club": "Luton Town",
         "date_start": "2022-11-17",
         "fotmob_id": 1215524,
     },
@@ -278,7 +278,7 @@ memorable_managers = {
     },
     "Sam Allardyce BOL": {
         "nationality": "England",
-        "club": "Bolton Wanderers FC",
+        "club": "Bolton Wanderers",
         "date_start": "1999-10-19",
         "date_end": "2007-05-30",
         "fotmob_id": 78740,
@@ -306,21 +306,21 @@ memorable_managers = {
     },
     "Paul Jewell": {
         "nationality": "England",
-        "club": "Derby County FC",
+        "club": "Derby County",
         "date_start": "2007-11-28",
         "date_end": "2008-12-28",
         "fotmob_id": None,
     },
     "Jan Siewert": {
         "nationality": "Germany",
-        "club": "Huddersfield Town FC",
+        "club": "Huddersfield Town",
         "date_start": "2019-01-21",
         "date_end": "2019-08-16",
         "fotmob_id": 1017904,
     },
     "Les Reed": {
         "nationality": "England",
-        "club": "Charlton Athletic FC",
+        "club": "Charlton Athletic",
         "date_start": "2006-11-16",
         "date_end": "2006-12-24",
         "fotmob_id": None,
@@ -341,14 +341,14 @@ memorable_managers = {
     },
     "Chris Hutchings": {
         "nationality": "England",
-        "club": "Wigan Athletic FC",
+        "club": "Wigan Athletic",
         "date_start": "2007-07-01",
         "date_end": "2007-11-05",
         "fotmob_id": None,
     },
     "Ole Gunnar Solskjaer CAR": {
         "nationality": "Norway",
-        "club": "Cardiff City FC",
+        "club": "Cardiff City",
         "date_start": "2014-01-02",
         "date_end": "2014-09-18",
         "fotmob_id": None,
@@ -362,7 +362,7 @@ memorable_managers = {
     },
     "Bob Bradley": {
         "nationality": "USA",
-        "club": "Swansea City FC",
+        "club": "Swansea City",
         "date_start": "2016-10-04",
         "date_end": "2016-12-27",
         "fotmob_id": 80653,

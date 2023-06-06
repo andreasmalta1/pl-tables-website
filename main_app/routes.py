@@ -7,14 +7,16 @@ import csv
 from main_app import app
 from main_app.models import Match
 from main_app import db
-from main_app.utils import generate_table, get_pl_matches
+from main_app.utils import generate_table, get_pl_matches, get_teams_info
 from main_app.managers import current_managers, memorable_managers
-from main_app.teams import TEAMS, NATIONS
+from main_app.teams import NATIONS
 
 CREST_URL = getenv("CREST_URL")
 MANAGER_FACE_URL = getenv("MANAGER_FACE_URL")
 EMPTY_FACE_URL = getenv("EMPTY_FACE_URL")
 POST_KEY = getenv("POST_KEY")
+
+TEAMS = get_teams_info()
 
 
 @app.route("/", methods=["GET", "POST"])
@@ -84,7 +86,7 @@ def managers():
             ] = f"{CREST_URL}{NATIONS.get(current_managers[manager]['nationality'])}.png"
             current_managers[manager][
                 "club_url"
-            ] = f"{CREST_URL}{TEAMS.get(current_managers[manager]['club'])}.png"
+            ] = f"{CREST_URL}{TEAMS.get(current_managers[manager]['club'])['logo_id']}.png"
 
         for manager in memorable_managers:
             date_start = memorable_managers[manager]["date_start"].split("-")
@@ -114,7 +116,7 @@ def managers():
             ] = f"{CREST_URL}{NATIONS.get(memorable_managers[manager]['nationality'])}.png"
             memorable_managers[manager][
                 "club_url"
-            ] = f"{CREST_URL}{TEAMS.get(memorable_managers[manager]['club'])}.png"
+            ] = f"{CREST_URL}{TEAMS.get(memorable_managers[manager]['club'])['logo_id']}.png"
 
         return render_template(
             "managers.html",
@@ -132,7 +134,7 @@ def matches():
     if request.method == "POST":
         get_pl_matches()
 
-        with open("pl_results.csv", encoding="utf-8") as csv_file:
+        with open("csvs/pl_results.csv", encoding="utf-8") as csv_file:
             csv_reader = csv.DictReader(csv_file)
 
             # Convert each row into a dictionary and add it to data
@@ -143,8 +145,10 @@ def matches():
                 )
                 new_match = Match(
                     season=row["season"],
-                    home_team=row["home_team"],
-                    away_team=row["away_team"],
+                    home_team_id=row["home_team_id"],
+                    home_team_name=row["home_team_name"],
+                    away_team_id=row["away_team_id"],
+                    away_team_name=row["away_team_name"],
                     home_score=row["home_score"],
                     away_score=row["away_score"],
                     date=match_date,
@@ -155,7 +159,7 @@ def matches():
         return jsonify({"msg": "Matches added successfully"})
 
     if request.method == "GET":
-        data = []
+        data = {}
 
         date_from = request.args.get("dateFrom")
         date_to = request.args.get("dateTo")
@@ -183,34 +187,35 @@ def matches():
                 return jsonify({"msg": "No Matches Found"})
 
             for match in matches:
-                data.append(
-                    {
-                        "season": match.season,
-                        "home_team": match.home_team,
-                        "home_score": match.home_score,
-                        "away_team": match.away_team,
-                        "away_score": match.away_score,
-                        "date": match.date,
-                    }
-                )
+                data[match.id] = {
+                    "season": match.season,
+                    "home_team": {
+                        "team_id": match.home_team_id,
+                        "team_name": match.home_team_name,
+                        "score": match.home_score,
+                    },
+                    "away_team": {
+                        "team_id": match.away_team_id,
+                        "team_name": match.away_team_name,
+                        "score": match.away_score,
+                    },
+                    "date": match.date,
+                }
 
             return jsonify(data)
 
 
 # TODO
-# Instead of returning matches = [{}, {}, {}] Check if this is the case
-# Return matches = {1: {}, 2: {}}
-# Add team_ids
+# Add seasons functionality
+# Landing page -> show current table and all time pl table
 # Add check to never add already posted matches and never double scrape data (Better to test during the season)
 # Use postgres database instead of sqlite
-# Create get request for all matches (add query for season, date betweens)
-# Create get request for specific match by id
 # Managers with mutiple clubs
 # Sort managers list by days
 # Add ability to save table as image / pdf -> maybe add an embed link
 # Add PL logo
-# Add tables by season
 # CSS
-# Landing page -> show current table and all time pl table
 # Footer -> Add send email and SupportMe
 # How many page viewers
+# Update gitgnore and move csvs to csv folder
+# Check about post key viewable in network
