@@ -1,0 +1,54 @@
+{%   extends 'base.html' %}
+
+{% block styles %} <link rel="stylesheet" href="{{ url_for('static', filename='css/managers.css') }}"> 
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+{% block title %} PL Tables | Managers {% endblock %}
+
+{% block content %}
+    <h1>PL Seasons</h1>
+    <form action="" method="post">
+        {% for season in seasons %}
+            <input type="submit" name="season" value="{{ season }}"/>
+            <br>
+        {% endfor %}
+    </form>
+
+    {% if standings_table %}
+        <h2>Standings</h2>
+        <table class="standing-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Team</th>
+                    <th>MP</th>
+                    <th>W</th>
+                    <th>D</th>
+                    <th>L</th>
+                    <th>GF</th>
+                    <th>GA</th>
+                    <th>GD</th>
+                    <th>PTS</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for team, stats in standings_table %}
+                    <tr>
+                        <td><img class="team-logo" src="{{ stats['url'] }}" alt="{{ team }}"></td>
+                        <td>{{ team }}</td>
+                        <td>{{ stats['played'] }}</td>
+                        <td>{{ stats['win'] }}</td>
+                        <td>{{ stats['draw'] }}</td>
+                        <td>{{ stats['loss'] }}</td>
+                        <td>{{ stats['goals_for'] }}</td>
+                        <td>{{ stats['goals_against'] }}</td>
+                        <td>{{ stats['gd'] }}</td>
+                        <td>{{ stats['points'] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <h1>No matches were played in this date period</h1>
+    {% endif %}
+{% endblock %}

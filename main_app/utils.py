@@ -8,11 +8,18 @@ from bs4 import BeautifulSoup
 
 
 # Function to generate the table of Premier League results
-def generate_table(start_date, end_date):
-    API_URL = f"{getenv('HOST_NAME')}/matches?dateFrom={start_date}&dateTo={end_date}"
-    headers = {"authorization-key": getenv("POST_KEY")}
-
+def generate_table(start_date, end_date, season):
     team_data = get_teams_info()
+
+    if start_date and end_date:
+        API_URL = (
+            f"{getenv('HOST_NAME')}/matches?dateFrom={start_date}&dateTo={end_date}"
+        )
+
+    if season:
+        API_URL = f"{getenv('HOST_NAME')}/matches?season={season}"
+
+    headers = {"authorization-key": getenv("POST_KEY")}
 
     try:
         response = get(API_URL, headers=headers)
@@ -72,8 +79,6 @@ def generate_table(start_date, end_date):
         for team in standings:
             if not standings[team]["url"]:
                 team_id = team_data.get(team)["logo_id"]
-                print(team)
-                print(team_id)
                 if team:
                     standings[team]["url"] = f"{getenv('CREST_URL')}{team_id}.png"
 

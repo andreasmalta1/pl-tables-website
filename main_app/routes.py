@@ -33,7 +33,7 @@ def index():
             flash("End date must be after start date", category="error")
             return render_template("index.html")
 
-        standings_table = generate_table(start_date, end_date)
+        standings_table = generate_table(start_date, end_date, None)
 
         return render_template(
             "index.html",
@@ -125,6 +125,28 @@ def managers():
         )
 
 
+@app.route("/seasons", methods=["GET", "POST"])
+def seasons():
+    seasons = []
+    years = Match.query.with_entities(Match.season).distinct().all()
+    for year in years:
+        seasons.append(year.season)
+
+    seasons.sort(reverse=True)
+
+    if request.method == "POST":
+        season = request.form.get("season")
+        standings_table = generate_table(None, None, season)
+        print(standings_table)
+
+        return render_template(
+            "seasons.html", seasons=seasons, standings_table=standings_table
+        )
+
+    if request.method == "GET":
+        return render_template("seasons.html", seasons=seasons)
+
+
 @app.route(f"/matches", methods=["GET", "POST"])
 def matches():
     authorization_key = request.headers.get("authorization-key")
@@ -163,6 +185,7 @@ def matches():
 
         date_from = request.args.get("dateFrom")
         date_to = request.args.get("dateTo")
+        season = request.args.get("season")
 
         if date_from and date_to:
             date_from = date_from.split("-")
@@ -183,30 +206,34 @@ def matches():
                 )
             ).all()
 
-            if not matches:
-                return jsonify({"msg": "No Matches Found"})
+        if season:
+            matches = Match.query.filter_by(season=season).all()
 
-            for match in matches:
-                data[match.id] = {
-                    "season": match.season,
-                    "home_team": {
-                        "team_id": match.home_team_id,
-                        "team_name": match.home_team_name,
-                        "score": match.home_score,
-                    },
-                    "away_team": {
-                        "team_id": match.away_team_id,
-                        "team_name": match.away_team_name,
-                        "score": match.away_score,
-                    },
-                    "date": match.date,
-                }
+        if not matches:
+            return jsonify({"msg": "No Matches Found"})
 
-            return jsonify(data)
+        for match in matches:
+            print(match)
+            data[match.id] = {
+                "season": match.season,
+                "home_team": {
+                    "team_id": match.home_team_id,
+                    "team_name": match.home_team_name,
+                    "score": match.home_score,
+                },
+                "away_team": {
+                    "team_id": match.away_team_id,
+                    "team_name": match.away_team_name,
+                    "score": match.away_score,
+                },
+                "date": match.date,
+            }
+
+        return jsonify(data)
 
 
 # TODO
-# Add seasons functionality
+# Arrange css and page routing/stucture
 # Landing page -> show current table and all time pl table
 # Add check to never add already posted matches and never double scrape data (Better to test during the season)
 # Use postgres database instead of sqlite
@@ -214,7 +241,6 @@ def matches():
 # Sort managers list by days
 # Add ability to save table as image / pdf -> maybe add an embed link
 # Add PL logo
-# CSS
 # Footer -> Add send email and SupportMe
 # How many page viewers
 # Update gitgnore and move csvs to csv folder
