@@ -19,9 +19,26 @@ POST_KEY = getenv("POST_KEY")
 TEAMS = get_teams_info()
 
 
-@app.route("/", methods=["GET", "POST"])
-@app.route("/home", methods=["GET", "POST"])
-def index():
+@app.route("/", methods=["GET"])
+@app.route("/home", methods=["GET"])
+def home():
+    seasons = []
+    years = Match.query.with_entities(Match.season).distinct().all()
+    for year in years:
+        seasons.append(year.season)
+
+    seasons.sort(reverse=True)
+    season = seasons[0]
+    current_table = generate_table(None, None, season)
+    all_time_table = generate_table(None, None, None)
+
+    return render_template(
+        "index.html", current_table=current_table, all_time_table=all_time_table
+    )
+
+
+@app.route("/custom", methods=["GET", "POST"])
+def custom_dates():
     if request.method == "POST":
         start_date = request.form.get("start_date")
         end_date = request.form.get("end_date")
@@ -31,18 +48,18 @@ def index():
 
         if end_date_check < start_date_check:
             flash("End date must be after start date", category="error")
-            return render_template("index.html")
+            return render_template("custom_dates.html")
 
         standings_table = generate_table(start_date, end_date, None)
 
         return render_template(
-            "index.html",
+            "custom_dates.html",
             standings_table=standings_table,
             start_date=start_date,
             end_date=end_date,
         )
 
-    return render_template("index.html")
+    return render_template("custom_dates.html")
 
 
 @app.route("/managers", methods=["GET", "POST"])
@@ -56,7 +73,7 @@ def managers():
                 "end_date": datetime.strftime(date.today(), "%Y-%m-%d"),
             }
 
-            response = requests.post(url_for("index", _external=True), data=data)
+            response = requests.post(url_for("custom_dates", _external=True), data=data)
             return response.content
 
         memorable_manager = request.form.get("memorableManager")
@@ -67,7 +84,7 @@ def managers():
                 manager_end = datetime.strftime(date.today(), "%Y-%m-%d")
             data = {"start_date": manager_start, "end_date": manager_end}
 
-            response = requests.post(url_for("index", _external=True), data=data)
+            response = requests.post(url_for("custom_dates", _external=True), data=data)
             return response.content
 
     if request.method == "GET":
@@ -137,7 +154,6 @@ def seasons():
     if request.method == "POST":
         season = request.form.get("season")
         standings_table = generate_table(None, None, season)
-        print(standings_table)
 
         return render_template(
             "seasons.html", seasons=seasons, standings_table=standings_table
@@ -209,11 +225,13 @@ def matches():
         if season:
             matches = Match.query.filter_by(season=season).all()
 
+        if not date_from and not date_to and not season:
+            matches = Match.query.all()
+
         if not matches:
             return jsonify({"msg": "No Matches Found"})
 
         for match in matches:
-            print(match)
             data[match.id] = {
                 "season": match.season,
                 "home_team": {
@@ -233,15 +251,20 @@ def matches():
 
 
 # TODO
-# Arrange css and page routing/stucture
-# Landing page -> show current table and all time pl table
+# Check if the managers post can be done similar to season
+# Fix css and page routing/stucture
+# Managers with mutiple clubs issue (doubled key name)
+# Sort managers list by days
+# Add PL logo in homepage and all pages/tables
+# Add ability to save table as image / pdf -> maybe add an embed link
+# Footer -> Add send email functionality and SupportMe
+
 # Add check to never add already posted matches and never double scrape data (Better to test during the season)
 # Use postgres database instead of sqlite
-# Managers with mutiple clubs
-# Sort managers list by days
-# Add ability to save table as image / pdf -> maybe add an embed link
-# Add PL logo
-# Footer -> Add send email and SupportMe
 # How many page viewers
-# Update gitgnore and move csvs to csv folder
 # Check about post key viewable in network
+
+# Move csvs to 'csvs' folder
+
+# Create readme
+# Document code
