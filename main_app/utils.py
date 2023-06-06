@@ -4,25 +4,22 @@ from requests import get, exceptions
 from os import getenv
 from collections import defaultdict
 from bs4 import BeautifulSoup
+import json
 
 from main_app.teams import TEAMS
 
 
 # Function to generate the table of Premier League results
 def generate_table(start_date, end_date):
-    API_KEY = getenv("API_KEY")
-    API_URL = getenv("API_URL")
-
-    API_URL = f"{API_URL}?dateFrom={start_date}&dateTo={end_date}"
-    headers = {"X-Auth-Token": API_KEY}
+    API_URL = f"{getenv('HOST_NAME')}/matches?dateFrom={start_date}&dateTo={end_date}"
+    headers = {"authorization-key": getenv("POST_KEY")}
 
     try:
         response = get(API_URL, headers=headers)
-        data = response.json()
-        matches = data.get("matches")
+        matches = response.json()
 
         if not matches or len(matches) == 0:
-            print(data)
+            print(matches)
             return None
 
         standings = defaultdict(
@@ -41,13 +38,10 @@ def generate_table(start_date, end_date):
         )
 
         for match in matches:
-            home_team = match["homeTeam"]["name"]
-            home_score = match["score"]["fullTime"]["home"]
-            away_team = match["awayTeam"]["name"]
-            away_score = match["score"]["fullTime"]["away"]
-
-            standings[home_team]["team_id"] = match["homeTeam"]["id"]
-            standings[away_team]["team_id"] = match["awayTeam"]["id"]
+            home_team = match["home_team"]
+            home_score = match["home_score"]
+            away_team = match["away_team"]
+            away_score = match["away_score"]
 
             standings[home_team]["played"] += 1
             standings[away_team]["played"] += 1
@@ -129,7 +123,7 @@ def get_pl_matches():
 
                 score = cells[-2].get_text().strip().split()[0].split(":")
 
-                data["match_no"].append(match_no)
+                data["match_id"].append(match_no)
                 data["season"].append(f"{year}/{year+1}")
                 data["home_team"].append(cells[2].get_text().strip())
                 data["away_team"].append(cells[4].get_text().strip())

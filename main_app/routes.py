@@ -123,8 +123,12 @@ def managers():
         )
 
 
-@app.route(f"/{POST_KEY}/matches", methods=["GET", "POST"])
+@app.route(f"/matches", methods=["GET", "POST"])
 def matches():
+    authorization_key = request.headers.get("authorization-key")
+    if authorization_key != getenv("POST_KEY"):
+        return jsonify({"msg": "No authorization key found"})
+
     if request.method == "POST":
         get_pl_matches()
 
@@ -151,31 +155,54 @@ def matches():
         return jsonify({"msg": "Matches added successfully"})
 
     if request.method == "GET":
-        matches = Match.query.limit(10).all()
-        if not matches:
-            return jsonify({"msg": "No Matches Found"})
-
         data = []
-        for match in matches:
-            data.append(
-                {
-                    "season": match.season,
-                    "home_team": match.home_team,
-                    "home_score": match.home_score,
-                    "away_team": match.away_team,
-                    "away_score": match.away_score,
-                    "date": match.date,
-                }
-            )
 
-        return jsonify(data)
+        date_from = request.args.get("dateFrom")
+        date_to = request.args.get("dateTo")
+
+        if date_from and date_to:
+            date_from = date_from.split("-")
+            date_to = date_to.split("-")
+
+            matches = Match.query.filter(
+                db.and_(
+                    Match.date
+                    >= date(
+                        year=int(date_from[0]),
+                        month=int(date_from[1]),
+                        day=int(date_from[2]),
+                    ),
+                    Match.date
+                    <= date(
+                        year=int(date_to[0]), month=int(date_to[1]), day=int(date_to[2])
+                    ),
+                )
+            ).all()
+
+            if not matches:
+                return jsonify({"msg": "No Matches Found"})
+
+            for match in matches:
+                data.append(
+                    {
+                        "season": match.season,
+                        "home_team": match.home_team,
+                        "home_score": match.home_score,
+                        "away_team": match.away_team,
+                        "away_score": match.away_score,
+                        "date": match.date,
+                    }
+                )
+
+            return jsonify(data)
 
 
 # TODO
+# Instead of returning matches = [{}, {}, {}] Check if this is the case
+# Return matches = {1: {}, 2: {}}
+# Add team_ids
 # Add check to never add already posted matches and never double scrape data (Better to test during the season)
 # Use postgres database instead of sqlite
-# https://www.digitalocean.com/community/tutorials/how-to-query-tables-and-paginate-data-in-flask-sqlalchemy
-# Employee.query.filter(db.and_(Employee.hire_date >= date(year=2021, month=1, day=1), Employee.hire_date < date(year=2022, month=1, day=1))).order_by(Employee.age).all()
 # Create get request for all matches (add query for season, date betweens)
 # Create get request for specific match by id
 # Managers with mutiple clubs
