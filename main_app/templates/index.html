@@ -74,5 +74,11 @@
                 {% endfor %}
             </tbody>
         </table>
+        <button id="convert">Convert to image</button>
     {% endif %}
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+    <script src="{{ url_for('static', filename='js/download_image.js') }}"></script>
 {% endblock %}
