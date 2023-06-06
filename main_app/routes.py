@@ -105,6 +105,11 @@ def managers():
                 "club_url"
             ] = f"{CREST_URL}{TEAMS.get(current_managers[manager]['club'])['logo_id']}.png"
 
+        sorted_current_managers = sorted(
+            current_managers.items(), key=lambda x: x[1]["days_in_charge"], reverse=True
+        )
+        sorted_current_managers = dict(sorted_current_managers)
+
         for manager in memorable_managers:
             date_start = memorable_managers[manager]["date_start"].split("-")
             date_end = memorable_managers[manager]["date_end"]
@@ -135,10 +140,17 @@ def managers():
                 "club_url"
             ] = f"{CREST_URL}{TEAMS.get(memorable_managers[manager]['club'])['logo_id']}.png"
 
+        sorted_memorable_managers = sorted(
+            memorable_managers.items(),
+            key=lambda x: x[1]["days_in_charge"],
+            reverse=True,
+        )
+        sorted_memorable_managers = dict(sorted_memorable_managers)
+
         return render_template(
             "managers.html",
-            current_managers=current_managers,
-            memorable_managers=memorable_managers,
+            current_managers=sorted_current_managers,
+            memorable_managers=sorted_memorable_managers,
         )
 
 
@@ -254,7 +266,6 @@ def matches():
 # Check if the managers post can be done similar to season
 # Fix css and page routing/stucture
 # Managers with mutiple clubs issue (doubled key name)
-# Sort managers list by days
 # Add PL logo in homepage and all pages/tables
 # Footer -> Add send email functionality and SupportMe
 # In downloaded imaged add credits and site url
