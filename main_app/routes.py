@@ -256,8 +256,8 @@ def matches():
 # Managers with mutiple clubs issue (doubled key name)
 # Sort managers list by days
 # Add PL logo in homepage and all pages/tables
-# Add ability to save table as image / pdf -> maybe add an embed link
 # Footer -> Add send email functionality and SupportMe
+# In downloaded imaged add credits and site url
 
 # Add check to never add already posted matches and never double scrape data (Better to test during the season)
 # Use postgres database instead of sqlite

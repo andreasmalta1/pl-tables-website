@@ -48,7 +48,13 @@
                 {% endfor %}
             </tbody>
         </table>
+        <button id="convert">Convert to image</button>
     {% else %}
         <h1>No matches were played in this date period</h1>
     {% endif %}
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+    <script src="{{ url_for('static', filename='js/download_image.js') }}"></script>
 {% endblock %}
