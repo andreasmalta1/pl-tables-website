@@ -1,30 +1,11 @@
 {%   extends 'base.html' %}
 
-{% block styles %} <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}"> {% endblock %}
+{% block styles %} <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}"> {% endblock %}
 {% block title %} PL Tables | Home {% endblock %}
 
 {% block content %}
-    <form action="/" method="POST">
-        <label for="start_date">Start Date:</label>
-        {% if start_date %}
-            <input type="date" id="start_date" name="start_date" value={{ start_date }}>
-        {% else %}
-            <input type="date" id="start_date" name="start_date">
-        {% endif %}
-        
-        <label for="end_date">End Date:</label>
-        {% if end_date %}
-            <input type="date" id="end_date" name="end_date" value={{ end_date }}>
-        {% else %}
-            <input type="date" id="end_date" name="end_date">
-        {% endif %}
-
-        <input type="submit" value="Get Results">
-    </form>
-    <br>
-
-    {% if standings_table %}
-        <h2>Standings</h2>
+    {% if current_table %}
+        <h2>Current PL Table</h2>
         <table class="standing-table">
             <thead>
                 <tr>
@@ -41,7 +22,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for team, stats in standings_table %}
+                {% for team, stats in current_table %}
                     <tr>
                         <td><img class="team-logo" src="{{ stats['url'] }}" alt="{{ team }}"></td>
                         <td>{{ team }}</td>
@@ -57,20 +38,41 @@
                 {% endfor %}
             </tbody>
         </table>
-    {% else %}
-        <h1>No matches were played in this date period</h1>
     {% endif %}
-{% endblock %}
 
-{% block scripts %}
-    {% if end_date %}
-        <script type="text/javascript">
-            let endDate = {{ end_date|tojson }}
-        </script>
-    {% else %}
-        <script type="text/javascript">
-            let endDate = null
-        </script>
+    <h2>All Time PL Table</h2>
+    {% if all_time_table %}
+        <table class="standing-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Team</th>
+                    <th>MP</th>
+                    <th>W</th>
+                    <th>D</th>
+                    <th>L</th>
+                    <th>GF</th>
+                    <th>GA</th>
+                    <th>GD</th>
+                    <th>PTS</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for team, stats in all_time_table %}
+                    <tr>
+                        <td><img class="team-logo" src="{{ stats['url'] }}" alt="{{ team }}"></td>
+                        <td>{{ team }}</td>
+                        <td>{{ stats['played'] }}</td>
+                        <td>{{ stats['win'] }}</td>
+                        <td>{{ stats['draw'] }}</td>
+                        <td>{{ stats['loss'] }}</td>
+                        <td>{{ stats['goals_for'] }}</td>
+                        <td>{{ stats['goals_against'] }}</td>
+                        <td>{{ stats['gd'] }}</td>
+                        <td>{{ stats['points'] }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     {% endif %}
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 {% endblock %}

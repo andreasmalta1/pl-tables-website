@@ -19,6 +19,9 @@ def generate_table(start_date, end_date, season):
     if season:
         API_URL = f"{getenv('HOST_NAME')}/matches?season={season}"
 
+    if not start_date and not end_date and not season:
+        API_URL = f"{getenv('HOST_NAME')}/matches"
+
     headers = {"authorization-key": getenv("POST_KEY")}
 
     try:
@@ -88,7 +91,6 @@ def generate_table(start_date, end_date, season):
             key=lambda x: (x[1]["points"], x[1]["gd"]),
             reverse=True,
         )
-
         return standings_table
 
     except exceptions.RequestException as e:

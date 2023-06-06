@@ -1,18 +1,27 @@
 {%   extends 'base.html' %}
 
-{% block styles %} <link rel="stylesheet" href="{{ url_for('static', filename='css/managers.css') }}"> 
-<link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
-{% endblock %}
-{% block title %} PL Tables | Managers {% endblock %}
+{% block styles %} <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}"> {% endblock %}
+{% block title %} PL Tables | Home {% endblock %}
 
 {% block content %}
-    <h1>PL Seasons</h1>
-    <form action="" method="post">
-        {% for season in seasons %}
-            <input type="submit" name="season" value="{{ season }}"/>
-            <br>
-        {% endfor %}
+    <form action="" method="POST">
+        <label for="start_date">Start Date:</label>
+        {% if start_date %}
+            <input type="date" id="start_date" name="start_date" value={{ start_date }}>
+        {% else %}
+            <input type="date" id="start_date" name="start_date">
+        {% endif %}
+        
+        <label for="end_date">End Date:</label>
+        {% if end_date %}
+            <input type="date" id="end_date" name="end_date" value={{ end_date }}>
+        {% else %}
+            <input type="date" id="end_date" name="end_date">
+        {% endif %}
+
+        <input type="submit" value="Get Results">
     </form>
+    <br>
 
     {% if standings_table %}
         <h2>Standings</h2>
@@ -51,4 +60,17 @@
     {% else %}
         <h1>No matches were played in this date period</h1>
     {% endif %}
+{% endblock %}
+
+{% block scripts %}
+    {% if end_date %}
+        <script type="text/javascript">
+            let endDate = {{ end_date|tojson }}
+        </script>
+    {% else %}
+        <script type="text/javascript">
+            let endDate = null
+        </script>
+    {% endif %}
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
 {% endblock %}
