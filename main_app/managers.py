@@ -1,10 +1,11 @@
-current_managers = {
+managers = {
     1: {
         "name": "Jürgen Klopp",
         "nationality": "Germany",
         "club": "Liverpool FC",
         "date_start": "2015-10-08",
         "fotmob_id": 78660,
+        "status": "current",
     },
     2: {
         "name": "Pep Guardiola",
@@ -12,6 +13,7 @@ current_managers = {
         "club": "Manchester City",
         "date_start": "2016-07-01",
         "fotmob_id": 41636,
+        "status": "current",
     },
     3: {
         "name": "Thomas Frank",
@@ -19,6 +21,7 @@ current_managers = {
         "club": "Brentford FC",
         "date_start": "2018-10-16",
         "fotmob_id": 450969,
+        "status": "current",
     },
     4: {
         "name": "Mikel Arteta",
@@ -26,6 +29,7 @@ current_managers = {
         "club": "Arsenal FC",
         "date_start": "2019-12-22",
         "fotmob_id": 24011,
+        "status": "current",
     },
     5: {
         "name": "David Moyes",
@@ -33,6 +37,7 @@ current_managers = {
         "club": "West Ham United",
         "date_start": "2019-12-30",
         "fotmob_id": 78626,
+        "status": "current",
     },
     6: {
         "name": "Marco Silva",
@@ -40,6 +45,7 @@ current_managers = {
         "club": "Fulham FC",
         "date_start": "2021-07-01",
         "fotmob_id": 164124,
+        "status": "current",
     },
     7: {
         "name": "Steve Cooper",
@@ -47,6 +53,7 @@ current_managers = {
         "club": "Nottingham Forest",
         "date_start": "2021-09-21",
         "fotmob_id": 1061595,
+        "status": "current",
     },
     8: {
         "name": "Eddie Howe",
@@ -54,6 +61,7 @@ current_managers = {
         "club": "Newcastle United",
         "date_start": "2021-11-08",
         "fotmob_id": 23630,
+        "status": "current",
     },
     9: {
         "name": "Paul Heckingbottom",
@@ -61,6 +69,7 @@ current_managers = {
         "club": "Sheffield United",
         "date_start": "2021-11-25",
         "fotmob_id": 23250,
+        "status": "current",
     },
     10: {
         "name": "Erik ten Hag",
@@ -68,6 +77,7 @@ current_managers = {
         "club": "Manchester United",
         "date_start": "2022-05-23",
         "fotmob_id": 656595,
+        "status": "current",
     },
     11: {
         "name": "Vincent Kompany",
@@ -75,6 +85,7 @@ current_managers = {
         "club": "Burnley FC",
         "date_start": "2022-06-14",
         "fotmob_id": 39027,
+        "status": "current",
     },
     12: {
         "name": "Gary O'Neil",
@@ -82,6 +93,7 @@ current_managers = {
         "club": "AFC Bournemouth",
         "date_start": "2022-08-30",
         "fotmob_id": 24393,
+        "status": "current",
     },
     13: {
         "name": "Roberto De Zerbi",
@@ -89,6 +101,7 @@ current_managers = {
         "club": "Brighton & Hove Albion",
         "date_start": "2022-09-18",
         "fotmob_id": 42044,
+        "status": "current",
     },
     14: {
         "name": "Unai Emery",
@@ -96,6 +109,7 @@ current_managers = {
         "club": "Aston Villa",
         "date_start": "2022-11-01",
         "fotmob_id": 96940,
+        "status": "current",
     },
     15: {
         "name": "Julen Lopetegui",
@@ -103,6 +117,7 @@ current_managers = {
         "club": "Wolverhampton Wanderers",
         "date_start": "2022-11-14",
         "fotmob_id": 396454,
+        "status": "current",
     },
     16: {
         "name": "Rob Edwards",
@@ -110,6 +125,7 @@ current_managers = {
         "club": "Luton Town",
         "date_start": "2022-11-17",
         "fotmob_id": 1215524,
+        "status": "current",
     },
     17: {
         "name": "Sean Dyche",
@@ -117,6 +133,7 @@ current_managers = {
         "club": "Everton FC",
         "date_start": "2023-01-30",
         "fotmob_id": 24581,
+        "status": "current",
     },
     18: {
         "name": "Roy Hodgson",
@@ -124,6 +141,7 @@ current_managers = {
         "club": "Crystal Palace",
         "date_start": "2023-03-21",
         "fotmob_id": 98908,
+        "status": "current",
     },
     19: {
         "name": "Ryan Mason",
@@ -131,6 +149,7 @@ current_managers = {
         "club": "Tottenham Hotspur",
         "date_start": "2023-04-24",
         "fotmob_id": 160448,
+        "status": "current",
     },
     20: {
         "name": "Mauricio Pochettino",
@@ -138,10 +157,8 @@ current_managers = {
         "club": "Chelsea FC",
         "date_start": "2023-05-29",
         "fotmob_id": 163300,
+        "status": "current",
     },
-}
-
-memorable_managers = {
     1: {
         "name": "Sir Alex Ferguson",
         "nationality": "Scotland",
@@ -149,6 +166,7 @@ memorable_managers = {
         "date_start": "1986-11-06",
         "date_end": "2013-06-30",
         "fotmob_id": None,
+        "status": "memorable",
     },
     2: {
         "name": "Arsène Wenger",
@@ -157,6 +175,7 @@ memorable_managers = {
         "date_start": "1996-10-01",
         "date_end": "2018-06-30",
         "fotmob_id": None,
+        "status": "memorable",
     },
     3: {
         "name": "Pep Guardiola",
@@ -165,6 +184,7 @@ memorable_managers = {
         "date_start": "2016-07-01",
         "date_end": "today",
         "fotmob_id": 41636,
+        "status": "memorable",
     },
     4: {
         "name": "Jürgen Klopp",
@@ -173,6 +193,7 @@ memorable_managers = {
         "date_start": "2015-10-08",
         "date_end": "today",
         "fotmob_id": 78660,
+        "status": "memorable",
     },
     5: {
         "name": "Rafael Benitez",
@@ -181,6 +202,7 @@ memorable_managers = {
         "date_start": "2004-07-01",
         "date_end": "2010-06-03",
         "fotmob_id": 78630,
+        "status": "memorable",
     },
     6: {
         "name": "Jose Mourinho",
@@ -189,6 +211,7 @@ memorable_managers = {
         "date_start": "2004-07-01",
         "date_end": "2007-09-20",
         "fotmob_id": 78719,
+        "status": "memorable",
     },
     7: {
         "name": "Jose Mourinho",
@@ -197,6 +220,7 @@ memorable_managers = {
         "date_start": "2016-07-01",
         "date_end": "2018-12-18",
         "fotmob_id": 78719,
+        "status": "memorable",
     },
     8: {
         "name": "Jose Mourinho",
@@ -205,6 +229,7 @@ memorable_managers = {
         "date_start": "2019-11-20",
         "date_end": "2021-04-19",
         "fotmob_id": 78719,
+        "status": "memorable",
     },
     9: {
         "name": "Roberto Mancini",
@@ -213,6 +238,7 @@ memorable_managers = {
         "date_start": "2009-12-19",
         "date_end": "2013-05-13",
         "fotmob_id": 78702,
+        "status": "memorable",
     },
     10: {
         "name": "Antonio Conte",
@@ -221,6 +247,7 @@ memorable_managers = {
         "date_start": "2016-07-01",
         "date_end": "2018-07-13",
         "fotmob_id": None,
+        "status": "memorable",
     },
     11: {
         "name": "Antonio Conte",
@@ -229,6 +256,7 @@ memorable_managers = {
         "date_start": "2021-11-02",
         "date_end": "2023-03-26",
         "fotmob_id": None,
+        "status": "memorable",
     },
     12: {
         "name": "Ralf Rangnick",
@@ -237,6 +265,7 @@ memorable_managers = {
         "date_start": "2021-12-03",
         "date_end": "2022-05-31",
         "fotmob_id": 148889,
+        "status": "memorable",
     },
     13: {
         "name": "Harry Redknapp",
@@ -245,6 +274,7 @@ memorable_managers = {
         "date_start": "2008-11-26",
         "date_end": "2012-06-14",
         "fotmob_id": None,
+        "status": "memorable",
     },
     14: {
         "name": "Claudio Ranieri",
@@ -253,6 +283,7 @@ memorable_managers = {
         "date_start": "2015-07-13",
         "date_end": "2017-02-23",
         "fotmob_id": 78620,
+        "status": "memorable",
     },
     15: {
         "name": "Frank Lampard",
@@ -261,6 +292,7 @@ memorable_managers = {
         "date_start": "2023-04-06",
         "date_end": "2023-06-30",
         "fotmob_id": 942244,
+        "status": "memorable",
     },
     16: {
         "name": "Frank Lampard",
@@ -269,6 +301,7 @@ memorable_managers = {
         "date_start": "2022-01-31",
         "date_end": "2023-01-23",
         "fotmob_id": 942244,
+        "status": "memorable",
     },
     17: {
         "name": "Sean Dyche",
@@ -277,6 +310,7 @@ memorable_managers = {
         "date_start": "2023-01-30",
         "date_end": "today",
         "fotmob_id": 24581,
+        "status": "memorable",
     },
     18: {
         "name": "David Moyes",
@@ -285,6 +319,7 @@ memorable_managers = {
         "date_start": "2002-03-14",
         "date_end": "2013-06-30",
         "fotmob_id": 78626,
+        "status": "memorable",
     },
     19: {
         "name": "David Moyes",
@@ -293,6 +328,7 @@ memorable_managers = {
         "date_start": "2013-07-01",
         "date_end": "2014-04-22",
         "fotmob_id": 78626,
+        "status": "memorable",
     },
     20: {
         "name": "Frank de Boer",
@@ -301,6 +337,7 @@ memorable_managers = {
         "date_start": "2017-07-01",
         "date_end": "2017-09-11",
         "fotmob_id": 240019,
+        "status": "memorable",
     },
     21: {
         "name": "Thomas Tuchel",
@@ -309,6 +346,7 @@ memorable_managers = {
         "date_start": "2021-01-26",
         "date_end": "2022-09-07",
         "fotmob_id": 179347,
+        "status": "memorable",
     },
     22: {
         "name": "Carlo Ancelotti",
@@ -317,6 +355,7 @@ memorable_managers = {
         "date_start": "2009-07-01",
         "date_end": "2011-05-22",
         "fotmob_id": 78619,
+        "status": "memorable",
     },
     23: {
         "name": "Sam Allardyce",
@@ -325,6 +364,7 @@ memorable_managers = {
         "date_start": "1999-10-19",
         "date_end": "2007-05-30",
         "fotmob_id": 78740,
+        "status": "memorable",
     },
     24: {
         "name": "Sam Allardyce",
@@ -333,6 +373,7 @@ memorable_managers = {
         "date_start": "2011-11-07",
         "date_end": "2015-06-30",
         "fotmob_id": 78740,
+        "status": "memorable",
     },
     25: {
         "name": "Sam Allardyce",
@@ -341,6 +382,7 @@ memorable_managers = {
         "date_start": "2023-05-03",
         "date_end": "2023-06-30",
         "fotmob_id": 78740,
+        "status": "memorable",
     },
     26: {
         "name": "Kevin Keegan",
@@ -349,6 +391,7 @@ memorable_managers = {
         "date_start": "1992-02-05",
         "date_end": "1997-01-08",
         "fotmob_id": None,
+        "status": "memorable",
     },
     27: {
         "name": "Paul Jewell",
@@ -357,6 +400,7 @@ memorable_managers = {
         "date_start": "2007-11-28",
         "date_end": "2008-12-28",
         "fotmob_id": None,
+        "status": "memorable",
     },
     28: {
         "name": "Jan Siewert",
@@ -365,6 +409,7 @@ memorable_managers = {
         "date_start": "2019-01-21",
         "date_end": "2019-08-16",
         "fotmob_id": 1017904,
+        "status": "memorable",
     },
     29: {
         "name": "Les Reed",
@@ -373,6 +418,7 @@ memorable_managers = {
         "date_start": "2006-11-16",
         "date_end": "2006-12-24",
         "fotmob_id": None,
+        "status": "memorable",
     },
     30: {
         "name": "Terry Connor",
@@ -381,6 +427,7 @@ memorable_managers = {
         "date_start": "2012-02-13",
         "date_end": "2012-06-30",
         "fotmob_id": None,
+        "status": "memorable",
     },
     31: {
         "name": "Remi Garde",
@@ -389,6 +436,7 @@ memorable_managers = {
         "date_start": "2015-11-03",
         "date_end": "2016-03-29",
         "fotmob_id": 270666,
+        "status": "memorable",
     },
     32: {
         "name": "Chris Hutchings",
@@ -397,6 +445,7 @@ memorable_managers = {
         "date_start": "2007-07-01",
         "date_end": "2007-11-05",
         "fotmob_id": None,
+        "status": "memorable",
     },
     33: {
         "name": "Ole Gunnar Solskjaer",
@@ -405,6 +454,7 @@ memorable_managers = {
         "date_start": "2014-01-02",
         "date_end": "2014-09-18",
         "fotmob_id": None,
+        "status": "memorable",
     },
     34: {
         "name": "Ole Gunnar Solskjaer",
@@ -413,6 +463,7 @@ memorable_managers = {
         "date_start": "2018-12-19",
         "date_end": "2021-11-21",
         "fotmob_id": None,
+        "status": "memorable",
     },
     35: {
         "name": "Bob Bradley",
@@ -421,6 +472,7 @@ memorable_managers = {
         "date_start": "2016-10-04",
         "date_end": "2016-12-27",
         "fotmob_id": 80653,
+        "status": "memorable",
     },
     36: {
         "name": "Felix Magath",
@@ -429,6 +481,7 @@ memorable_managers = {
         "date_start": "2014-02-14",
         "date_end": "2014-10-18",
         "fotmob_id": 79318,
+        "status": "memorable",
     },
     37: {
         "name": "Nathan Jones",
@@ -437,6 +490,7 @@ memorable_managers = {
         "date_start": "2022-11-10",
         "date_end": "2023-02-12",
         "fotmob_id": 519886,
+        "status": "memorable",
     },
     38: {
         "name": "Paolo Di Canio",
@@ -445,6 +499,7 @@ memorable_managers = {
         "date_start": "2013-03-31",
         "date_end": "2013-09-22",
         "fotmob_id": 519886,
+        "status": "memorable",
     },
     39: {
         "name": "René Meulensteen",
@@ -453,6 +508,7 @@ memorable_managers = {
         "date_start": "2013-12-01",
         "date_end": "2014-02-14",
         "fotmob_id": None,
+        "status": "memorable",
     },
     40: {
         "name": "Juande Ramos",
@@ -461,6 +517,7 @@ memorable_managers = {
         "date_start": "2007-10-26",
         "date_end": "2008-10-27",
         "fotmob_id": None,
+        "status": "memorable",
     },
     41: {
         "name": "André Villas-Boas",
@@ -469,6 +526,7 @@ memorable_managers = {
         "date_start": "2012-07-03",
         "date_end": "2013-12-16",
         "fotmob_id": 204241,
+        "status": "memorable",
     },
     42: {
         "name": "André Villas-Boas",
@@ -477,6 +535,7 @@ memorable_managers = {
         "date_start": "2011-07-01",
         "date_end": "2012-03-04",
         "fotmob_id": 204241,
+        "status": "memorable",
     },
     43: {
         "name": "Nuno Espírito Santo",
@@ -485,6 +544,7 @@ memorable_managers = {
         "date_start": "2021-07-01",
         "date_end": "2021-11-01",
         "fotmob_id": 361779,
+        "status": "memorable",
     },
     44: {
         "name": "Alan Pardew",
@@ -493,6 +553,7 @@ memorable_managers = {
         "date_start": "2010-12-09",
         "date_end": "2015-01-02",
         "fotmob_id": 78637,
+        "status": "memorable",
     },
     45: {
         "name": "Louis van Gaal",
@@ -501,6 +562,7 @@ memorable_managers = {
         "date_start": "2014-07-14",
         "date_end": "2016-05-23",
         "fotmob_id": 109077,
+        "status": "memorable",
     },
     46: {
         "name": "Mick McCarthy",
@@ -509,6 +571,7 @@ memorable_managers = {
         "date_start": "2006-07-01",
         "date_end": "2012-02-13",
         "fotmob_id": 174657,
+        "status": "memorable",
     },
     47: {
         "name": "Roberto Di Matteo",
@@ -517,6 +580,7 @@ memorable_managers = {
         "date_start": "2012-03-04",
         "date_end": "2012-11-21",
         "fotmob_id": None,
+        "status": "memorable",
     },
     48: {
         "name": "Avram Grant",
@@ -525,6 +589,7 @@ memorable_managers = {
         "date_start": "2007-09-20",
         "date_end": "2008-05-24",
         "fotmob_id": None,
+        "status": "memorable",
     },
     49: {
         "name": "Steven Gerrard",
@@ -533,5 +598,6 @@ memorable_managers = {
         "date_start": "2021-11-11",
         "date_end": "2022-10-20",
         "fotmob_id": None,
+        "status": "memorable",
     },
 }

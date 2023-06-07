@@ -8,7 +8,7 @@ from main_app import app
 from main_app.models import Match
 from main_app import db
 from main_app.utils import generate_table, get_pl_matches, get_teams_info
-from main_app.managers import current_managers, memorable_managers
+from main_app.managers import managers
 from main_app.teams import NATIONS
 
 CREST_URL = getenv("CREST_URL")
@@ -263,9 +263,14 @@ def matches():
 
 
 # TODO
+# Managers with mutiple clubs issue (doubled key name)
+# Rename managers dict
+# Split current/mem in routes or index
+# Renum managers
+# Change for value to the dict key
+
 # Check if the managers post can be done similar to season
 # Fix css and page routing/stucture
-# Managers with mutiple clubs issue (doubled key name)
 # Add PL logo in homepage and all pages/tables
 # Footer -> Add send email functionality and SupportMe
 # In downloaded imaged add credits and site url
@@ -274,8 +279,6 @@ def matches():
 # Use postgres database instead of sqlite
 # How many page viewers
 # Check about post key viewable in network
-
-# Move csvs to 'csvs' folder
 
 # Create readme
 # Document code
