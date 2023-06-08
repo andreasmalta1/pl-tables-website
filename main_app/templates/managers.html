@@ -8,7 +8,7 @@
     <form action="" method="post">
         {% for manager in current_managers %}
             <label for="currentManager"> <img class="team-logo" src="{{ current_managers[manager]['manager_url'] }}" alt="{{ team }}"></label>
-            <input type="submit" name="currentManager" value="{{ current_managers[manager]['name'] }}"/>
+            <input type="submit" name="{{ manager }}" value="{{ current_managers[manager]['name'] }}"/>
             <label for="currentManager"> <img class="team-logo" src="{{ current_managers[manager]['nationality_url'] }}" alt="{{ team }}"></label>
             <label for="currentManager"> <img class="team-logo" src="{{ current_managers[manager]['club_url'] }}" alt="{{ team }}"></label>
             <label for="currentManager">{{ current_managers[manager]['date_start'] }}</label>
@@ -20,7 +20,7 @@
     <form action="" method="post">
         {% for manager in memorable_managers %}
             <label for="memorableManager"> <img class="team-logo" src="{{ memorable_managers[manager]['manager_url'] }}" alt="{{ team }}"></label>
-            <input type="submit" name="memorableManager" value="{{ memorable_managers[manager]['name'] }}"/>
+            <input type="submit" name="{{ manager}}" value="{{ memorable_managers[manager]['name'] }}"/>
             <label for="memorableManager"> <img class="team-logo" src="{{ memorable_managers[manager]['nationality_url'] }}" alt="{{ team }}"></label>
             <label for="memorableManager"> <img class="team-logo" src="{{ memorable_managers[manager]['club_url'] }}" alt="{{ team }}"></label>
             <label for="memorableManager">{{ memorable_managers[manager]['date_start'] }}</label>

@@ -1,4 +1,4 @@
-managers = {
+managers_dict = {
     1: {
         "name": "Jürgen Klopp",
         "nationality": "Germany",
@@ -159,7 +159,7 @@ managers = {
         "fotmob_id": 163300,
         "status": "current",
     },
-    1: {
+    21: {
         "name": "Sir Alex Ferguson",
         "nationality": "Scotland",
         "club": "Manchester United",
@@ -168,7 +168,7 @@ managers = {
         "fotmob_id": None,
         "status": "memorable",
     },
-    2: {
+    22: {
         "name": "Arsène Wenger",
         "nationality": "France",
         "club": "Arsenal FC",
@@ -177,7 +177,7 @@ managers = {
         "fotmob_id": None,
         "status": "memorable",
     },
-    3: {
+    23: {
         "name": "Pep Guardiola",
         "nationality": "Spain",
         "club": "Manchester City",
@@ -186,7 +186,7 @@ managers = {
         "fotmob_id": 41636,
         "status": "memorable",
     },
-    4: {
+    24: {
         "name": "Jürgen Klopp",
         "nationality": "Germany",
         "club": "Liverpool FC",
@@ -195,7 +195,7 @@ managers = {
         "fotmob_id": 78660,
         "status": "memorable",
     },
-    5: {
+    25: {
         "name": "Rafael Benitez",
         "nationality": "Spain",
         "club": "Liverpool FC",
@@ -204,7 +204,7 @@ managers = {
         "fotmob_id": 78630,
         "status": "memorable",
     },
-    6: {
+    26: {
         "name": "Jose Mourinho",
         "nationality": "Portugal",
         "club": "Chelsea FC",
@@ -213,7 +213,7 @@ managers = {
         "fotmob_id": 78719,
         "status": "memorable",
     },
-    7: {
+    27: {
         "name": "Jose Mourinho",
         "nationality": "Portugal",
         "club": "Manchester United",
@@ -222,7 +222,7 @@ managers = {
         "fotmob_id": 78719,
         "status": "memorable",
     },
-    8: {
+    28: {
         "name": "Jose Mourinho",
         "nationality": "Portugal",
         "club": "Tottenham Hotspur",
@@ -231,7 +231,7 @@ managers = {
         "fotmob_id": 78719,
         "status": "memorable",
     },
-    9: {
+    29: {
         "name": "Roberto Mancini",
         "nationality": "Italy",
         "club": "Manchester City",
@@ -240,7 +240,7 @@ managers = {
         "fotmob_id": 78702,
         "status": "memorable",
     },
-    10: {
+    30: {
         "name": "Antonio Conte",
         "nationality": "Italy",
         "club": "Chelsea FC",
@@ -249,7 +249,7 @@ managers = {
         "fotmob_id": None,
         "status": "memorable",
     },
-    11: {
+    31: {
         "name": "Antonio Conte",
         "nationality": "Italy",
         "club": "Tottenham Hotspur",
@@ -258,7 +258,7 @@ managers = {
         "fotmob_id": None,
         "status": "memorable",
     },
-    12: {
+    32: {
         "name": "Ralf Rangnick",
         "nationality": "Germany",
         "club": "Manchester United",
@@ -267,7 +267,7 @@ managers = {
         "fotmob_id": 148889,
         "status": "memorable",
     },
-    13: {
+    33: {
         "name": "Harry Redknapp",
         "nationality": "England",
         "club": "Tottenham Hotspur",
@@ -276,7 +276,7 @@ managers = {
         "fotmob_id": None,
         "status": "memorable",
     },
-    14: {
+    34: {
         "name": "Claudio Ranieri",
         "nationality": "Italy",
         "club": "Leicester City",
@@ -285,7 +285,7 @@ managers = {
         "fotmob_id": 78620,
         "status": "memorable",
     },
-    15: {
+    35: {
         "name": "Frank Lampard",
         "nationality": "England",
         "club": "Chelsea FC",
@@ -294,7 +294,7 @@ managers = {
         "fotmob_id": 942244,
         "status": "memorable",
     },
-    16: {
+    36: {
         "name": "Frank Lampard",
         "nationality": "England",
         "club": "Everton FC",
@@ -303,7 +303,7 @@ managers = {
         "fotmob_id": 942244,
         "status": "memorable",
     },
-    17: {
+    37: {
         "name": "Sean Dyche",
         "nationality": "England",
         "club": "Everton FC",
@@ -312,7 +312,7 @@ managers = {
         "fotmob_id": 24581,
         "status": "memorable",
     },
-    18: {
+    38: {
         "name": "David Moyes",
         "nationality": "Scotland",
         "club": "Everton FC",
@@ -321,7 +321,7 @@ managers = {
         "fotmob_id": 78626,
         "status": "memorable",
     },
-    19: {
+    39: {
         "name": "David Moyes",
         "nationality": "Scotland",
         "club": "Everton FC",
@@ -330,7 +330,7 @@ managers = {
         "fotmob_id": 78626,
         "status": "memorable",
     },
-    20: {
+    40: {
         "name": "Frank de Boer",
         "nationality": "Netherlands",
         "club": "Crystal Palace",
@@ -339,7 +339,7 @@ managers = {
         "fotmob_id": 240019,
         "status": "memorable",
     },
-    21: {
+    41: {
         "name": "Thomas Tuchel",
         "nationality": "Germany",
         "club": "Chelsea FC",
@@ -348,7 +348,7 @@ managers = {
         "fotmob_id": 179347,
         "status": "memorable",
     },
-    22: {
+    42: {
         "name": "Carlo Ancelotti",
         "nationality": "Italy",
         "club": "Chelsea FC",
@@ -357,7 +357,7 @@ managers = {
         "fotmob_id": 78619,
         "status": "memorable",
     },
-    23: {
+    43: {
         "name": "Sam Allardyce",
         "nationality": "England",
         "club": "Bolton Wanderers",
@@ -366,7 +366,7 @@ managers = {
         "fotmob_id": 78740,
         "status": "memorable",
     },
-    24: {
+    44: {
         "name": "Sam Allardyce",
         "nationality": "England",
         "club": "West Ham United",
@@ -375,7 +375,7 @@ managers = {
         "fotmob_id": 78740,
         "status": "memorable",
     },
-    25: {
+    45: {
         "name": "Sam Allardyce",
         "nationality": "England",
         "club": "Leeds United",
@@ -384,7 +384,7 @@ managers = {
         "fotmob_id": 78740,
         "status": "memorable",
     },
-    26: {
+    46: {
         "name": "Kevin Keegan",
         "nationality": "England",
         "club": "Newcastle United",
@@ -393,7 +393,7 @@ managers = {
         "fotmob_id": None,
         "status": "memorable",
     },
-    27: {
+    47: {
         "name": "Paul Jewell",
         "nationality": "England",
         "club": "Derby County",
@@ -402,7 +402,7 @@ managers = {
         "fotmob_id": None,
         "status": "memorable",
     },
-    28: {
+    48: {
         "name": "Jan Siewert",
         "nationality": "Germany",
         "club": "Huddersfield Town",
@@ -411,7 +411,7 @@ managers = {
         "fotmob_id": 1017904,
         "status": "memorable",
     },
-    29: {
+    49: {
         "name": "Les Reed",
         "nationality": "England",
         "club": "Charlton Athletic",
@@ -420,7 +420,7 @@ managers = {
         "fotmob_id": None,
         "status": "memorable",
     },
-    30: {
+    50: {
         "name": "Terry Connor",
         "nationality": "England",
         "club": "Wolverhampton Wanderers",
@@ -429,7 +429,7 @@ managers = {
         "fotmob_id": None,
         "status": "memorable",
     },
-    31: {
+    51: {
         "name": "Remi Garde",
         "nationality": "France",
         "club": "Aston Villa",
@@ -438,7 +438,7 @@ managers = {
         "fotmob_id": 270666,
         "status": "memorable",
     },
-    32: {
+    52: {
         "name": "Chris Hutchings",
         "nationality": "England",
         "club": "Wigan Athletic",
@@ -447,7 +447,7 @@ managers = {
         "fotmob_id": None,
         "status": "memorable",
     },
-    33: {
+    53: {
         "name": "Ole Gunnar Solskjaer",
         "nationality": "Norway",
         "club": "Cardiff City",
@@ -456,7 +456,7 @@ managers = {
         "fotmob_id": None,
         "status": "memorable",
     },
-    34: {
+    54: {
         "name": "Ole Gunnar Solskjaer",
         "nationality": "Norway",
         "club": "Manchester United",
@@ -465,7 +465,7 @@ managers = {
         "fotmob_id": None,
         "status": "memorable",
     },
-    35: {
+    55: {
         "name": "Bob Bradley",
         "nationality": "USA",
         "club": "Swansea City",
@@ -474,7 +474,7 @@ managers = {
         "fotmob_id": 80653,
         "status": "memorable",
     },
-    36: {
+    56: {
         "name": "Felix Magath",
         "nationality": "Germany",
         "club": "Fulham FC",
@@ -483,7 +483,7 @@ managers = {
         "fotmob_id": 79318,
         "status": "memorable",
     },
-    37: {
+    57: {
         "name": "Nathan Jones",
         "nationality": "Wales",
         "club": "Southampton FC",
@@ -492,7 +492,7 @@ managers = {
         "fotmob_id": 519886,
         "status": "memorable",
     },
-    38: {
+    58: {
         "name": "Paolo Di Canio",
         "nationality": "Italy",
         "club": "Sunderland AFC",
@@ -501,7 +501,7 @@ managers = {
         "fotmob_id": 519886,
         "status": "memorable",
     },
-    39: {
+    59: {
         "name": "René Meulensteen",
         "nationality": "Netherlands",
         "club": "Fulham FC",
@@ -510,7 +510,7 @@ managers = {
         "fotmob_id": None,
         "status": "memorable",
     },
-    40: {
+    60: {
         "name": "Juande Ramos",
         "nationality": "Spain",
         "club": "Tottenham Hotspur",
@@ -519,7 +519,7 @@ managers = {
         "fotmob_id": None,
         "status": "memorable",
     },
-    41: {
+    61: {
         "name": "André Villas-Boas",
         "nationality": "Portugal",
         "club": "Tottenham Hotspur",
@@ -528,7 +528,7 @@ managers = {
         "fotmob_id": 204241,
         "status": "memorable",
     },
-    42: {
+    62: {
         "name": "André Villas-Boas",
         "nationality": "Portugal",
         "club": "Chelsea FC",
@@ -537,7 +537,7 @@ managers = {
         "fotmob_id": 204241,
         "status": "memorable",
     },
-    43: {
+    63: {
         "name": "Nuno Espírito Santo",
         "nationality": "Portugal",
         "club": "Tottenham Hotspur",
@@ -546,7 +546,7 @@ managers = {
         "fotmob_id": 361779,
         "status": "memorable",
     },
-    44: {
+    64: {
         "name": "Alan Pardew",
         "nationality": "England",
         "club": "Newcastle United",
@@ -555,7 +555,7 @@ managers = {
         "fotmob_id": 78637,
         "status": "memorable",
     },
-    45: {
+    65: {
         "name": "Louis van Gaal",
         "nationality": "Netherlands",
         "club": "Manchester United",
@@ -564,7 +564,7 @@ managers = {
         "fotmob_id": 109077,
         "status": "memorable",
     },
-    46: {
+    66: {
         "name": "Mick McCarthy",
         "nationality": "Ireland",
         "club": "Wolverhampton Wanderers",
@@ -573,7 +573,7 @@ managers = {
         "fotmob_id": 174657,
         "status": "memorable",
     },
-    47: {
+    67: {
         "name": "Roberto Di Matteo",
         "nationality": "Italy",
         "club": "Chelsea FC",
@@ -582,7 +582,7 @@ managers = {
         "fotmob_id": None,
         "status": "memorable",
     },
-    48: {
+    68: {
         "name": "Avram Grant",
         "nationality": "Israel",
         "club": "Chelsea FC",
@@ -591,7 +591,7 @@ managers = {
         "fotmob_id": None,
         "status": "memorable",
     },
-    49: {
+    69: {
         "name": "Steven Gerrard",
         "nationality": "England",
         "club": "Aston Villa",

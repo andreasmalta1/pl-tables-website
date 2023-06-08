@@ -8,7 +8,7 @@ from main_app import app
 from main_app.models import Match
 from main_app import db
 from main_app.utils import generate_table, get_pl_matches, get_teams_info
-from main_app.managers import managers
+from main_app.managers import managers_dict
 from main_app.teams import NATIONS
 
 CREST_URL = getenv("CREST_URL")
@@ -65,80 +65,91 @@ def custom_dates():
 @app.route("/managers", methods=["GET", "POST"])
 def managers():
     if request.method == "POST":
-        current_manager = request.form.get("currentManager")
-        if current_manager:
-            manager_start = current_managers[current_manager]["date_start"]
+        manager_ids = len(managers_dict)
+        for manager_id in range(1, manager_ids + 1):
+            manager = request.form.get(str(manager_id))
+            if manager:
+                break
+
+        if managers_dict[manager_id]["status"] == "current":
+            manager_start = managers_dict[manager_id]["date_start"]
             data = {
                 "start_date": manager_start,
                 "end_date": datetime.strftime(date.today(), "%Y-%m-%d"),
             }
 
-            response = requests.post(url_for("custom_dates", _external=True), data=data)
-            return response.content
-
-        memorable_manager = request.form.get("memorableManager")
-        if memorable_manager:
-            manager_start = memorable_managers[memorable_manager]["date_start"]
-            manager_end = memorable_managers[memorable_manager]["date_end"]
+        if managers_dict[manager_id]["status"] == "memorable":
+            manager_start = managers_dict[manager_id]["date_start"]
+            manager_end = managers_dict[manager_id]["date_end"]
             if manager_end == "today":
                 manager_end = datetime.strftime(date.today(), "%Y-%m-%d")
             data = {"start_date": manager_start, "end_date": manager_end}
 
-            response = requests.post(url_for("custom_dates", _external=True), data=data)
-            return response.content
+        response = requests.post(url_for("custom_dates", _external=True), data=data)
+        return response.content
 
     if request.method == "GET":
-        for manager in current_managers:
-            date_start = current_managers[manager]["date_start"].split("-")
-            date_today = date.today()
-            d0 = date(int(date_start[0]), int(date_start[1]), int(date_start[2]))
-            delta = date_today - d0
+        current_managers, memorable_managers = {}, {}
 
-            current_managers[manager]["days_in_charge"] = delta.days
-            current_managers[manager][
-                "manager_url"
-            ] = f"{MANAGER_FACE_URL}{current_managers[manager]['fotmob_id']}.png"
-            current_managers[manager][
-                "nationality_url"
-            ] = f"{CREST_URL}{NATIONS.get(current_managers[manager]['nationality'])}.png"
-            current_managers[manager][
-                "club_url"
-            ] = f"{CREST_URL}{TEAMS.get(current_managers[manager]['club'])['logo_id']}.png"
+        for manager_id in managers_dict:
+            if managers_dict[manager_id]["status"] == "current":
+                current_managers[manager_id] = managers_dict[manager_id]
+
+                date_start = current_managers[manager_id]["date_start"].split("-")
+                date_today = date.today()
+                d0 = date(int(date_start[0]), int(date_start[1]), int(date_start[2]))
+                delta = date_today - d0
+
+                current_managers[manager_id]["days_in_charge"] = delta.days
+                current_managers[manager_id][
+                    "manager_url"
+                ] = f"{MANAGER_FACE_URL}{current_managers[manager_id]['fotmob_id']}.png"
+                current_managers[manager_id][
+                    "nationality_url"
+                ] = f"{CREST_URL}{NATIONS.get(current_managers[manager_id]['nationality'])}.png"
+                current_managers[manager_id][
+                    "club_url"
+                ] = f"{CREST_URL}{TEAMS.get(current_managers[manager_id]['club'])['logo_id']}.png"
+
+            if managers_dict[manager_id]["status"] == "memorable":
+                memorable_managers[manager_id] = managers_dict[manager_id]
+                date_start = memorable_managers[manager_id]["date_start"].split("-")
+                date_end = memorable_managers[manager_id]["date_end"]
+                if date_end == "today":
+                    date_end = date.today()
+                    memorable_managers[manager_id]["date_end"] = datetime.strftime(
+                        date.today(), "%Y-%m-%d"
+                    )
+                else:
+                    date_end = date_end.split("-")
+                    date_end = date(
+                        int(date_end[0]), int(date_end[1]), int(date_end[2])
+                    )
+
+                d0 = date(int(date_start[0]), int(date_start[1]), int(date_start[2]))
+                delta = date_end - d0
+
+                memorable_managers[manager_id]["days_in_charge"] = delta.days
+                if memorable_managers[manager_id]["fotmob_id"]:
+                    memorable_managers[manager_id][
+                        "manager_url"
+                    ] = f"{MANAGER_FACE_URL}{memorable_managers[manager_id]['fotmob_id']}.png"
+                else:
+                    memorable_managers[manager_id]["manager_url"] = f"{EMPTY_FACE_URL}"
+
+                memorable_managers[manager_id][
+                    "nationality_url"
+                ] = f"{CREST_URL}{NATIONS.get(memorable_managers[manager_id]['nationality'])}.png"
+                memorable_managers[manager_id][
+                    "club_url"
+                ] = f"{CREST_URL}{TEAMS.get(memorable_managers[manager_id]['club'])['logo_id']}.png"
 
         sorted_current_managers = sorted(
-            current_managers.items(), key=lambda x: x[1]["days_in_charge"], reverse=True
+            current_managers.items(),
+            key=lambda x: x[1]["days_in_charge"],
+            reverse=True,
         )
         sorted_current_managers = dict(sorted_current_managers)
-
-        for manager in memorable_managers:
-            date_start = memorable_managers[manager]["date_start"].split("-")
-            date_end = memorable_managers[manager]["date_end"]
-            if date_end == "today":
-                date_end = date.today()
-                memorable_managers[manager]["date_end"] = datetime.strftime(
-                    date.today(), "%Y-%m-%d"
-                )
-            else:
-                date_end = date_end.split("-")
-                date_end = date(int(date_end[0]), int(date_end[1]), int(date_end[2]))
-
-            d0 = date(int(date_start[0]), int(date_start[1]), int(date_start[2]))
-            delta = date_end - d0
-
-            memorable_managers[manager]["days_in_charge"] = delta.days
-            if memorable_managers[manager]["fotmob_id"]:
-                memorable_managers[manager][
-                    "manager_url"
-                ] = f"{MANAGER_FACE_URL}{memorable_managers[manager]['fotmob_id']}.png"
-            else:
-                memorable_managers[manager]["manager_url"] = f"{EMPTY_FACE_URL}"
-
-            memorable_managers[manager][
-                "nationality_url"
-            ] = f"{CREST_URL}{NATIONS.get(memorable_managers[manager]['nationality'])}.png"
-            memorable_managers[manager][
-                "club_url"
-            ] = f"{CREST_URL}{TEAMS.get(memorable_managers[manager]['club'])['logo_id']}.png"
 
         sorted_memorable_managers = sorted(
             memorable_managers.items(),
@@ -263,11 +274,6 @@ def matches():
 
 
 # TODO
-# Managers with mutiple clubs issue (doubled key name)
-# Rename managers dict
-# Split current/mem in routes or index
-# Renum managers
-# Change for value to the dict key
 
 # Check if the managers post can be done similar to season
 # Fix css and page routing/stucture
