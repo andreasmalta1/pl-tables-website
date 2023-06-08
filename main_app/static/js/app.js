@@ -4,3 +4,7 @@ document.getElementById('end_date').max = max = new Date().toISOString().split("
 if (!endDate){
     document.getElementById('end_date').valueAsDate = new Date();
 }
+
+if (!startDate){
+    document.getElementById('start_date').valueAsDate = new Date();
+}

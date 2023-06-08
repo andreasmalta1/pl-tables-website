@@ -84,6 +84,17 @@
             let endDate = null
         </script>
     {% endif %}
+
+    {% if start_date %}
+        <script type="text/javascript">
+            let startDate = {{ start_date|tojson }}
+        </script>
+    {% else %}
+        <script type="text/javascript">
+            let startDate = null
+        </script>
+    {% endif %}
+
     <script src="{{ url_for('static', filename='js/app.js') }}"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
     <script src="{{ url_for('static', filename='js/download_image.js') }}"></script>
