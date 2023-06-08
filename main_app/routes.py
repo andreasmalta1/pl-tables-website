@@ -274,10 +274,12 @@ def matches():
 
 
 # TODO
+# In custom dates, put default start date to yesterday or today
 # Fix css and page routing/stucture
 # Media queries
 # In downloaded images add credits and site url
 # Footer -> Add send email functionality and SupportMe
+# Create contact us page (transparent look)
 
 # Check if the managers post request can be done similar to season
 

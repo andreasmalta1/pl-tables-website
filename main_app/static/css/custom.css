@@ -1,0 +1,31 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+label{
+    width: 100px;
+    border-radius: 10px;
+}
+
+.form{
+    display: flex;
+    width: 250px;
+    margin: 20px auto;
+    font-size: 1.1rem;
+}
+
+input[type="date"]{
+    background: transparent;
+    border: none;
+    text-align: right; 
+    margin: 10px 0
+}
+
+.label{
+    margin: 10px 0
+}

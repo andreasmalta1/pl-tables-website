@@ -1,66 +1,77 @@
 {%   extends 'base.html' %}
 
-{% block styles %} <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}"> {% endblock %}
-{% block title %} PL Tables | Home {% endblock %}
+{% block styles %} 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+{% endblock %}
+{% block title %} PL Tables | Custom Dates {% endblock %}
 
 {% block content %}
-    <form action="" method="POST">
-        <label for="start_date">Start Date:</label>
-        {% if start_date %}
-            <input type="date" id="start_date" name="start_date" value={{ start_date }}>
-        {% else %}
-            <input type="date" id="start_date" name="start_date">
-        {% endif %}
+    <div class="container">
+        <div class="row form">
+            <form action="" method="POST">
+                <label for="start_date">Start Date:</label>
+                {% if start_date %}
+                    <input type="date" id="start_date" name="start_date" value={{ start_date }}>
+                {% else %}
+                    <input type="date" id="start_date" name="start_date">
+                {% endif %}
+                <br>
+                <label for="end_date">End Date:</label>
+                {% if end_date %}
+                    <input type="date" id="end_date" name="end_date" value={{ end_date }}>
+                {% else %}
+                    <input type="date" id="end_date" name="end_date">
+                {% endif %}
         
-        <label for="end_date">End Date:</label>
-        {% if end_date %}
-            <input type="date" id="end_date" name="end_date" value={{ end_date }}>
-        {% else %}
-            <input type="date" id="end_date" name="end_date">
-        {% endif %}
+                <input class="down-button" type="submit" value="Get Standings">
+            </form>
+        </div>
+        <div class="row">
+            {% if standings_table %}
+                <h2 class="title">Standings</h2>
+                <table class="standing-table" id="pl-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th></th>
+                            <th class="team">Team</th>
+                            <th>MP</th>
+                            <th>W</th>
+                            <th>D</th>
+                            <th>L</th>
+                            <th>GF</th>
+                            <th>GA</th>
+                            <th>GD</th>
+                            <th>PTS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for team, stats in standings_table %}
+                            <tr>
+                                <td>{{ stats['rk'] }}</td>
+                                <td><img class="team-logo" src="{{ stats['url'] }}" alt="{{ team }}"></td>
+                                <td class="team no-border-left">{{ team }}</td>
+                                <td>{{ stats['played'] }}</td>
+                                <td>{{ stats['win'] }}</td>
+                                <td>{{ stats['draw'] }}</td>
+                                <td>{{ stats['loss'] }}</td>
+                                <td>{{ stats['goals_for'] }}</td>
+                                <td>{{ stats['goals_against'] }}</td>
+                                <td>{{ stats['gd'] }}</td>
+                                <td class="points">{{ stats['points'] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button class="down-button" id="down-table">Download Table</button>
+            {% else %}
+                <h1>No matches were played in this date period</h1>
+            {% endif %}
+        </div>
+    </div>
 
-        <input type="submit" value="Get Results">
-    </form>
-    <br>
-
-    {% if standings_table %}
-        <h2>Standings</h2>
-        <table class="standing-table">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Team</th>
-                    <th>MP</th>
-                    <th>W</th>
-                    <th>D</th>
-                    <th>L</th>
-                    <th>GF</th>
-                    <th>GA</th>
-                    <th>GD</th>
-                    <th>PTS</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for team, stats in standings_table %}
-                    <tr>
-                        <td><img class="team-logo" src="{{ stats['url'] }}" alt="{{ team }}"></td>
-                        <td>{{ team }}</td>
-                        <td>{{ stats['played'] }}</td>
-                        <td>{{ stats['win'] }}</td>
-                        <td>{{ stats['draw'] }}</td>
-                        <td>{{ stats['loss'] }}</td>
-                        <td>{{ stats['goals_for'] }}</td>
-                        <td>{{ stats['goals_against'] }}</td>
-                        <td>{{ stats['gd'] }}</td>
-                        <td>{{ stats['points'] }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        <button id="convert">Convert to image</button>
-    {% else %}
-        <h1>No matches were played in this date period</h1>
-    {% endif %}
+   
 {% endblock %}
 
 {% block scripts %}
