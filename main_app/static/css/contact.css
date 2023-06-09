@@ -104,30 +104,3 @@ form label{
 .link a:hover i{
   color: #FFA535;
 }
-
-.error{
-  width: 400px;
-  margin: 0px auto;
-  padding: 25px 25px; 
-  background: #29183E;
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.close-error{
-  background-color: red;
-  color: black;
-  font-size: 1.5rem;
-  font-weight: bold;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  transition: all 0.3s ease 0s;
-}
-
-.close-error:hover{
-  transform: scale(1.1);
-}
