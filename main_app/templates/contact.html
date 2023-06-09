@@ -58,7 +58,7 @@
         {% endif %}
       {% endwith %}
       {% if form %}
-        <form action="{{ url_for('contact_us') }}" method="post">
+        <form action="{{ url_for('contact.contact_us') }}" method="post">
           {{ form.hidden_tag() }}
           {{ form.name.label }}
           {{ form.name }}
