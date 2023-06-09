@@ -26,6 +26,13 @@ downloadImage = (table) => {
         }
     }
 
+    let row = table.insertRow(-1);
+    let cell = row.insertCell(0);
+
+    cell.innerHTML = "Downloaded from www.pltables.com. Developed by @andreascalleja"
+    cell.colSpan = "10";
+    cell.style.fontSize = "0.75rem"
+
     html2canvas(table)
     .then(async function (canvas) {
         const img = await canvas.toDataURL("image/png")
@@ -35,6 +42,9 @@ downloadImage = (table) => {
         a.click()
         a.remove()
     })
+
+    rowCount = table.rows.length;
+    table.deleteRow(rowCount - 1);
 
     if (columnIndex !== undefined) {
         let rowCount = table.rows.length;

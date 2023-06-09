@@ -16,8 +16,15 @@ app.config["MAIL_PASSWORD"] = getenv("MAIL_PASSWORD")
 
 db = SQLAlchemy(app)
 
-from main_app import routes
+from main_app.api import api
+from main_app.contact import contact
+from main_app.table import table
+
 from main_app import models
+
+app.register_blueprint(api, url_prefix="/")
+app.register_blueprint(contact, url_prefix="/")
+app.register_blueprint(table, url_prefix="/")
 
 
 with app.app_context():
