@@ -8,6 +8,11 @@ load_dotenv()
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = getenv("SQLALCHEMY_DATABASE_URI")
 app.config["SECRET_KEY"] = getenv("SECRET_KEY")
+app.config["MAIL_SERVER"] = getenv("MAIL_SERVER")
+app.config["MAIL_PORT"] = int(getenv("MAIL_PORT"))
+app.config["MAIL_USE_SSL"] = getenv("MAIL_USE_SSL")
+app.config["MAIL_USERNAME"] = getenv("MAIL_USERNAME")
+app.config["MAIL_PASSWORD"] = getenv("MAIL_PASSWORD")
 
 db = SQLAlchemy(app)
 
