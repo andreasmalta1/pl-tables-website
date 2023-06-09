@@ -274,13 +274,11 @@ def matches():
 
 
 # TODO
-# Fix css and page routing/stucture
-# Media queries
+# Create contact us page (transparent look)
 # In downloaded images add credits and site url
 # Footer -> Add send email functionality
-# Create contact us page (transparent look)
-
-# Check if the managers post request can be done similar to season
+# Views blueprints
+# Serialiser (see image)
 
 # Add check to never add already posted matches and never double scrape data (Better to test during the season)
 # Use postgres database instead of sqlite
@@ -289,3 +287,5 @@ def matches():
 
 # Create readme
 # Document code
+
+# Deploy

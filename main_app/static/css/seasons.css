@@ -17,10 +17,6 @@ input{
     flex-wrap: wrap;
 }
 
-.form-hidden{
-    display: none;
-}
-
 #seasons-title{
     transition: 1s ease-out;
     cursor: pointer;

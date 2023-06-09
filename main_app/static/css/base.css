@@ -132,3 +132,7 @@ body, input, li, a, button {
   text-align: center;
   margin: 20px
 }
+
+.form-hidden{
+  display: none;
+}
