@@ -28,6 +28,9 @@ def generate_table(start_date, end_date, season):
         response = get(API_URL, headers=headers)
         matches = response.json()
 
+        if matches.get("msg") == "No Matches Found":
+            return None
+
         if not matches or len(matches) == 0:
             return None
 
