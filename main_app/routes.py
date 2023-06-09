@@ -279,7 +279,7 @@ def contact_us():
     form = ContactForm()
     if request.method == "POST":
         if form.validate() == False:
-            flash("Enter a valid email address", category="error")
+            flash("Enter a valid email address", category="email_contact")
             return render_template("contact.html", form=form)
 
         mail = Mail()
