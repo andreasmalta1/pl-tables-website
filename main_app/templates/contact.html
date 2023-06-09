@@ -20,7 +20,7 @@
               </tr>
               <tr>
                 <td class="label">Teck Stack Used:</td>
-                <td class="data"><i class="fa-solid fa-code"></i> Python + Flask + PostgresSQL</td>
+                <td class="data"><i class="fa-solid fa-code"></i> Python + Flask + PostgreSQL</td>
               </tr>
               <tr>
                 <td class="label">GitHub:</td>
@@ -39,6 +39,24 @@
       </div>
     </div>
     <div class="column">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                {% if category == "email_contact" %}
+                    <div class="error">
+                        <div class="error-column error-message">
+                          {{ message }}
+                        </div>
+                        <div class="error-column">
+                          <button onclick="deleteError(this)" class="close-error error-button">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+      {% endwith %}
       {% if form %}
         <form action="{{ url_for('contact_us') }}" method="post">
           {{ form.hidden_tag() }}
@@ -62,6 +80,8 @@
   <div class="coffee-container">
     <h3 class="coffee"><a href="https://bmc.link/andreascal" target="_blank">Buy Me a Coffee <i class="fa-solid fa-mug-hot"></i></a></h3>
   </div>
-  
+{% endblock %}
 
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/delete_error.js') }}"></script>
 {% endblock %}

@@ -279,7 +279,7 @@ def contact_us():
     form = ContactForm()
     if request.method == "POST":
         if form.validate() == False:
-            flash("Enter a valid email address", category="error")
+            flash("Enter a valid email address", category="email_contact")
             return render_template("contact.html", form=form)
 
         mail = Mail()
@@ -302,7 +302,7 @@ def contact_us():
 
 
 # TODO
-# Errors css & closing button (different for custom and email)
+# Matches error when no matches
 # In downloaded images add credits and site url
 # Views blueprints
 # Serialiser (see image)
