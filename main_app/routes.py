@@ -302,7 +302,7 @@ def contact_us():
 
 
 # TODO
-# Errors css & closing button (different for custom and email)
+# Matches error when no matches
 # In downloaded images add credits and site url
 # Views blueprints
 # Serialiser (see image)
