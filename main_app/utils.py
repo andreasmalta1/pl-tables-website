@@ -91,6 +91,12 @@ def generate_table(start_date, end_date, season):
             key=lambda x: (x[1]["points"], x[1]["gd"]),
             reverse=True,
         )
+
+        rank = 1
+        for team in standings_table:
+            team[1]["rk"] = rank
+            rank += 1
+
         return standings_table
 
     except exceptions.RequestException as e:

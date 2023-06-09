@@ -274,12 +274,11 @@ def matches():
 
 
 # TODO
-
-# Check if the managers post can be done similar to season
-# Fix css and page routing/stucture
-# Add PL logo in homepage and all pages/tables
-# Footer -> Add send email functionality and SupportMe
-# In downloaded imaged add credits and site url
+# Create contact us page (transparent look)
+# In downloaded images add credits and site url
+# Footer -> Add send email functionality
+# Views blueprints
+# Serialiser (see image)
 
 # Add check to never add already posted matches and never double scrape data (Better to test during the season)
 # Use postgres database instead of sqlite
@@ -288,3 +287,5 @@ def matches():
 
 # Create readme
 # Document code
+
+# Deploy

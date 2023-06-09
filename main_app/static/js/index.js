@@ -1,10 +1,13 @@
-const downloadBtn = document.getElementById("down-table")
-const table = document.getElementById("pl-table")
+const currentBtn = document.getElementById("down-current")
+const allBtn = document.getElementById("down-all")
+const currentTable = document.getElementById("current-table")
+const allTable = document.getElementById("all-time-table")
+
 let columnIndex
 
 deletedCells = []
 
-downloadBtn.addEventListener("click", () => {
+downloadImage = (table) => {
     let headerRow = table.getElementsByTagName('tr')[0];
     let headers = headerRow.getElementsByTagName('th');
 
@@ -25,7 +28,7 @@ downloadBtn.addEventListener("click", () => {
 
     html2canvas(table)
     .then(async function (canvas) {
-        const img = await canvas.toDataURL("image/jpeg")
+        const img = await canvas.toDataURL("image/png")
         const a = document.createElement('a')
         a.setAttribute("href", img)
         a.setAttribute("download", "table.png")
@@ -44,4 +47,14 @@ downloadBtn.addEventListener("click", () => {
             }
         }
     }
-})
+}
+
+currentBtn.addEventListener("click",
+    function() {
+        downloadImage(currentTable)
+    }) 
+
+allBtn.addEventListener("click",
+    function() {
+        downloadImage(allTable)
+    }) 

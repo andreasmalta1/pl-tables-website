@@ -1,0 +1,31 @@
+form{
+    display: flex;
+    margin: 0 auto;
+    text-align: center;
+    flex-wrap: wrap;
+    transition: 1s ease-out;
+}
+
+input{
+    width: 150px;
+}
+
+.container{
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+#seasons-title{
+    transition: 1s ease-out;
+    cursor: pointer;
+}
+
+#seasons-title:hover{
+    transform: scale(1.05);
+}
+
+.title span{
+    font-size: 1rem;
+}
