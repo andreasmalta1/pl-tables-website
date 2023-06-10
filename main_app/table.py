@@ -3,9 +3,8 @@ from os import getenv
 from datetime import date, datetime
 import requests
 
-from main_app import app
 from main_app.models import Match
-from main_app.utils import generate_table, get_teams_info
+from main_app.utils import generate_table, get_teams_info, update_visits
 from main_app.managers import managers_dict
 from main_app.teams import NATIONS
 
@@ -22,6 +21,7 @@ table = Blueprint("table", __name__)
 @table.route("/", methods=["GET"])
 @table.route("/home", methods=["GET"])
 def home():
+    update_visits(request.remote_addr, "home")
     seasons = []
     years = Match.query.with_entities(Match.season).distinct().all()
     for year in years:
@@ -39,6 +39,7 @@ def home():
 
 @table.route("/custom", methods=["GET", "POST"])
 def custom_dates():
+    update_visits(request.remote_addr, "custom")
     if request.method == "POST":
         start_date = request.form.get("start_date")
         end_date = request.form.get("end_date")
@@ -64,6 +65,7 @@ def custom_dates():
 
 @table.route("/managers", methods=["GET", "POST"])
 def managers():
+    update_visits(request.remote_addr, "managers")
     if request.method == "POST":
         manager_ids = len(managers_dict)
         for manager_id in range(1, manager_ids + 1):
@@ -169,6 +171,7 @@ def managers():
 
 @table.route("/seasons", methods=["GET", "POST"])
 def seasons():
+    update_visits(request.remote_addr, "seasons")
     seasons = []
     years = Match.query.with_entities(Match.season).distinct().all()
     for year in years:
