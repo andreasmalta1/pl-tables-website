@@ -5,6 +5,8 @@ from os import getenv
 from collections import defaultdict
 from bs4 import BeautifulSoup
 
+from main_app.models import Visit
+
 
 # Function to generate the table of Premier League results
 def generate_table(start_date, end_date, season):
@@ -174,3 +176,8 @@ def get_teams_info():
             team_data[row[1]] = {"team_id": row[0], "logo_id": row[2]}
 
     return team_data
+
+
+def update_visits(ip_address, page_name):
+    visit = Visit()
+    visit.update_visits(user_ip=ip_address, pagename=page_name)
