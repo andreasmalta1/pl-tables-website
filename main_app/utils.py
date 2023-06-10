@@ -121,7 +121,7 @@ def get_pl_matches():
 
     team_data = get_teams_info()
 
-    match_no = 0
+    match_no = 1
     num_rounds = 42
     start_year = int(getenv("START_YEAR"))
     for year in range(start_year, 2023):
