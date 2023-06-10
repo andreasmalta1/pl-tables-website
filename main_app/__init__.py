@@ -14,6 +14,7 @@ app.config["MAIL_USE_SSL"] = getenv("MAIL_USE_SSL")
 app.config["MAIL_USERNAME"] = getenv("MAIL_USERNAME")
 app.config["MAIL_PASSWORD"] = getenv("MAIL_PASSWORD")
 
+# Create db instance
 db = SQLAlchemy(app)
 
 from main_app.api import api
@@ -22,10 +23,11 @@ from main_app.table import table
 
 from main_app import models
 
+# Register blueprints
 app.register_blueprint(api, url_prefix="/")
 app.register_blueprint(contact, url_prefix="/")
 app.register_blueprint(table, url_prefix="/")
 
-
+# Create database if it does not exist
 with app.app_context():
     db.create_all()
