@@ -21,12 +21,21 @@ table = Blueprint("table", __name__)
 @table.route("/", methods=["GET"])
 @table.route("/home", methods=["GET"])
 def home():
+    """
+    Home Route
+    The GET method retrieves and displays the current season's table and the all time PL table.
+    """
+
+    # Add page visit to db
     update_visits(request.remote_addr, "home")
+
+    # Get all unique seasons present in db
     seasons = []
     years = Match.query.with_entities(Match.season).distinct().all()
     for year in years:
         seasons.append(year.season)
 
+    # Retrieve latest seasons to display current PL table
     seasons.sort(reverse=True)
     season = seasons[0]
     current_table = generate_table(None, None, season)
@@ -39,14 +48,24 @@ def home():
 
 @table.route("/custom", methods=["GET", "POST"])
 def custom_dates():
+    """
+    Custom dates route.
+    The POST method gets two dates and displays the PL table in between those dates
+    """
+
+    # Add page visit to db
     update_visits(request.remote_addr, "custom")
+
     if request.method == "POST":
+        # Get the dates from the request
         start_date = request.form.get("start_date")
         end_date = request.form.get("end_date")
 
+        # Format dates to match db entries
         start_date_check = datetime.strptime(start_date, "%Y-%m-%d")
         end_date_check = datetime.strptime(end_date, "%Y-%m-%d")
 
+        # Ensure end date is after start date
         if end_date_check < start_date_check:
             flash("End date must be after start date", category="error")
             return render_template("custom_dates.html")
@@ -65,14 +84,24 @@ def custom_dates():
 
 @table.route("/managers", methods=["GET", "POST"])
 def managers():
+    """
+    Managers route
+    The GET method displays are hardcoded list of mangers and ther times in charge
+    The POST method reroutes to the custom page and shows the table for the time in charge for the chosen manager
+    """
+
+    # Add page visit to db
     update_visits(request.remote_addr, "managers")
+
     if request.method == "POST":
+        # Get the chosen manager from the mangers dict
         manager_ids = len(managers_dict)
         for manager_id in range(1, manager_ids + 1):
             manager = request.form.get(str(manager_id))
             if manager:
                 break
 
+        # Get the managers dates in charge
         if managers_dict[manager_id]["status"] == "current":
             manager_start = managers_dict[manager_id]["date_start"]
             data = {
@@ -87,20 +116,24 @@ def managers():
                 manager_end = datetime.strftime(date.today(), "%Y-%m-%d")
             data = {"start_date": manager_start, "end_date": manager_end}
 
+        # Send request to custom_dates with the managers dates
         response = requests.post(
             url_for("table.custom_dates", _external=True), data=data
         )
         return response.content
 
     if request.method == "GET":
+        # Split the mangagers dict in 2 dictionaries
         current_managers, memorable_managers = {}, {}
+
+        # Get today's date
+        date_today = date.today()
 
         for manager_id in managers_dict:
             if managers_dict[manager_id]["status"] == "current":
                 current_managers[manager_id] = managers_dict[manager_id]
-
+                # Get the managers start date and calculate number of day's in charge
                 date_start = current_managers[manager_id]["date_start"].split("-")
-                date_today = date.today()
                 d0 = date(int(date_start[0]), int(date_start[1]), int(date_start[2]))
                 delta = date_today - d0
 
@@ -117,12 +150,14 @@ def managers():
 
             if managers_dict[manager_id]["status"] == "memorable":
                 memorable_managers[manager_id] = managers_dict[manager_id]
+                # Get manager's start date
                 date_start = memorable_managers[manager_id]["date_start"].split("-")
                 date_end = memorable_managers[manager_id]["date_end"]
+                # Get managers end day even if manager is still active
                 if date_end == "today":
-                    date_end = date.today()
+                    date_end = date_today
                     memorable_managers[manager_id]["date_end"] = datetime.strftime(
-                        date.today(), "%Y-%m-%d"
+                        date_today, "%Y-%m-%d"
                     )
                 else:
                     date_end = date_end.split("-")
@@ -148,6 +183,7 @@ def managers():
                     "club_url"
                 ] = f"{CREST_URL}{TEAMS.get(memorable_managers[manager_id]['club'])['logo_id']}.png"
 
+        # Sort managers by days in charge
         sorted_current_managers = sorted(
             current_managers.items(),
             key=lambda x: x[1]["days_in_charge"],
@@ -171,12 +207,22 @@ def managers():
 
 @table.route("/seasons", methods=["GET", "POST"])
 def seasons():
+    """
+    Seasons route
+    The GET method displays all the seasons from 1992.
+    THE POST method shows the table for the chosen seasons
+    """
+
+    # Add page visit to db
     update_visits(request.remote_addr, "seasons")
+
+    # Get all unique seasons present in db
     seasons = []
     years = Match.query.with_entities(Match.season).distinct().all()
     for year in years:
         seasons.append(year.season)
 
+    # Sort them from most recent down
     seasons.sort(reverse=True)
 
     if request.method == "POST":

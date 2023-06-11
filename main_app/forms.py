@@ -3,6 +3,7 @@ from wtforms import StringField, TextAreaField, SubmitField
 from wtforms.validators import DataRequired, Email
 
 
+# Contact us form
 class ContactForm(FlaskForm):
     name = StringField(
         "Name",
@@ -11,12 +12,17 @@ class ContactForm(FlaskForm):
     )
     email = StringField(
         "Email",
-        validators=[DataRequired(message="Please enter your email address"), Email()], render_kw={"placeholder": "Please enter your email address"}
+        validators=[DataRequired(message="Please enter your email address"), Email()],
+        render_kw={"placeholder": "Please enter your email address"},
     )
     subject = StringField(
-        "Subject", validators=[DataRequired(message="Please enter a subject.")], render_kw={"placeholder": "Please enter your subject"}
+        "Subject",
+        validators=[DataRequired(message="Please enter a subject.")],
+        render_kw={"placeholder": "Please enter your subject"},
     )
     message = TextAreaField(
-        "Message", validators=[DataRequired(message="Please enter a message.")], render_kw={"placeholder": "Please enter your message"}
+        "Message",
+        validators=[DataRequired(message="Please enter a message.")],
+        render_kw={"placeholder": "Please enter your message"},
     )
     submit = SubmitField("Send")

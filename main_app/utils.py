@@ -8,8 +8,19 @@ from bs4 import BeautifulSoup
 from main_app.models import Visit
 
 
-# Function to generate the table of Premier League results
 def generate_table(start_date, end_date, season):
+    """
+    Returns the table for the chose start and end dates.
+
+        Parameters:
+            start_date (str): A date in string format
+            end_date (str): Another date in string format
+
+        Returns:
+            standings_table (dict): A dictionary of teams and their league info
+    """
+
+    # Get teams data including id and logo id
     team_data = get_teams_info()
 
     if start_date and end_date:
@@ -50,6 +61,7 @@ def generate_table(start_date, end_date, season):
             }
         )
 
+        # Go though matches and save data
         for match_id in matches:
             home_team = matches[match_id]["home_team"]["team_name"]
             home_score = matches[match_id]["home_team"]["score"]
@@ -83,6 +95,7 @@ def generate_table(start_date, end_date, season):
                 standings[home_team]["points"] += 1
                 standings[away_team]["points"] += 1
 
+        # Update data with team id and logo
         for team in standings:
             if not standings[team]["url"]:
                 team_id = team_data.get(team)["logo_id"]
@@ -96,6 +109,7 @@ def generate_table(start_date, end_date, season):
             reverse=True,
         )
 
+        # Add ranking
         rank = 1
         for team in standings_table:
             team[1]["rk"] = rank
@@ -109,6 +123,9 @@ def generate_table(start_date, end_date, season):
 
 
 def get_pl_matches():
+    """
+    A utility to scrape PL matches information
+    """
     data = {
         "match_no": [],
         "season": [],
@@ -166,6 +183,7 @@ def get_pl_matches():
 
 
 def get_teams_info():
+    """Return team id and team logo id"""
     team_data = {}
 
     with open("csvs/team_ids.csv", "r") as file:
@@ -179,5 +197,6 @@ def get_teams_info():
 
 
 def update_visits(ip_address, page_name):
+    """Add a user's visit to the Visit model"""
     visit = Visit()
     visit.update_visits(user_ip=ip_address, pagename=page_name)
