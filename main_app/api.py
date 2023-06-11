@@ -31,22 +31,22 @@ def matches():
             csv_reader = csv.DictReader(csv_file)
 
             # Convert each row into a dictionary and add it to data
-        for row in csv_reader:
-            match_date = row["date"].split("/")
-            match_date = date(
-                int(match_date[2]), int(match_date[1]), int(match_date[0])
-            )
-            new_match = Match(
-                season=row["season"],
-                home_team_id=row["home_team_id"],
-                home_team_name=row["home_team_name"],
-                away_team_id=row["away_team_id"],
-                away_team_name=row["away_team_name"],
-                home_score=row["home_score"],
-                away_score=row["away_score"],
-                date=match_date,
-            )
-            db.session.add(new_match)
+            for row in csv_reader:
+                match_date = row["date"].split("/")
+                match_date = date(
+                    int(match_date[2]), int(match_date[1]), int(match_date[0])
+                )
+                new_match = Match(
+                    season=row["season"],
+                    home_team_id=row["home_team_id"],
+                    home_team_name=row["home_team_name"],
+                    away_team_id=row["away_team_id"],
+                    away_team_name=row["away_team_name"],
+                    home_score=row["home_score"],
+                    away_score=row["away_score"],
+                    date=match_date,
+                )
+                db.session.add(new_match)
 
         # Save data to db
         db.session.commit()
