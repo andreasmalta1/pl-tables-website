@@ -20,4 +20,4 @@ This page shows all the current active managers in the Premier League and other 
 
 ## Contact Us
 
-Do you have feedback? Noticed an error? Have a suggestion? Want to support me? Use the contact us page where you can send me a direct email, find my social or even Buy Me A Coffee.
+Do you have feedback? Noticed an error? Have a suggestion? Want to support me? Use the contact us page where you can send me a direct email, find my socials or even Buy Me A Coffee.
