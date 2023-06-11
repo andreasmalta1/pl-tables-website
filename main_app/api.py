@@ -13,11 +13,18 @@ api = Blueprint("api", __name__)
 
 @api.route(f"/matches", methods=["GET", "POST"])
 def matches():
+    """
+    Matches API
+    The POST method, reads the csv containing csv info and saves to the database
+    The GET method retrieves match info and is queryable by dates and seasons.
+    """
+    # Confirm that key authorisation key has been passed and mathces
     authorization_key = request.headers.get("authorization-key")
     if authorization_key != getenv("POST_KEY"):
         return jsonify({"msg": "No authorization key found"})
 
     if request.method == "POST":
+        # Retrieve matches info
         get_pl_matches()
 
         with open("csvs/pl_results.csv", encoding="utf-8") as csv_file:
@@ -41,16 +48,19 @@ def matches():
                 )
                 db.session.add(new_match)
 
+        # Save data to db
         db.session.commit()
         return jsonify({"msg": "Matches added successfully"})
 
     if request.method == "GET":
         data = {}
 
+        # Get headers from GET request
         date_from = request.args.get("dateFrom")
         date_to = request.args.get("dateTo")
         season = request.args.get("season")
 
+        # Query matches with given dates
         if date_from and date_to:
             date_from = date_from.split("-")
             date_to = date_to.split("-")
@@ -70,15 +80,18 @@ def matches():
                 )
             ).all()
 
+        # Query match with given season
         if season:
             matches = Match.query.filter_by(season=season).all()
 
+        # Retrieve all matches
         if not date_from and not date_to and not season:
             matches = Match.query.all()
 
         if not matches:
             return jsonify({"msg": "No Matches Found"})
 
+        # Return matches in json format
         for match in matches:
             data[match.id] = {
                 "season": match.season,

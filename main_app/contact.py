@@ -11,14 +11,22 @@ contact = Blueprint("contact", __name__)
 
 @contact.route("/contact", methods=["GET", "POST"])
 def contact_us():
+    """
+    Generate the contact us page.
+    The POST method, sends an email with the form data
+    """
     form = ContactForm()
     if request.method == "POST":
+        # Ensure that form data is valid
         if form.validate() == False:
             flash("Enter a valid email address", category="email_contact")
             return render_template("contact.html", form=form)
 
+        # Init Mail class
         mail = Mail()
         mail.init_app(app)
+
+        # Send a message with data collected from form
         msg = Message(
             form.subject.data,
             sender=form.email.data,
