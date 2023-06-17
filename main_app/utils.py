@@ -4,8 +4,10 @@ from requests import get, exceptions
 from os import getenv
 from collections import defaultdict
 from bs4 import BeautifulSoup
+from datetime import date
 
-from main_app.models import Visit
+from main_app.models import Visit, Match
+from main_app import db
 
 
 def generate_table(start_date, end_date, season):
@@ -24,27 +26,40 @@ def generate_table(start_date, end_date, season):
     team_data = get_teams_info()
 
     if start_date and end_date:
-        API_URL = (
-            f"{getenv('HOST_NAME')}/matches?dateFrom={start_date}&dateTo={end_date}"
-        )
+        date_from = start_date.split("-")
+        date_to = end_date.split("-")
+        matches = Match.query.filter(
+            db.and_(
+                Match.date
+                >= date(
+                    year=int(date_from[0]),
+                    month=int(date_from[1]),
+                    day=int(date_from[2]),
+                ),
+                Match.date
+                <= date(
+                    year=int(date_to[0]), month=int(date_to[1]), day=int(date_to[2])
+                ),
+            )
+        ).all()
 
     if season:
-        API_URL = f"{getenv('HOST_NAME')}/matches?season={season}"
+        matches = Match.query.filter_by(season=season).all()
 
     if not start_date and not end_date and not season:
-        API_URL = f"{getenv('HOST_NAME')}/matches"
+        matches = Match.query.all()
 
-    headers = {"authorization-key": getenv("POST_KEY")}
+    # headers = {"authorization-key": getenv("POST_KEY")}
 
     try:
-        response = get(API_URL, headers=headers)
-        matches = response.json()
+        # response = get(API_URL, headers=headers)
+        # matches = response.json()
 
-        if matches.get("msg") == "No Matches Found":
-            return None
+        # if matches.get("msg") == "No Matches Found":
+        #     return None
 
-        if not matches or len(matches) == 0:
-            return None
+        # if not matches or len(matches) == 0:
+        #     return None
 
         standings = defaultdict(
             lambda: {
@@ -62,11 +77,11 @@ def generate_table(start_date, end_date, season):
         )
 
         # Go though matches and save data
-        for match_id in matches:
-            home_team = matches[match_id]["home_team"]["team_name"]
-            home_score = matches[match_id]["home_team"]["score"]
-            away_team = matches[match_id]["away_team"]["team_name"]
-            away_score = matches[match_id]["away_team"]["score"]
+        for match in matches:
+            home_team = match.home_team_name
+            home_score = match.home_score
+            away_team = match.away_team_name
+            away_score = match.away_score
 
             standings[home_team]["played"] += 1
             standings[away_team]["played"] += 1
