@@ -54,7 +54,7 @@ def custom_dates():
     """
 
     # Add page visit to db
-    update_visits(request.remote_addr, "custom")
+    # update_visits(request.remote_addr, "custom")
 
     if request.method == "POST":
         # Get the dates from the request

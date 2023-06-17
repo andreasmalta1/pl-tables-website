@@ -1,6 +1,6 @@
 import pandas as pd
 import csv
-from requests import get, exceptions
+from requests import get
 from os import getenv
 from collections import defaultdict
 from bs4 import BeautifulSoup
@@ -49,92 +49,76 @@ def generate_table(start_date, end_date, season):
     if not start_date and not end_date and not season:
         matches = Match.query.all()
 
-    # headers = {"authorization-key": getenv("POST_KEY")}
+    standings = defaultdict(
+        lambda: {
+            "team_id": None,
+            "url": None,
+            "played": 0,
+            "win": 0,
+            "draw": 0,
+            "loss": 0,
+            "goals_for": 0,
+            "goals_against": 0,
+            "gd": 0,
+            "points": 0,
+        }
+    )
 
-    try:
-        # response = get(API_URL, headers=headers)
-        # matches = response.json()
+    # Go though matches and save data
+    for match in matches:
+        home_team = match.home_team_name
+        home_score = match.home_score
+        away_team = match.away_team_name
+        away_score = match.away_score
 
-        # if matches.get("msg") == "No Matches Found":
-        #     return None
+        standings[home_team]["played"] += 1
+        standings[away_team]["played"] += 1
 
-        # if not matches or len(matches) == 0:
-        #     return None
+        standings[home_team]["goals_for"] += home_score
+        standings[away_team]["goals_for"] += away_score
 
-        standings = defaultdict(
-            lambda: {
-                "team_id": None,
-                "url": None,
-                "played": 0,
-                "win": 0,
-                "draw": 0,
-                "loss": 0,
-                "goals_for": 0,
-                "goals_against": 0,
-                "gd": 0,
-                "points": 0,
-            }
-        )
+        standings[home_team]["goals_against"] += away_score
+        standings[away_team]["goals_against"] += home_score
 
-        # Go though matches and save data
-        for match in matches:
-            home_team = match.home_team_name
-            home_score = match.home_score
-            away_team = match.away_team_name
-            away_score = match.away_score
+        standings[home_team]["gd"] += home_score - away_score
+        standings[away_team]["gd"] += away_score - home_score
 
-            standings[home_team]["played"] += 1
-            standings[away_team]["played"] += 1
+        # Update points and goal differences based on the result
+        if home_score > away_score:
+            standings[home_team]["win"] += 1
+            standings[away_team]["loss"] += 1
+            standings[home_team]["points"] += 3
+        elif home_score < away_score:
+            standings[home_team]["loss"] += 1
+            standings[away_team]["win"] += 1
+            standings[away_team]["points"] += 3
+        else:
+            standings[home_team]["draw"] += 1
+            standings[away_team]["draw"] += 1
+            standings[home_team]["points"] += 1
+            standings[away_team]["points"] += 1
 
-            standings[home_team]["goals_for"] += home_score
-            standings[away_team]["goals_for"] += away_score
+    # Update data with team id and logo
+    for team in standings:
+        if not standings[team]["url"]:
+            team_id = team_data.get(team)["logo_id"]
+            if team:
+                standings[team]["url"] = f"{getenv('CREST_URL')}{team_id}.png"
 
-            standings[home_team]["goals_against"] += away_score
-            standings[away_team]["goals_against"] += home_score
+    # Sort teams by points and goal differences
+    standings_table = sorted(
+        standings.items(),
+        key=lambda x: (x[1]["points"], x[1]["gd"]),
+        reverse=True,
+    )
 
-            standings[home_team]["gd"] += home_score - away_score
-            standings[away_team]["gd"] += away_score - home_score
+    # Add ranking
+    rank = 1
+    for team in standings_table:
+        team[1]["rk"] = rank
+        rank += 1
 
-            # Update points and goal differences based on the result
-            if home_score > away_score:
-                standings[home_team]["win"] += 1
-                standings[away_team]["loss"] += 1
-                standings[home_team]["points"] += 3
-            elif home_score < away_score:
-                standings[home_team]["loss"] += 1
-                standings[away_team]["win"] += 1
-                standings[away_team]["points"] += 3
-            else:
-                standings[home_team]["draw"] += 1
-                standings[away_team]["draw"] += 1
-                standings[home_team]["points"] += 1
-                standings[away_team]["points"] += 1
-
-        # Update data with team id and logo
-        for team in standings:
-            if not standings[team]["url"]:
-                team_id = team_data.get(team)["logo_id"]
-                if team:
-                    standings[team]["url"] = f"{getenv('CREST_URL')}{team_id}.png"
-
-        # Sort teams by points and goal differences
-        standings_table = sorted(
-            standings.items(),
-            key=lambda x: (x[1]["points"], x[1]["gd"]),
-            reverse=True,
-        )
-
-        # Add ranking
-        rank = 1
-        for team in standings_table:
-            team[1]["rk"] = rank
-            rank += 1
-
-        return standings_table
-
-    except exceptions.RequestException as e:
-        print("An error occurred:", str(e))
-        return None
+    return standings_table
 
 
 def get_pl_matches():

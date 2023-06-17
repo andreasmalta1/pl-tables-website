@@ -64,10 +64,6 @@ def matches():
         if date_from and date_to:
             date_from = date_from.split("-")
             date_to = date_to.split("-")
-            print("******************************")
-            print(date_from)
-            print(date_to)
-            print("******************************")
 
             matches = Match.query.filter(
                 db.and_(
