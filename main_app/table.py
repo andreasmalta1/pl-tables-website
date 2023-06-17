@@ -104,23 +104,22 @@ def managers():
         # Get the managers dates in charge
         if managers_dict[manager_id]["status"] == "current":
             manager_start = managers_dict[manager_id]["date_start"]
-            data = {
-                "start_date": manager_start,
-                "end_date": datetime.strftime(date.today(), "%Y-%m-%d"),
-            }
+            manager_end = datetime.strftime(date.today(), "%Y-%m-%d")
 
         if managers_dict[manager_id]["status"] == "memorable":
             manager_start = managers_dict[manager_id]["date_start"]
             manager_end = managers_dict[manager_id]["date_end"]
             if manager_end == "today":
                 manager_end = datetime.strftime(date.today(), "%Y-%m-%d")
-            data = {"start_date": manager_start, "end_date": manager_end}
 
-        # Send request to custom_dates with the managers dates
-        response = requests.post(
-            url_for("table.custom_dates", _external=True), data=data
+        standings_table = generate_table(manager_start, manager_end, None)
+
+        return render_template(
+            "custom_dates.html",
+            standings_table=standings_table,
+            start_date=manager_start,
+            end_date=manager_end,
         )
-        return response.content
 
     if request.method == "GET":
         # Split the mangagers dict in 2 dictionaries
