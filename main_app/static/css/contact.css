@@ -93,7 +93,7 @@ form label{
 }
 
 .coffee-container{
-  margin: 15px auto;
+  margin: 25px auto;
 }
 
 .coffee{
@@ -149,5 +149,9 @@ form label{
 
   .link a{
     font-size: 2.5rem;
+  }
+
+  .coffee-container{
+    margin: 50px auto;
   }
 }
