@@ -50,3 +50,9 @@ th, td{
 th{
   background-color: black;
 }
+
+@media screen and (max-width: 1000px) {
+  .container{
+      width: 90%;
+  }
+}

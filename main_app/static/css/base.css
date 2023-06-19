@@ -1,3 +1,4 @@
+/* General CSS */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -18,7 +19,9 @@ body, input, li, a, button, input, label, textarea {
   color: #EDF0F1;
   text-decoration: none;
 }
+/* End General CSS */
 
+/* Navbar CSS */
 .navbar-container{
   display: flex;
   justify-content: flex-end;
@@ -56,118 +59,7 @@ body, input, li, a, button, input, label, textarea {
   color: red
 }
 
-.footer-container{
-  background: #29183E;
-  height: auto;
-  padding: 15px 40px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  text-align: center;
-  margin-top: auto;
-}
-
-.footer-title{
-  font-size: 1.2rem;
-  line-height: 3rem;
-}
-
-.footer-list{
-  list-style: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 1rem 0 ;
-}
-
-.footer-item{
-  margin: 0 10px;
-}
-
-.footer-list a{
-  font-size: 1.1rem;
-  transition: all 0.3s ease 0s;
-}
-
-.footer-list a:hover i{
-  color: #52307C;
-}
-
-.footer-bottom{
-  text-align: center;
-}
-
-.footer-bottom p{
-  font-size: 14px;
-  word-spacing: 2px;
-}
-
-.footer-bottom span{
-  opacity: .4;
-}
-
-.team-logo {
-  width: 30px;
-  height: 30px;
-  vertical-align: middle;
-}
-
-.down-button{
-  color: white;
-  border: none;
-  padding: 15px 20px;
-  border-radius: 5px;
-  background-color: #432a61;
-  margin: 15px auto;
-  justify-content: center;
-  transition: .2s ease-in-out 0s;
-  font-weight: bold;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-}
-
-.down-button:hover{
-  transform: scale(1.1);
-  cursor: pointer;
-  color: #432a61;
-  background-color: white;
-}
-
-.title{
-  text-align: center;
-  margin: 20px
-}
-
-.form-hidden{
-  display: none;
-}
-
-.error{
-  width: 400px;
-  margin: 0px auto;
-  padding: 25px 25px; 
-  background: #29183E;
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.close-error{
-  background-color: red;
-  color: black;
-  font-size: 1.5rem;
-  font-weight: bold;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  transition: all 0.3s ease 0s;
-}
-
-.close-error:hover{
-  transform: scale(1.1);
-}
-
+/* Mobile Navbar CSS*/
 .hamburger{
   display: none;
   width: 35px;
@@ -218,30 +110,156 @@ body, input, li, a, button, input, label, textarea {
 }
 
 .mobile-nav a{
-  display: block;
+  display: flex;
   width: 100%;
-  /* max-width: 200px; */
-  margin: 0 auto 16px;
-  text-align: center;
+  margin: auto auto;
   margin-bottom: 16px;
   padding: 12px 16px;
   background-color: #1F103F;
   color: white;
   text-decoration: none;
+  font-size: 1.6rem;
+  height: 6rem;
+  align-items: center;
+  justify-content: center;
 }
 
 .mobile-nav a:hover{
   background-color: #24104F;
 }
 
+.mobile-nav li{
+  list-style: none;
+}
+/* End Mobile Navbar CSS */
+/* End Navbar CSS */
+
+/* Footer CSS */
+.footer-container{
+  background: #29183E;
+  height: auto;
+  padding: 15px 40px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  margin-top: auto;
+}
+
+.footer-title{
+  font-size: 1.2rem;
+  line-height: 3rem;
+}
+
+.footer-list{
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0 ;
+}
+
+.footer-item{
+  margin: 0 10px;
+}
+
+.footer-list a{
+  font-size: 1.1rem;
+  transition: all 0.3s ease 0s;
+}
+
+.footer-list a:hover i{
+  color: #52307C;
+}
+
+.footer-bottom{
+  text-align: center;
+}
+
+.footer-bottom p{
+  font-size: 14px;
+  word-spacing: 2px;
+}
+
+.footer-bottom span{
+  opacity: .4;
+}
+/* End Footer CSS */
+
+/* Flask Errors CSS */
+.error{
+  width: 400px;
+  margin: 0px auto;
+  padding: 25px 25px; 
+  background: #29183E;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.close-error{
+  background-color: red;
+  color: black;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  transition: all 0.3s ease 0s;
+}
+
+.close-error:hover{
+  transform: scale(1.1);
+}
+/* End Flask Errors CSS */
+
+
+
+/* Common CSS */
 .main-content{
   padding-top: 100px;
 }
 
-.mobile-nav li{
-  list-style: none;
+.title{
+  text-align: center;
+  margin: 20px;
+  font-size: 1.6rem
 }
 
+.team-logo {
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
+}
+
+.down-button{
+  color: white;
+  border: none;
+  padding: 15px 20px;
+  border-radius: 5px;
+  background-color: #432a61;
+  margin: 15px auto;
+  justify-content: center;
+  transition: .2s ease-in-out 0s;
+  font-weight: bold;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.down-button:hover{
+  transform: scale(1.1);
+  cursor: pointer;
+  color: #432a61;
+  background-color: white;
+}
+
+.form-hidden{
+  display: none;
+}
+/* End Common CSS */
+
+/* Mobile CSS */
 @media screen and (max-width: 1000px) {
   .hamburger{
     display: block;
@@ -254,4 +272,14 @@ body, input, li, a, button, input, label, textarea {
   .navbar-list{
     display: none;
   }
+
+  .navbar-title a{
+    font-size: 2.5rem;
+  }
+
+  .title{
+    font-size: 1.8rem;
+    padding: 2rem;
+  }
 }
+/* End Mobile CSS */

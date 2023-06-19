@@ -108,3 +108,46 @@ form label{
 .link a:hover i{
   color: #FFA535;
 }
+
+@media screen and (max-width: 1000px) {
+  .container{
+      width: 90%;
+  }
+
+  .column {
+    flex: 100%;
+    margin-bottom: 50px;
+    font-size: 1.7rem;
+  }
+
+  .label{
+    width: fit-content;
+    padding: 1rem;
+  }
+
+  .data{
+    width: fit-content;
+    padding: 1rem;
+  }
+
+  form label, #name, #email, #subject, #message{
+    width: 75%;
+    text-align: center;
+    padding: 1.2rem;
+    margin: 0 auto;
+  }
+
+  #submit{
+    margin-top: 3rem;
+    font-size: 2rem;
+    padding: 1.8rem 4rem;
+  }
+
+  .coffee a{
+    font-size: 3rem;
+  }
+
+  .link a{
+    font-size: 2.5rem;
+  }
+}
