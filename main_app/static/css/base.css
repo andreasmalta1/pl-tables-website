@@ -278,8 +278,12 @@ body, input, li, a, button, input, label, textarea {
   }
 
   .title{
-    font-size: 1.8rem;
+    font-size: 2.5rem;
     padding: 2rem;
+  }
+
+  .down-button{
+    font-size: 1.6rem;
   }
 }
 /* End Mobile CSS */

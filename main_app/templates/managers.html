@@ -22,7 +22,7 @@
                 {% for manager in current_managers %}
                     <tr>
                         <td>
-                            <label for="currentManager"> <img class="team-logo" src="{{ current_managers[manager]['manager_url'] }}" alt="{{ team }}"></label>
+                            <label for="currentManager"> <img class="manager-face" src="{{ current_managers[manager]['manager_url'] }}" alt="{{ team }}"></label>
                         </td>
                         <td class="manager-name">
                             <input class="down-button" type="submit" name="{{ manager }}" value="{{ current_managers[manager]['name'] }}"/>
@@ -63,7 +63,7 @@
                 {% for manager in memorable_managers %}
                     <tr>
                         <td>
-                            <label for="memorableManager"> <img class="team-logo" src="{{ memorable_managers[manager]['manager_url'] }}" alt="{{ team }}"></label>
+                            <label for="memorableManager"> <img class="manager-face" src="{{ memorable_managers[manager]['manager_url'] }}" alt="{{ team }}"></label>
                         </td>
                         <td>
                             <input class="down-button" type="submit" name="{{ manager}}" value="{{ memorable_managers[manager]['name'] }}"/>

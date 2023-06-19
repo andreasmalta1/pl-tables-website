@@ -45,4 +45,8 @@ input{
     .down-button{
         padding: 25px;
     }
+
+    .title span{
+        font-size: 1.6rem;
+    }
   }

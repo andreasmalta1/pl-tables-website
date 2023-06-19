@@ -56,10 +56,5 @@ input[type="date"]{
 
     input[type="date"]{
         font-size: 2rem;
-    }
-
-    .down-button{
-        font-size: 1.9rem;
-    }
-    
+    }    
   }
