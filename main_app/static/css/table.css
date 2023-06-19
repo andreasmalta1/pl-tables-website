@@ -35,3 +35,14 @@ th{
 .standing-table th, .standing-table td{
   width: 20px;
 }
+
+@media screen and (max-width: 1000px) {
+  th, td{
+    padding: 12px;
+    font-size: 1.2rem;
+  }
+
+  table{
+    margin-bottom: 15px;
+  }
+}

@@ -8,22 +8,24 @@
 }
 
 label{
-    width: 100px;
+    width: fit-content;
     border-radius: 10px;
+    font-size: 1.3rem;
 }
 
 .form{
     display: flex;
-    width: 250px;
+    flex-direction: column;
+    width: 60%;
     margin: 20px auto;
-    font-size: 1.1rem;
 }
 
 input[type="date"]{
     background: transparent;
     border: none;
     text-align: right; 
-    margin: 10px 0
+    margin: 10px 0;
+    font-size: 1.2rem;
 }
 
 .label{
@@ -33,3 +35,31 @@ input[type="date"]{
 .error{
     margin-top: 20px;
 }
+
+.row{
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 1000px) {
+    .container{
+        width: 90%;
+    }
+    
+    label{
+        font-size: 2rem;
+    }
+
+    .form{
+        width: 75%;
+        margin: 40px auto;
+    }
+
+    input[type="date"]{
+        font-size: 2rem;
+    }
+
+    .down-button{
+        font-size: 1.9rem;
+    }
+    
+  }
