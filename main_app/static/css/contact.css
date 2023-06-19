@@ -96,6 +96,10 @@ form label{
   margin: 15px auto;
 }
 
+.coffee{
+  text-align: center;
+}
+
 .link a{
   font-size: 1.1rem;
   transition: all 0.3s ease 0s;
