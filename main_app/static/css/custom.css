@@ -1,7 +1,7 @@
 .container{
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 70%;
     margin: 0 auto;
     text-align: center;
     flex-wrap: wrap;
@@ -16,7 +16,7 @@ label{
 .form{
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 70%;
     margin: 20px auto;
 }
 
@@ -37,6 +37,7 @@ input[type="date"]{
 }
 
 .row{
+    width: 75%;
     margin: 0 auto;
 }
 
