@@ -26,8 +26,9 @@
             <table id="pl-table" class="standing-table">
                 <thead>
                     <tr>
+                        <th>#</th>
                         <th></th>
-                        <th>Team</th>
+                        <th class="team">Team</th>
                         <th>MP</th>
                         <th>W</th>
                         <th>D</th>
@@ -41,8 +42,9 @@
                 <tbody>
                     {% for team, stats in standings_table %}
                         <tr>
+                            <td>{{ stats['rk'] }}</td>
                             <td><img class="team-logo" src="{{ stats['url'] }}" alt="{{ team }}"></td>
-                            <td>{{ team }}</td>
+                            <td class="team no-border-left">{{ team }}</td>
                             <td>{{ stats['played'] }}</td>
                             <td>{{ stats['win'] }}</td>
                             <td>{{ stats['draw'] }}</td>
