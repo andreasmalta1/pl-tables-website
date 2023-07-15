@@ -88,11 +88,11 @@ managers_dict = {
         "status": "current",
     },
     12: {
-        "name": "Gary O'Neil",
+        "name": "Andoni Iraola",
         "nationality": "England",
         "club": "AFC Bournemouth",
-        "date_start": "2022-08-30",
-        "fotmob_id": 24393,
+        "date_start": "2023-06-19",
+        "fotmob_id": 33025,
         "status": "current",
     },
     13: {
@@ -144,11 +144,11 @@ managers_dict = {
         "status": "current",
     },
     19: {
-        "name": "Ryan Mason",
-        "nationality": "England",
+        "name": "Ange Postecoglou",
+        "nationality": "Australia",
         "club": "Tottenham Hotspur",
-        "date_start": "2023-04-24",
-        "fotmob_id": 160448,
+        "date_start": "2023-06-06",
+        "fotmob_id": 292198,
         "status": "current",
     },
     20: {

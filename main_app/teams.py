@@ -15,4 +15,5 @@ NATIONS = {
     "USA": 6713,
     "Ireland": 5791,
     "Israel": 8567,
+    "Australia": 6716,
 }
