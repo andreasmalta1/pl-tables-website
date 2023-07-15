@@ -40,10 +40,6 @@ input[type="date"]{
     margin-top: 20px;
 }
 
-.row{
-    margin: 0 auto;
-}
-
 @media screen and (max-width: 1000px) {
     .container{
         width: 90%;
