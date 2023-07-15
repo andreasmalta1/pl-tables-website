@@ -39,10 +39,14 @@ th{
 @media screen and (max-width: 1000px) {
   th, td{
     padding: 12px;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
   }
 
   table{
     margin-bottom: 15px;
+  }
+
+  .points{
+    font-size: 2rem;
   }
 }

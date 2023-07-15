@@ -16,9 +16,13 @@ label{
 .form{
     display: flex;
     flex-direction: column;
-    width: 60%;
     margin: 20px auto;
 }
+
+input{
+    -webkit-appearance: none;
+ }
+ 
 
 input[type="date"]{
     background: transparent;
@@ -36,10 +40,6 @@ input[type="date"]{
     margin-top: 20px;
 }
 
-.row{
-    margin: 0 auto;
-}
-
 @media screen and (max-width: 1000px) {
     .container{
         width: 90%;
@@ -51,10 +51,20 @@ input[type="date"]{
 
     .form{
         width: 75%;
-        margin: 40px auto;
+        margin: 20px auto;
+        margin-bottom: 0px;
     }
 
     input[type="date"]{
         font-size: 2rem;
-    }    
+        text-align: center;
+    }
+
+    .down-button{
+        margin-top: 35px;
+    }
+
+    .no-table{
+        margin-top: 40px;
+    }
   }

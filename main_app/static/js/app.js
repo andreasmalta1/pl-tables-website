@@ -6,5 +6,5 @@ if (!endDate){
 }
 
 if (!startDate){
-    document.getElementById('start_date').valueAsDate = new Date();
+    document.getElementById('start_date').valueAsDate = new Date(Date.now() - 604800000);
 }
