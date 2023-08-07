@@ -6,7 +6,7 @@ from collections import defaultdict
 from bs4 import BeautifulSoup
 from datetime import date
 
-from main_app.models import Visit, Match
+from main_app.models import Visit, Match, CurrentTeams
 from main_app import db
 
 
@@ -45,6 +45,28 @@ def generate_table(start_date, end_date, season):
 
     if season:
         matches = Match.query.filter_by(season=season).all()
+        if not matches:
+            teams = CurrentTeams.query.all()
+            # Sort alphabetical order
+            # Create dict of the teams everything zero
+
+            # standings = defaultdict(
+            #     lambda: {
+            #         "team_id": None,
+            #         "url": None,
+            #         "played": 0,
+            #         "win": 0,
+            #         "draw": 0,
+            #         "loss": 0,
+            #         "goals_for": 0,
+            #         "goals_against": 0,
+            #         "gd": 0,
+            #         "points": 0,
+            #     }
+            # )
+
+            # for team in teams:
+            #     pass
 
     if not start_date and not end_date and not season:
         matches = Match.query.all()

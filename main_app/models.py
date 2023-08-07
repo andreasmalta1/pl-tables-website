@@ -35,3 +35,13 @@ class Visit(db.Model):
         self.user_ip, self.page_name = user_ip, pagename
         db.session.add(self)
         db.session.commit()
+
+
+class CurrentTeams(db.Model):
+    team_name = db.Column(db.String(100), unique=False)
+    team_id = db.Column(db.Integer(), unique=False, primary_key=True)
+    season = db.Column(db.String(9), unique=False)
+
+    def __repr__(self):
+        """Return the string representing a match."""
+        return self.team_name
