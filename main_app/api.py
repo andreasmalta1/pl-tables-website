@@ -4,7 +4,7 @@ from datetime import date
 import csv
 
 from main_app import db
-from main_app.models import Match
+from main_app.models import Match, CurrentTeams
 from main_app.utils import get_pl_matches
 
 
@@ -109,3 +109,62 @@ def matches():
             }
 
         return jsonify(data)
+
+
+@api.route(f"/current-teams", methods=["GET", "POST", "DELETE"])
+def current_teams():
+    """
+    Current Teams API
+    The POST method, reads the csv containing csv info and saves to the database
+    The GET method retrieves current teams info.
+    THE DELETE method delete all records
+    """
+    # Confirm that key authorisation key has been passed and mathces
+    authorization_key = request.headers.get("authorization-key")
+    if authorization_key != getenv("POST_KEY"):
+        return jsonify({"msg": "No authorization key found"})
+
+    if request.method == "POST":
+        with open("csvs/current_teams.csv", encoding="utf-8") as csv_file:
+            csv_reader = csv.DictReader(csv_file)
+
+            # Convert each row into a dictionary and add it to data
+            for row in csv_reader:
+                new_team = CurrentTeams(
+                    season="2023/2024",
+                    team_id=row["team_id"],
+                    team_name=row["team_name"],
+                )
+                db.session.add(new_team)
+
+        # Save data to db
+        db.session.commit()
+        return jsonify({"msg": "Teams added successfully"})
+
+    if request.method == "GET":
+        data = {}
+
+        teams = CurrentTeams.query.all()
+
+        if not teams:
+            return jsonify({"msg": "No Matches Found"})
+
+        # Return teams in json format
+        for team in teams:
+            data[team.team_id] = {
+                "season": team.season,
+                "team_id": team.team_id,
+                "team_name": team.team_name,
+            }
+
+        return jsonify(data)
+
+    if request.method == "DELETE":
+        data = {}
+
+        teams = CurrentTeams.query.all()
+
+        CurrentTeams.query.delete()
+        db.session.commit()
+
+        return jsonify({"msg": "Current teams deleted"})
