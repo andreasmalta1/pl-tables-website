@@ -26,6 +26,12 @@ def home():
     The GET method retrieves and displays the current season's table and the all time PL table.
     """
 
+    # Get the year
+    # Get the date
+    # If it is past July, current table must be for season on current year + 1
+    # If in database no value for matches in current season use the values in the current seasson model
+    # Create API endpoint to add all current teams using one list and delete all current teams
+
     # Add page visit to db
     update_visits(request.remote_addr, "home")
 
