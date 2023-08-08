@@ -10,7 +10,7 @@
         <h1 class="title">PL Match Results</h1>
         <form action="" method="post">
             <label for="match-day">Date:</label>
-            <input type="date" name="match-day">
+            <input type="date" name="match-day" id="datePicker">
             <label for="home-team">Choose home team:</label>
             <select name="home-team">
             {% for team in current_teams %}
@@ -37,8 +37,6 @@
 
 {% endblock %}
 
-<!-- {% block scripts %}
-    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
-    <script src="{{ url_for('static', filename='js/download_image.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/seasons.js') }}"></script>
-{% endblock %} -->
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/post_matches.js') }}"></script>
+{% endblock %}
