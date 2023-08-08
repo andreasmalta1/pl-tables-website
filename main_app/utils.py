@@ -6,7 +6,7 @@ from collections import defaultdict
 from bs4 import BeautifulSoup
 from datetime import date
 
-from main_app.models import Visit, Match
+from main_app.models import Visit, Match, CurrentTeams
 from main_app import db
 
 
@@ -43,12 +43,6 @@ def generate_table(start_date, end_date, season):
             )
         ).all()
 
-    if season:
-        matches = Match.query.filter_by(season=season).all()
-
-    if not start_date and not end_date and not season:
-        matches = Match.query.all()
-
     standings = defaultdict(
         lambda: {
             "team_id": None,
@@ -63,6 +57,40 @@ def generate_table(start_date, end_date, season):
             "points": 0,
         }
     )
+
+    if season:
+        matches = Match.query.filter_by(season=season).all()
+        if not matches:
+            teams = CurrentTeams.query.order_by(CurrentTeams.team_name).all()
+            rank = 1
+            for team in teams:
+                standings[team.team_name]["played"] = 0
+                # rank += 1
+
+            # Update data with team id and logo
+            for team in standings:
+                if not standings[team]["url"]:
+                    team_id = team_data.get(team)["logo_id"]
+                    if team:
+                        standings[team]["url"] = f"{getenv('CREST_URL')}{team_id}.png"
+
+            # Sort teams by points and goal differences
+            standings_table = sorted(
+                standings.items(),
+                key=lambda x: (x[1]["points"], x[1]["gd"]),
+                reverse=True,
+            )
+
+            # Add ranking
+            rank = 1
+            for team in standings_table:
+                team[1]["rk"] = rank
+                rank += 1
+
+            return standings_table
+
+    if not start_date and not end_date and not season:
+        matches = Match.query.all()
 
     # Go though matches and save data
     for match in matches:

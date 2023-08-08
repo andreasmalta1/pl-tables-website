@@ -3,7 +3,7 @@ from os import getenv
 from datetime import date, datetime
 import requests
 
-from main_app.models import Match
+from main_app.models import Match, CurrentTeams
 from main_app.utils import generate_table, get_teams_info, update_visits
 from main_app.managers import managers_dict
 from main_app.teams import NATIONS
@@ -26,18 +26,16 @@ def home():
     The GET method retrieves and displays the current season's table and the all time PL table.
     """
 
+    # Test the following:
+    # 1. Get new matches from website
+    # 2. Add new matches to the database
+
     # Add page visit to db
     update_visits(request.remote_addr, "home")
 
     # Get all unique seasons present in db
-    seasons = []
-    years = Match.query.with_entities(Match.season).distinct().all()
-    for year in years:
-        seasons.append(year.season)
+    season = CurrentTeams.query.first().season
 
-    # Retrieve latest seasons to display current PL table
-    seasons.sort(reverse=True)
-    season = seasons[0]
     current_table = generate_table(None, None, season)
     all_time_table = generate_table(None, None, None)
 
