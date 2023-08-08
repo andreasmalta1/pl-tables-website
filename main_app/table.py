@@ -26,9 +26,6 @@ def home():
     The GET method retrieves and displays the current season's table and the all time PL table.
     """
 
-    # Get the current season from the current teams database
-    # If in database no value for matches in current season use the values in the current season model
-
     # Test the following:
     # 1. Get new matches from website
     # 2. Add new matches to the database
