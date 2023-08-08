@@ -26,10 +26,6 @@ def home():
     The GET method retrieves and displays the current season's table and the all time PL table.
     """
 
-    # Test the following:
-    # 1. Get new matches from website
-    # 2. Add new matches to the database
-
     # Add page visit to db
     update_visits(request.remote_addr, "home")
 
