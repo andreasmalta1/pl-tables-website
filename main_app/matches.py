@@ -18,7 +18,6 @@ matches = Blueprint("matches", __name__)
 @matches.route(f"/matches/{POST_KEY}", methods=["GET", "POST"])
 def new_match_results():
     # Enter multiple matches at once
-    # Check that date exists and team ids is not the same
     # CSS
 
     current_teams = CurrentTeams.query.all()
