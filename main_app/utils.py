@@ -62,10 +62,8 @@ def generate_table(start_date, end_date, season):
         matches = Match.query.filter_by(season=season).all()
         if not matches:
             teams = CurrentTeams.query.order_by(CurrentTeams.team_name).all()
-            rank = 1
             for team in teams:
                 standings[team.team_name]["played"] = 0
-                # rank += 1
 
             # Update data with team id and logo
             for team in standings:
@@ -125,6 +123,21 @@ def generate_table(start_date, end_date, season):
             standings[away_team]["draw"] += 1
             standings[home_team]["points"] += 1
             standings[away_team]["points"] += 1
+
+    if len(standings) < 20 and season:
+        teams = CurrentTeams.query.order_by(CurrentTeams.team_name).all()
+        for team in teams:
+            if not standings.get(team.team_name):
+                standings[team.team_name]["team_id"]: None
+                standings[team.team_name]["url"] = None
+                standings[team.team_name]["played"] = 0
+                standings[team.team_name]["win"] = 0
+                standings[team.team_name]["draw"] = 0
+                standings[team.team_name]["loss"] = 0
+                standings[team.team_name]["goals_for"] = 0
+                standings[team.team_name]["goals_against"] = 0
+                standings[team.team_name]["gd"] = 0
+                standings[team.team_name]["points"] = 0
 
     # Update data with team id and logo
     for team in standings:

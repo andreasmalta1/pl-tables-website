@@ -1,7 +1,6 @@
-from flask import Blueprint, render_template, request, flash, url_for
+from flask import Blueprint, render_template, request, flash
 from os import getenv
 from datetime import date, datetime
-import requests
 
 from main_app.models import Match, CurrentTeams
 from main_app.utils import generate_table, get_teams_info, update_visits
@@ -25,10 +24,6 @@ def home():
     Home Route
     The GET method retrieves and displays the current season's table and the all time PL table.
     """
-
-    # Test the following:
-    # 1. Get new matches from website
-    # 2. Add new matches to the database
 
     # Add page visit to db
     update_visits(request.remote_addr, "home")
