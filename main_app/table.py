@@ -1,7 +1,6 @@
-from flask import Blueprint, render_template, request, flash, url_for
+from flask import Blueprint, render_template, request, flash
 from os import getenv
 from datetime import date, datetime
-import requests
 
 from main_app.models import Match, CurrentTeams
 from main_app.utils import generate_table, get_teams_info, update_visits
