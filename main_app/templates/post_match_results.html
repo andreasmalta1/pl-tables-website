@@ -7,6 +7,26 @@
 
 {% block content %}
     <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    {% if category == "error" %}
+                        <div class="error">
+                            <div class="error-column error-message">
+                                {{ message }}
+                            </div>
+                            <div class="error-column">
+                                <button onclick="deleteError(this)" class="close-error error-button">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+
         <h1 class="title">PL Match Results</h1>
         <form action="" method="post">
             <label for="match-day">Date:</label>
@@ -39,4 +59,5 @@
 
 {% block scripts %}
     <script src="{{ url_for('static', filename='js/post_matches.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/delete_error.js') }}"></script>
 {% endblock %}

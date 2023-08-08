@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash,
+from flask import Blueprint, render_template, request, flash
 from os import getenv
 
 from main_app import db
@@ -17,12 +17,8 @@ matches = Blueprint("matches", __name__)
 
 @matches.route(f"/matches/{POST_KEY}", methods=["GET", "POST"])
 def new_match_results():
-    # Ablilty to post match score or enter a new match
-    # First make sure functionality to get post one match is done.
-    # Then work to enter multiple matches at once
-    # Check that date exists and team ids is not the same
-    # Then CSS
-    # Show all teams when not everyone has played
+    # Enter multiple matches at once
+    # CSS
 
     current_teams = CurrentTeams.query.all()
 
@@ -42,6 +38,12 @@ def new_match_results():
             CurrentTeams.query.filter_by(team_id=away_team_id).first().team_name
         )
         away_score = request.form["away-team-score"]
+
+        if home_team_id == away_team_id:
+            flash("Teams cannot be the same", category="error")
+            return render_template(
+                "post_match_results.html", current_teams=current_teams
+            )
 
         season = CurrentTeams.query.first().season
         new_match = Match(
