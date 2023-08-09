@@ -89,7 +89,7 @@ managers_dict = {
     },
     12: {
         "name": "Andoni Iraola",
-        "nationality": "England",
+        "nationality": "Spain",
         "club": "AFC Bournemouth",
         "date_start": "2023-06-19",
         "fotmob_id": 33025,
@@ -116,8 +116,9 @@ managers_dict = {
         "nationality": "Spain",
         "club": "Wolverhampton Wanderers",
         "date_start": "2022-11-14",
+        "date_end": "2023-08-08",
         "fotmob_id": 396454,
-        "status": "current",
+        "status": "memorable",
     },
     16: {
         "name": "Rob Edwards",
@@ -599,5 +600,13 @@ managers_dict = {
         "date_end": "2022-10-20",
         "fotmob_id": None,
         "status": "memorable",
+    },
+    70: {
+        "name": "Gary O'Neil",
+        "nationality": "England",
+        "club": "Wolverhampton Wanderers",
+        "date_start": "2023-08-09",
+        "fotmob_id": 24393,
+        "status": "current",
     },
 }
