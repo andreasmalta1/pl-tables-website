@@ -31,27 +31,38 @@
         <form action="" method="post">
             <label for="match-day">Date:</label>
             <input type="date" name="match-day" id="datePicker">
+
+            <br>
+            <br>
+
             <label for="home-team">Choose home team:</label>
+
             <select name="home-team">
             {% for team in current_teams %}
                 <option value="{{team.team_id}}">{{team.team_name}}</option>
             {%endfor%}
             </select>
 
-            <label for="home-team-score">Choose home team:</label>
+            <label for="home-team-score">Choose home team score:</label>
             <input type="number" name="home-team-score" value="0" min="0" max="15">
+
+            <br>
+            <br>
             
-            <label for="away-team">Choose home team:</label>
+            <label for="away-team">Choose away team:</label>
             <select name="away-team">
             {% for team in current_teams %}
                 <option value="{{team.team_id}}">{{team.team_name}}</option>
             {%endfor%}
             </select>
 
-            <label for="away-team-score">Choose home team:</label>
+            <label for="away-team-score">Choose away team score:</label>
             <input type="number" name="away-team-score" value="0" min="0" max="15">
             <br>
+            <br>
             <input type="submit" value="Submit">
+            <br>
+            <br>
         </form>
 
 
