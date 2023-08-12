@@ -20,6 +20,7 @@ db = SQLAlchemy(app)
 from main_app.api import api
 from main_app.contact import contact
 from main_app.table import table
+from main_app.matches import matches
 
 from main_app import models
 
@@ -27,6 +28,7 @@ from main_app import models
 app.register_blueprint(api, url_prefix="/")
 app.register_blueprint(contact, url_prefix="/")
 app.register_blueprint(table, url_prefix="/")
+app.register_blueprint(matches, url_prefix="/")
 
 # Create database if it does not exist
 with app.app_context():
