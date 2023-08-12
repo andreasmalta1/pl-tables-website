@@ -149,7 +149,7 @@ def generate_table(start_date, end_date, season):
     # Sort teams by points and goal differences
     standings_table = sorted(
         standings.items(),
-        key=lambda x: (x[1]["points"], x[1]["gd"]),
+        key=lambda x: (x[1]["points"], x[1]["gd"], x[1]["goals_for"]),
         reverse=True,
     )
 
