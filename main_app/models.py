@@ -25,7 +25,7 @@ class Visit(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_ip = db.Column(db.String(15), unique=False)
     page_name = db.Column(db.String(25))
-    date_added = db.Column(db.DateTime(timezone=True), default=func.now())
+    # date_added = db.Column(db.DateTime(timezone=True), default=func.now())s
 
     def __repr__(self):
         """Return the string representing a visit."""
