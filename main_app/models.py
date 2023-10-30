@@ -1,5 +1,4 @@
 from main_app import db
-from sqlalchemy.sql import func
 
 
 # Match model
@@ -13,7 +12,7 @@ class Match(db.Model):
     away_score = db.Column(db.Integer(), default=0)
     date = db.Column(db.Date(), default=func.now())
     season = db.Column(db.String(9), unique=False)
-    date_added = db.Column(db.DateTime(timezone=True), default=func.now())
+    date_added = db.Column(db.DateTime(timezone=True), default=datetime.datetime.utcnow)
 
     def __repr__(self):
         """Return the string representing a match."""
@@ -25,7 +24,6 @@ class Visit(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_ip = db.Column(db.String(15), unique=False)
     page_name = db.Column(db.String(25))
-    # date_added = db.Column(db.DateTime(timezone=True), default=func.now())s
 
     def __repr__(self):
         """Return the string representing a visit."""
