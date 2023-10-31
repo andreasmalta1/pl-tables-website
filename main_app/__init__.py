@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 from dotenv import load_dotenv
 from os import getenv
 
@@ -16,6 +17,7 @@ app.config["MAIL_PASSWORD"] = getenv("MAIL_PASSWORD")
 
 # Create db instance
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 from main_app.api import api
 from main_app.contact import contact

@@ -1,5 +1,5 @@
 from main_app import db
-from datetime import date, datetime
+from sqlalchemy.sql import func
 
 
 # Match model
@@ -9,11 +9,11 @@ class Match(db.Model):
     home_team_name = db.Column(db.String(100), unique=False)
     away_team_id = db.Column(db.Integer(), unique=False)
     away_team_name = db.Column(db.String(100), unique=False)
-    home_score = db.Column(db.Integer(), default=0)
-    away_score = db.Column(db.Integer(), default=0)
-    date = db.Column(db.Date(), default=date.today())
+    home_score = db.Column(db.Integer(), server_default="0")
+    away_score = db.Column(db.Integer(), server_default="0")
+    date = db.Column(db.Date(), server_default=func.now())
     season = db.Column(db.String(9), unique=False)
-    date_added = db.Column(db.DateTime(timezone=True), default=datetime.utcnow())
+    date_added = db.Column(db.DateTime(timezone=True), server_default=func.now())
 
     def __repr__(self):
         """Return the string representing a match."""
