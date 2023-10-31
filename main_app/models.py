@@ -1,4 +1,5 @@
 from main_app import db
+from datetime import date, datetime
 
 
 # Match model
@@ -10,9 +11,9 @@ class Match(db.Model):
     away_team_name = db.Column(db.String(100), unique=False)
     home_score = db.Column(db.Integer(), default=0)
     away_score = db.Column(db.Integer(), default=0)
-    date = db.Column(db.Date(), default=func.now())
+    date = db.Column(db.Date(), default=date.today())
     season = db.Column(db.String(9), unique=False)
-    date_added = db.Column(db.DateTime(timezone=True), default=datetime.datetime.utcnow)
+    date_added = db.Column(db.DateTime(timezone=True), default=datetime.utcnow())
 
     def __repr__(self):
         """Return the string representing a match."""
