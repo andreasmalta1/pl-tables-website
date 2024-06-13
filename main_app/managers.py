@@ -146,7 +146,7 @@ managers_dict = {
         "nationality": "England",
         "club": "Crystal Palace",
         "date_start": "2023-03-21",
-        "date_start": "2024-02-19",
+        "date_end": "2024-02-19",
         "fotmob_id": 98908,
         "status": "memorable",
     },
