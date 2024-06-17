@@ -4,7 +4,8 @@ from datetime import date
 import csv
 
 from main_app import db
-from main_app.models import Match, CurrentTeams
+
+# from main_app.models import Match, CurrentTeams
 from main_app.utils import get_pl_matches
 
 

@@ -6,7 +6,8 @@ from collections import defaultdict
 from bs4 import BeautifulSoup
 from datetime import date
 
-from main_app.models import Visit, Match, CurrentTeams
+# from main_app.models import Visit, Match, CurrentTeams
+from main_app.models import Visit
 from main_app import db
 
 

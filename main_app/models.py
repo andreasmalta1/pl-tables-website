@@ -5,6 +5,7 @@ from sqlalchemy.sql import func
 class Team(db.Model):
     __tablename__ = "teams"
 
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=False)
     shortcode = db.Column(db.String(5), unique=True, nullable=False)
     crest_url = db.Column(db.String(100), unique=False)
@@ -38,6 +39,7 @@ class Match(db.Model):
 class Nation(db.Model):
     __tablename__ = "nations"
 
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=False)
     shortcode = db.Column(db.String(5), unique=True, nullable=False)
     flag_url = db.Column(db.String(100), unique=False)
@@ -50,6 +52,7 @@ class Nation(db.Model):
 class Manager(db.Model):
     __tablename__ = "managers"
 
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=False)
     face_url = db.Column(db.String(100), unique=False)
     nation_id = db.Column(
@@ -64,6 +67,7 @@ class Manager(db.Model):
 class ManagerStint(db.Model):
     __tablename__ = "managerstints"
 
+    id = db.Column(db.Integer, primary_key=True)
     manager_id = db.Column(
         db.Integer, db.ForeignKey("managers.id"), unique=False, nullable=False
     )
@@ -82,6 +86,7 @@ class ManagerStint(db.Model):
 class PointDeduction(db.Model):
     __tablename__ = "pointdeductions"
 
+    id = db.Column(db.Integer, primary_key=True)
     team_id = db.Column(
         db.Integer, db.ForeignKey("teams.id"), unique=False, nullable=False
     )
@@ -97,6 +102,7 @@ class PointDeduction(db.Model):
 class Visit(db.Model):
     __tablename__ = "visits"
 
+    id = db.Column(db.Integer, primary_key=True)
     user_ip = db.Column(db.String(15), unique=False)
     page_name = db.Column(db.String(25))
 

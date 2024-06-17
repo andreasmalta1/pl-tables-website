@@ -7,6 +7,7 @@
 
 # Flask App
 
+- Blueprint pages
 - Use models for teams and managers
 - Ability to make standing dynamic
 - Add ability to customise by calendar year ??

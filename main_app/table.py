@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, flash
 from os import getenv
 from datetime import date, datetime
 
-from main_app.models import Match, CurrentTeams
+# from main_app.models import Match, CurrentTeams
 from main_app.utils import generate_table, get_teams_info, update_visits
 from main_app.managers import managers_dict
 from main_app.teams import NATIONS
@@ -29,7 +29,8 @@ def home():
     update_visits(request.remote_addr, "home")
 
     # Get all unique seasons present in db
-    season = CurrentTeams.query.first().season
+    # season = CurrentTeams.query.first().season
+    season = "2023/2024"
 
     current_table = generate_table(None, None, season)
     all_time_table = generate_table(None, None, None)

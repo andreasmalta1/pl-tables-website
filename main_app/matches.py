@@ -2,7 +2,8 @@ from flask import Blueprint, render_template, request, flash
 from os import getenv
 
 from main_app import db
-from main_app.models import Match, CurrentTeams
+
+# from main_app.models import Match, CurrentTeams
 from main_app.utils import get_teams_info
 
 CREST_URL = getenv("CREST_URL")
