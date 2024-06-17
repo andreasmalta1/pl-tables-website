@@ -9,6 +9,7 @@ class Team(db.Model):
     name = db.Column(db.String(100), unique=False)
     shortcode = db.Column(db.String(5), unique=True, nullable=False)
     crest_url = db.Column(db.String(100), unique=False)
+    current = db.Column(db.Boolean, default=False, nullable=False)
 
     def __repr__(self):
         """Return the string representing a match."""
