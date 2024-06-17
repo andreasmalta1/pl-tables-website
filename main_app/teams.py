@@ -14,6 +14,8 @@ NATIONS = {
     "Norway": 8492,
     "USA": 6713,
     "Ireland": 5791,
+    "Northern Ireland": 10259,
     "Israel": 8567,
     "Australia": 6716,
+    "Austria": 8255,
 }
