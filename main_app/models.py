@@ -1,4 +1,4 @@
-from main_app import db
+from app import db
 from sqlalchemy.sql import func
 
 
@@ -13,7 +13,7 @@ class Team(db.Model):
 
     def __repr__(self):
         """Return the string representing a match."""
-        return self.team_name
+        return self.name
 
 
 class Match(db.Model):
@@ -34,7 +34,7 @@ class Match(db.Model):
 
     def __repr__(self):
         """Return the string representing a match."""
-        return f"{self.home_team_name} {self.home_score} - {self.away_score} {self.away_team_name}"
+        return f"{self.home_team_id} {self.home_score} - {self.away_score} {self.away_team_id}"
 
 
 class Nation(db.Model):
@@ -47,7 +47,7 @@ class Nation(db.Model):
 
     def __repr__(self):
         """Return the string representing a match."""
-        return self.team_name
+        return self.name
 
 
 class Manager(db.Model):
@@ -62,7 +62,7 @@ class Manager(db.Model):
 
     def __repr__(self):
         """Return the string representing a match."""
-        return self.team_name
+        return self.name
 
 
 class ManagerStint(db.Model):
@@ -81,7 +81,7 @@ class ManagerStint(db.Model):
 
     def __repr__(self):
         """Return the string representing a match."""
-        return self.team_name
+        return f"{self.manager_id} - {self.team_id}"
 
 
 class PointDeduction(db.Model):
@@ -97,7 +97,7 @@ class PointDeduction(db.Model):
 
     def __repr__(self):
         """Return the string representing a match."""
-        return self.team_name
+        return f"{self.team_id} - {self.reason} - {self.season}"
 
 
 class Visit(db.Model):
