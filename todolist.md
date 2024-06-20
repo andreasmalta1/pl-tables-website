@@ -11,6 +11,7 @@
 - Use models for teams and managers
 - Ability to make standing dynamic
 - Add ability to customise by calendar year ??
+- Show manager and team when you select stint
 - Remove repetitive code when generating tables
 - Add a page to see all the results
 - Dynamic URL routing ??
