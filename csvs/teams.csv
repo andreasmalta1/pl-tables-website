@@ -1,0 +1,52 @@
+name,shortcode,logo_id,current
+AFC Bournemouth,BOU,8678,True
+Arsenal FC,ARS,9825,True
+Aston Villa,ASV,10252,True
+Barnsley FC,BLY,8283,False
+Birmingham City,BIR,8658,False
+Blackburn Rovers,BLA,8655,False
+Blackpool FC,BLP,8483,False
+Bolton Wanderers,BOL,8559,False
+Bradford City,BRA,8484,False
+Brentford FC,BRE,9937,True
+Brighton & Hove Albion,BHA,10204,True
+Burnley FC,BUR,8191,True
+Cardiff City,CAR,8344,False
+Charlton Athletic,CHA,8451,False
+Chelsea FC,CHE,8455,True
+Coventry City,COV,8669,False
+Crystal Palace,CRY,9826,True
+Derby County,DER,10170,False
+Everton FC,EVE,8668,True
+Fulham FC,FUL,9879,True
+Huddersfield Town,HUD,9796,False
+Hull City,HUL,8667,False
+Ipswich Town,IPW,9902,False
+Leeds United,LEE,8463,False
+Leicester City,LEI,8197,False
+Liverpool FC,LIV,8650,True
+Manchester City,MCI,8456,True
+Manchester United,MUN,10260,True
+Middlesbrough FC,MID,8549,False
+Newcastle United,NEW,10261,True
+Norwich City,NOR,9850,False
+Nottingham Forest,NFO,10203,True
+Oldham Athletic,OLD,9785,False
+Portsmouth FC,POR,8462,False
+Queens Park Rangers,QPR,10172,False
+Reading FC,REA,9798,False
+Sheffield United,SHU,8657,True
+Sheffield Wednesday,SHW,10163,False
+Southampton FC,SOU,8466,False
+Stoke City,STO,10194,False
+Sunderland AFC,SUN,8472,False
+Swansea City,SWA,10003,False
+Swindon Town,SWI,9795,False
+Tottenham Hotspur,TOT,8586,True
+Watford FC,WAT,9817,False
+West Bromwich Albion,WBA,8659,False
+West Ham United,WHU,8654,True
+Wigan Athletic,WIG,8528,False
+Wimbledon FC,WIM,158319,False
+Wolverhampton Wanderers,WOL,8602,True
+Luton Town,LUT,8346,True
