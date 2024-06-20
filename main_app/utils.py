@@ -5,10 +5,13 @@ from os import getenv
 from collections import defaultdict
 from bs4 import BeautifulSoup
 from datetime import date
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # from main_app.models import Visit, Match, CurrentTeams
-from main_app.models import Visit
-from main_app import db
+# from main_app.models import Visit
+# from main_app import dbs
 
 
 def generate_table(start_date, end_date, season):
@@ -179,12 +182,10 @@ def get_pl_matches():
         "date": [],
     }
 
-    team_data = get_teams_info()
-
     match_no = 1
     num_rounds = 42
-    start_year = int(getenv("START_YEAR"))
-    for year in range(start_year, 2023):
+    for year in range(1992, 2024):
+        print(year)
         if year > 1994:
             num_rounds = 38
         for round in range(1, num_rounds + 1):
@@ -202,17 +203,13 @@ def get_pl_matches():
                     date = cells[0].get_text()
 
                 home_team_name = cells[2].get_text().strip()
-                home_team_id = team_data[home_team_name]["team_id"]
-                away_team_name = cells[2].get_text().strip()
-                away_team_id = team_data[away_team_name]["team_id"]
+                away_team_name = cells[4].get_text().strip()
                 score = cells[-2].get_text().strip().split()[0].split(":")
 
                 data["match_no"].append(match_no)
                 data["season"].append(f"{year}/{year+1}")
-                data["home_team_id"].append(home_team_id)
                 data["home_team_name"].append(home_team_name)
-                data["away_team_id"].append(away_team_id)
-                data["away_team_name"].append(cells[4].get_text().strip())
+                data["away_team_name"].append(away_team_name)
                 data["home_score"].append(score[0])
                 data["away_score"].append(score[1])
                 data["date"].append(date)
@@ -223,21 +220,10 @@ def get_pl_matches():
     df.to_csv("csvs/pl_results.csv")
 
 
-def get_teams_info():
-    """Return team id and team logo id"""
-    team_data = {}
-
-    with open("csvs/team_ids.csv", "r") as file:
-        csvreader = csv.reader(file)
-        next(csvreader, None)
-
-        for row in csvreader:
-            team_data[row[1]] = {"team_id": row[0], "logo_id": row[2]}
-
-    return team_data
-
-
 def update_visits(ip_address, page_name):
     """Add a user's visit to the Visit model"""
     visit = Visit()
     visit.update_visits(user_ip=ip_address, pagename=page_name)
+
+
+get_pl_matches()

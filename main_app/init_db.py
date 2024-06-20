@@ -75,10 +75,7 @@ def add_managers():
         return jsonify({"msg": "Managers added successfully"})
 
 
-def add_managerial_stints():
-    managers = Manager.query.all()
-    managers_dict = {manager.name: manager.id for manager in managers}
-
+def add_matches():
     teams = Team.query.all()
     teams_dict = {team.name: team.id for team in teams}
 
