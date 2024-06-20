@@ -22,3 +22,10 @@
         - Season
     - Apply to season and all time pl table
 - Use JS fetch methods like in `football_app`
+
+
+Fill database with all data
+Home page current league season
+For now show 2023/2024
+Need an admin button later to set the new season
+Pages to make adjustments for all models
