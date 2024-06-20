@@ -3,6 +3,7 @@
 # Add deductions
 from flask import jsonify
 import os
+from datetime import date
 import csv
 
 from models import *
@@ -71,4 +72,49 @@ def add_managers():
 
         # Save data to db
         db.session.commit()
-        return jsonify({"msg": "Nations added successfully"})
+        return jsonify({"msg": "Managers added successfully"})
+
+
+def add_managerial_stints():
+    managers = Manager.query.all()
+    managers_dict = {manager.name: manager.id for manager in managers}
+
+    teams = Team.query.all()
+    teams_dict = {team.name: team.id for team in teams}
+
+    csv_file_path = os.path.join("csvs", "managerial_stints.csv")
+    with open(csv_file_path, encoding="utf-8") as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+        for row in csv_reader:
+            current = None
+
+            if row.get("current") == "False":
+                current = False
+                date_end = row.get("date_end").split("-")
+                date_end = date(int(date_end[0]), int(date_end[1]), int(date_end[2]))
+
+            if row.get("current") == "True":
+                current = True
+                date_end = None
+
+            date_start = row.get("date_start").split("-")
+            date_start = date(
+                int(date_start[0]), int(date_start[1]), int(date_start[2])
+            )
+
+            manager_id = managers_dict.get(row["manager"])
+            team_id = teams_dict.get(row["team"])
+
+            new_stint = ManagerStint(
+                manager_id=manager_id,
+                team_id=team_id,
+                date_start=date_start,
+                date_end=date_end,
+                current=current,
+            )
+
+            db.session.add(new_stint)
+
+        # Save data to db
+        db.session.commit()
+        return jsonify({"msg": "Stints added successfully"})
