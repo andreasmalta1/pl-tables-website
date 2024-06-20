@@ -29,3 +29,6 @@ Home page current league season
 For now show 2023/2024
 Need an admin button later to set the new season
 Pages to make adjustments for all models
+
+Once managers are done, do routes to view all managers
+Figure out what needs to be seen (clubs...)
