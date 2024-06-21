@@ -118,3 +118,37 @@ def add_managerial_stints():
         # Save data to db
         db.session.commit()
         return jsonify({"msg": "Stints added successfully"})
+
+
+def add_matches():
+    teams = Team.query.all()
+    teams_dict = {team.name: team.id for team in teams}
+
+    csv_file_path = os.path.join("csvs", "pl_results.csv")
+    with open(csv_file_path, encoding="utf-8") as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+        for row in csv_reader:
+            current = None
+
+            home_team_id = teams_dict.get(row["home_team_name"])
+            away_team_id = teams_dict.get(row["away_team_name"])
+
+            match_date = row.get("date").split("/")
+            match_date = date(
+                int(match_date[2]), int(match_date[1]), int(match_date[0])
+            )
+
+            new_match = Match(
+                home_team_id=home_team_id,
+                away_team_id=away_team_id,
+                home_score=row["home_score"],
+                away_score=row["away_score"],
+                date=match_date,
+                season=row["season"],
+            )
+
+            db.session.add(new_match)
+
+        # Save data to db
+        db.session.commit()
+        return jsonify({"msg": "Matches added successfully"})

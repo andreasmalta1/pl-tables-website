@@ -24,6 +24,7 @@ with app.app_context():
     # init_db.add_nations()
     # init_db.add_managers()
     # init_db.add_managerial_stints()
+    # init_db.add_matches()
 
 
 # Register blueprints
