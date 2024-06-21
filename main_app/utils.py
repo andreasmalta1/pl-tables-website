@@ -24,9 +24,6 @@ def generate_table(start_date, end_date, season):
             standings_table (dict): A dictionary of teams and their league info
     """
 
-    # Get teams data including id and logo id
-    team_data = get_teams_info()
-
     if start_date and end_date:
         date_from = start_date.split("-")
         date_to = end_date.split("-")

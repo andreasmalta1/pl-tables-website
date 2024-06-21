@@ -12,7 +12,7 @@ class Team(db.Model):
     current = db.Column(db.Boolean, default=False, nullable=False)
 
     def __repr__(self):
-        """Return the string representing a match."""
+        """Return the string representing a team."""
         return self.name
 
 
@@ -46,7 +46,7 @@ class Nation(db.Model):
     flag_url = db.Column(db.String(100), unique=False)
 
     def __repr__(self):
-        """Return the string representing a match."""
+        """Return the string representing a nation."""
         return self.name
 
 
@@ -61,7 +61,7 @@ class Manager(db.Model):
     )
 
     def __repr__(self):
-        """Return the string representing a match."""
+        """Return the string representing a manager."""
         return self.name
 
 
@@ -80,7 +80,7 @@ class ManagerStint(db.Model):
     current = db.Column(db.Boolean, default=False, nullable=False)
 
     def __repr__(self):
-        """Return the string representing a match."""
+        """Return the string representing a managerial stint."""
         return f"{self.manager_id} - {self.team_id}"
 
 
@@ -98,6 +98,17 @@ class PointDeduction(db.Model):
     def __repr__(self):
         """Return the string representing a match."""
         return f"{self.team_id} - {self.reason} - {self.season}"
+
+
+class Season(db.Model):
+    __tablename__ = "season"
+
+    id = db.Column(db.Integer, primary_key=True)
+    season = db.Column(db.String(9), unique=False)
+
+    def __repr__(self):
+        """Return the string representing a season."""
+        return "Season: {}".format(self.season)
 
 
 class Visit(db.Model):

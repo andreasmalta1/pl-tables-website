@@ -16,6 +16,7 @@ from models import *
 import init_db
 
 from api import api_blueprint as api
+from home import home_blueprint as home
 from manager import manager_blueprint as manager
 
 with app.app_context():
@@ -29,4 +30,5 @@ with app.app_context():
 
 # Register blueprints
 app.register_blueprint(api, url_prefix="/api")
+app.register_blueprint(home)
 app.register_blueprint(manager, url_prefix="/managers")
