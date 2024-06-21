@@ -1,8 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
 from dotenv import load_dotenv
-from os import getenv
 from config import Config
 
 load_dotenv()
@@ -18,6 +16,7 @@ from models import *
 import init_db
 
 from api import api_blueprint as api
+from manager import manager_blueprint as manager
 
 with app.app_context():
     db.create_all()
@@ -29,3 +28,4 @@ with app.app_context():
 
 # Register blueprints
 app.register_blueprint(api, url_prefix="/api")
+app.register_blueprint(manager, url_prefix="/managers")

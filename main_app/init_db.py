@@ -16,8 +16,8 @@ def add_teams():
         csv_reader = csv.DictReader(csv_file)
         for row in csv_reader:
             new_team = Team(
-                name=row["team_name"],
-                shortcode=row["team_code"],
+                name=row["name"],
+                shortcode=row["shortcode"],
                 crest_url=f"https://images.fotmob.com/image_resources/logo/teamlogo/{row['logo_id']}.png",
                 current=True if row["current"] == "True" else False,
             )
@@ -75,9 +75,12 @@ def add_managers():
         return jsonify({"msg": "Managers added successfully"})
 
 
-def add_matches():
+def add_managerial_stints():
     teams = Team.query.all()
     teams_dict = {team.name: team.id for team in teams}
+
+    managers = Manager.query.all()
+    managers_dict = {manager.name: manager.id for manager in managers}
 
     csv_file_path = os.path.join("csvs", "managerial_stints.csv")
     with open(csv_file_path, encoding="utf-8") as csv_file:
