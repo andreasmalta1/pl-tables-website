@@ -1,0 +1,49 @@
+{%   extends 'base_test.html' %}
+
+{% block styles %} <link rel="stylesheet" href="{{ url_for('static', filename='css/managers.css') }}"> {% endblock %}
+{% block title %} PL Tables | Managers {% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 id="current-manager" class="title">Current PL Managers <span><i class="fa-solid fa-circle-down"></i></span></h1>
+    <form id="current-form" action="" method="post">
+        <table class="managers-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Nationality</th>
+                    <th>Club</th>
+                    <th>Day Joined</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for manager in managers %}
+                    <tr>
+                        <td>
+                            <label for="currentManager"> <img class="manager-face" src="{{ manager.face_url }}" ></label>
+                        </td>
+                        <td class="manager-name">
+                            <input class="down-button" type="submit" name="{{ manager.manager_name }}" value="{{ manager.manager_name }}"/>
+                        </td>
+                        <td>
+                            <label for="currentManager"> <img class="team-logo" src="{{ manager.crest_url }}"></label>
+                        </td>
+                        <td>
+                            <label for="currentManager"> <img class="team-logo" src="{{ manager.flag_url }}" alt="{{ team }}"></label>
+                        </td>
+                        <td>
+                            <label for="currentManager">{{ manager.date_start }}</label>
+                        </td>
+                        
+                    </tr>   
+                {% endfor %}
+            </tbody>
+        </table>
+    </form>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/managers.js') }}"></script>
+{% endblock %}
