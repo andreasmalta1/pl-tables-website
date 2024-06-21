@@ -7,29 +7,23 @@
 
 # Flask App
 
-- Blueprint pages
-- Use models for teams and managers
-- Ability to make standing dynamic
-- Add ability to customise by calendar year ??
+- Ability to make standing dynamics (use similar to how managers are gettong sorted)
+- Add ability to show table in a calendar
 - Show manager and team when you select stint
 - Remove repetitive code when generating tables
 - Add a page to see all the results
-- Dynamic URL routing ??
-- Points Deduction
-    - Add a new model
-        - Team
-        - Amount of points
-        - Reason
-        - Season
-    - Apply to season and all time pl table
-- Use JS fetch methods like in `football_app`
+- Dynamic URL routing & use JS fetch methods
+- Points Deduction CSV & init
+- Home page -> show current league season (for now 2023/2024)
+- Admin button to start a new season with promotion and releagtion and reset of league table
+- Will need to store the season as a state (probably in a model)
+- Will need pages to add new teams, add new managers, add nations, add/end stints
+- Check if pages are need to see lists of the different models
+- Check what APIs are needed, and if all needed to be protected
+- Empty face placeholder
 
-
-Fill database with all data
-Home page current league season
-For now show 2023/2024
-Need an admin button later to set the new season
-Pages to make adjustments for all models
-
-Once managers are done, do routes to view all managers
-Figure out what needs to be seen (clubs...)
+# Next steps
+- Home Page that shows the current league season
+- Season page
+- Routing from managers/season page to custom tables
+- Custom dates page
