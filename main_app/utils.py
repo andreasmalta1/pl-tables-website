@@ -1,5 +1,5 @@
 import pandas as pd
-import csv
+import os
 from requests import get
 from os import getenv
 from collections import defaultdict
@@ -9,9 +9,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# from main_app.models import Visit, Match, CurrentTeams
-# from main_app.models import Visit
-# from main_app import dbs
+from models import Visit
 
 
 def generate_table(start_date, end_date, season):
@@ -173,9 +171,7 @@ def get_pl_matches():
     data = {
         "match_no": [],
         "season": [],
-        "home_team_id": [],
         "home_team_name": [],
-        "away_team_id": [],
         "away_team_name": [],
         "home_score": [],
         "away_score": [],
@@ -217,13 +213,11 @@ def get_pl_matches():
                 match_no += 1
 
     df = pd.DataFrame(data=data)
-    df.to_csv("csvs/pl_results.csv")
+    csv_file_path = os.path.join("..", "csvs", "pl_results.csv")
+    df.to_csv(csv_file_path)
 
 
 def update_visits(ip_address, page_name):
     """Add a user's visit to the Visit model"""
     visit = Visit()
     visit.update_visits(user_ip=ip_address, pagename=page_name)
-
-
-get_pl_matches()
