@@ -1,4 +1,4 @@
-{%   extends 'base.html' %}
+{%   extends 'base_test.html' %}
 
 {% block styles %} 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}"> 
@@ -8,7 +8,7 @@
 
 {% block content %}
     <div class="container">
-        {% if current_table %}
+        {% if standings %}
             <div class="column">
                 <h2 class="title">Current PL Table</h2>
                 <table class="standing-table" id="current-table">
@@ -28,7 +28,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for team, stats in current_table %}
+                        {% for team, stats in standings %}
                             <tr>
                                 <td>{{ stats['rk'] }}</td>
                                 <td><img class="team-logo" src="{{ stats['url'] }}" alt="{{ team }}"></td>

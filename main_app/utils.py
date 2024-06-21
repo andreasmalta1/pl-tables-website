@@ -9,38 +9,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-from models import Visit
+from models import Team, Visit
 
 
-def generate_table(start_date, end_date, season):
-    """
-    Returns the table for the chose start and end dates.
-
-        Parameters:
-            start_date (str): A date in string format
-            end_date (str): Another date in string format
-
-        Returns:
-            standings_table (dict): A dictionary of teams and their league info
-    """
-
-    if start_date and end_date:
-        date_from = start_date.split("-")
-        date_to = end_date.split("-")
-        matches = Match.query.filter(
-            db.and_(
-                Match.date
-                >= date(
-                    year=int(date_from[0]),
-                    month=int(date_from[1]),
-                    day=int(date_from[2]),
-                ),
-                Match.date
-                <= date(
-                    year=int(date_to[0]), month=int(date_to[1]), day=int(date_to[2])
-                ),
-            )
-        ).all()
+def generate_table(matches, season):
 
     standings = defaultdict(
         lambda: {
@@ -56,38 +28,6 @@ def generate_table(start_date, end_date, season):
             "points": 0,
         }
     )
-
-    if season:
-        matches = Match.query.filter_by(season=season).all()
-        if not matches:
-            teams = CurrentTeams.query.order_by(CurrentTeams.team_name).all()
-            for team in teams:
-                standings[team.team_name]["played"] = 0
-
-            # Update data with team id and logo
-            for team in standings:
-                if not standings[team]["url"]:
-                    team_id = team_data.get(team)["logo_id"]
-                    if team:
-                        standings[team]["url"] = f"{getenv('CREST_URL')}{team_id}.png"
-
-            # Sort teams by points and goal differences
-            standings_table = sorted(
-                standings.items(),
-                key=lambda x: (x[1]["points"], x[1]["gd"]),
-                reverse=True,
-            )
-
-            # Add ranking
-            rank = 1
-            for team in standings_table:
-                team[1]["rk"] = rank
-                rank += 1
-
-            return standings_table
-
-    if not start_date and not end_date and not season:
-        matches = Match.query.all()
 
     # Go though matches and save data
     for match in matches:
@@ -124,7 +64,7 @@ def generate_table(start_date, end_date, season):
             standings[away_team]["points"] += 1
 
     if len(standings) < 20 and season:
-        teams = CurrentTeams.query.order_by(CurrentTeams.team_name).all()
+        teams = Team.query.filter_by(current=True).order_by(Team.team_name).all()
         for team in teams:
             if not standings.get(team.team_name):
                 standings[team.team_name]["team_id"]: None
@@ -140,10 +80,9 @@ def generate_table(start_date, end_date, season):
 
     # Update data with team id and logo
     for team in standings:
-        if not standings[team]["url"]:
-            team_id = team_data.get(team)["logo_id"]
-            if team:
-                standings[team]["url"] = f"{getenv('CREST_URL')}{team_id}.png"
+        print(team)
+        crest_url = Team.query.filter_by(name=team).first().crest_url
+        standings[team]["url"] = crest_url
 
     # Sort teams by points and goal differences
     standings_table = sorted(

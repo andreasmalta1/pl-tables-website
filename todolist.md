@@ -24,6 +24,7 @@
 
 # Next steps
 - Home Page that shows the current league season
+- Make working for 0 games played
 - Season page
 - Routing from managers/season page to custom tables
 - Custom dates page
