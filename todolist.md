@@ -21,10 +21,12 @@
 - Check if pages are need to see lists of the different models
 - Check what APIs are needed, and if all needed to be protected
 - Empty face placeholder
+- Function descriptions
+- Update visits
 
 # Next steps
 - Home Page that shows the current league season
-- Make working for 0 games played
-- Season page
-- Routing from managers/season page to custom tables
+- Make working for 0 games played (new season)
+- Make working for when not all teams have played
+- Routing from managers/season page to custom tables (show manager chosen + team ; show season chosen)
 - Custom dates page
