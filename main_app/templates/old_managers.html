@@ -1,0 +1,97 @@
+{%   extends 'base.html' %}
+
+{% block styles %} <link rel="stylesheet" href="{{ url_for('static', filename='css/managers.css') }}"> {% endblock %}
+{% block title %} PL Tables | Managers {% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 id="current-manager" class="title">Current PL Managers <span><i class="fa-solid fa-circle-down"></i></span></h1>
+    <form id="current-form" action="" method="post">
+        <table class="managers-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Nationality</th>
+                    <th>Club</th>
+                    <th>Day Joined</th>
+                    <th>Days in charge</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for manager in current_managers %}
+                    <tr>
+                        <td>
+                            <label for="currentManager"> <img class="manager-face" src="{{ current_managers[manager]['manager_url'] }}" alt="{{ team }}"></label>
+                        </td>
+                        <td class="manager-name">
+                            <input class="down-button" type="submit" name="{{ manager }}" value="{{ current_managers[manager]['name'] }}"/>
+                        </td>
+                        <td>
+                            <label for="currentManager"> <img class="team-logo" src="{{ current_managers[manager]['nationality_url'] }}" alt="{{ team }}"></label>
+                        </td>
+                        <td>
+                            <label for="currentManager"> <img class="team-logo" src="{{ current_managers[manager]['club_url'] }}" alt="{{ team }}"></label>
+                        </td>
+                        <td>
+                            <label for="currentManager">{{ current_managers[manager]['date_start'] }}</label>
+                        </td>
+                        <td>
+                            <label for="currentManager">{{ current_managers[manager]['days_in_charge'] }} days</label>
+                        </td>
+                        
+                    </tr>   
+                {% endfor %}
+            </tbody>
+        </table>
+    </form>
+    <h1 id="memorable-manager" class="title">Memorable PL Managers <span><i class="fa-solid fa-circle-down"></i></span></h1>
+    <form id="memorable-form" action="" method="post">
+        <table class="managers-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Nationality</th>
+                    <th>Club</th>
+                    <th>Day Joined</th>
+                    <th>Day Left</th>
+                    <th>Days in charge</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for manager in memorable_managers %}
+                    <tr>
+                        <td>
+                            <label for="memorableManager"> <img class="manager-face" src="{{ memorable_managers[manager]['manager_url'] }}" alt="{{ team }}"></label>
+                        </td>
+                        <td>
+                            <input class="down-button" type="submit" name="{{ manager}}" value="{{ memorable_managers[manager]['name'] }}"/>
+                        </td>
+                        <td>
+                            <label for="memorableManager"> <img class="team-logo" src="{{ memorable_managers[manager]['nationality_url'] }}" alt="{{ team }}"></label>
+                        </td>
+                        <td>
+                            <label for="memorableManager"> <img class="team-logo" src="{{ memorable_managers[manager]['club_url'] }}" alt="{{ team }}"></label>
+                        </td>
+                        <td>
+                            <label for="memorableManager">{{ memorable_managers[manager]['date_start'] }}</label>
+                        </td>
+                        <td>
+                            <label for="memorableManager">{{ memorable_managers[manager]['date_end'] }}</label>
+                        </td>
+                        <td>
+                            <label for="memorableManager">{{ memorable_managers[manager]['days_in_charge'] }}</label>
+                        </td>
+                    </tr> 
+                {% endfor %}
+            </tbody>
+        </table>
+    </form>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/managers.js') }}"></script>
+{% endblock %}
