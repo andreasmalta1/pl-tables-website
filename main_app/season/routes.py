@@ -12,17 +12,19 @@ def seasons():
 
     if request.method == "GET":
         seasons_query = Match.query.with_entities(Match.season).distinct().all()
-    current_season_query = Season.query.with_entities(Season.season).distinct().first()
-
-    seasons = [season.season for season in seasons_query]
-    seasons.sort(reverse=True)
-    current_season = current_season_query.season
-
-    if current_season in seasons:
-        seasons.remove(current_season)
-
-        return render_template(
-            "season/seasons.html",
-            seasons=seasons,
-            current_season=current_season,
+        current_season_query = (
+            Season.query.with_entities(Season.season).distinct().first()
         )
+
+        seasons = [season.season for season in seasons_query]
+        seasons.sort(reverse=True)
+        current_season = current_season_query.season
+
+        if current_season in seasons:
+            seasons.remove(current_season)
+
+            return render_template(
+                "season/seasons.html",
+                seasons=seasons,
+                current_season=current_season,
+            )
