@@ -19,6 +19,7 @@ from api import api_blueprint as api
 from home import home_blueprint as home
 from manager import manager_blueprint as manager
 from season import season_blueprint as season
+from custom_date import custom_date_blueprint as custom_date
 
 with app.app_context():
     db.create_all()
@@ -34,3 +35,4 @@ app.register_blueprint(api, url_prefix="/api")
 app.register_blueprint(home)
 app.register_blueprint(manager, url_prefix="/managers")
 app.register_blueprint(season, url_prefix="/seasons")
+app.register_blueprint(custom_date, url_prefix="/custom-date")
