@@ -1,10 +1,8 @@
-from flask import jsonify, render_template, request
-from datetime import date, datetime
-from sqlalchemy.orm import joinedload
+from flask import render_template, request
 
 from season import season_blueprint
 from models import Match, Season
-from utils import generate_table, update_visits
+from utils import update_visits
 
 
 @season_blueprint.route("/", methods=["GET"])
