@@ -23,10 +23,10 @@
 - Empty face placeholder
 - Function descriptions
 - Update visits
+- Add current season in home page
 
 # Next steps
 - Home Page that shows the current league season
 - Make working for 0 games played (new season)
 - Make working for when not all teams have played
-- Routing from managers/season page to custom tables (show manager chosen + team ; show season chosen)
-- Custom dates page
+- Routing from managers/season/custom_dates page to custom tables (show manager chosen + team ; show season chosen ; show date chosen)
