@@ -25,6 +25,9 @@
             <li class="navbar-item">
                 <a href="{{ url_for('manager.managers') }}">PL Managers</a>
             </li>
+            <li class="navbar-item">
+                <a href="{{ url_for('contact_page.contact_page') }}">Contact</a>
+            </li>
         </ul>
         <button class="hamburger">
             <div class="bar"></div>
@@ -41,6 +44,9 @@
         <li class="navbar-item">
             <a href="{{ url_for('manager.managers') }}">PL Managers</a>
         </li>
+        <li class="navbar-item">
+            <a href="{{ url_for('contact_page.contact_page') }}">Contact</a>
+        </li>
     </nav>
 
     <div class="main-content">
@@ -51,6 +57,9 @@
     <footer class="footer-container">
         <h3 class="footer-title">Premier League Tables</h3>
         <ul class="footer-list">
+            <li class="footer-item">
+                <a href="{{ url_for('contact_page.contact_page') }}"><i class="fa-sharp fa-solid fa-envelope"></i></a>
+            </li>
             <li class="footer-item">
                 <a href="https://bmc.link/andreascal" target="_blank"><i class="fa-solid fa-mug-hot"></i></a>
             </li>

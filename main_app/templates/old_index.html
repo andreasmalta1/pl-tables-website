@@ -1,0 +1,98 @@
+{%   extends 'base.html' %}
+
+{% block styles %} 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+{% block title %} PL Tables | Home {% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% if current_table %}
+            <div class="column">
+                <h2 class="title">Current PL Table</h2>
+                <table class="standing-table" id="current-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th></th>
+                            <th class="team">Team</th>
+                            <th>MP</th>
+                            <th>W</th>
+                            <th>D</th>
+                            <th>L</th>
+                            <th>GF</th>
+                            <th>GA</th>
+                            <th>GD</th>
+                            <th>PTS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for team, stats in current_table %}
+                            <tr>
+                                <td>{{ stats['rk'] }}</td>
+                                <td><img class="team-logo" src="{{ stats['url'] }}" alt="{{ team }}"></td>
+                                <td class="team no-border-left">{{ team }}</td>
+                                <td>{{ stats['played'] }}</td>
+                                <td>{{ stats['win'] }}</td>
+                                <td>{{ stats['draw'] }}</td>
+                                <td>{{ stats['loss'] }}</td>
+                                <td>{{ stats['goals_for'] }}</td>
+                                <td>{{ stats['goals_against'] }}</td>
+                                <td>{{ stats['gd'] }}</td>
+                                <td class="points">{{ stats['points'] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button class="down-button" id="down-current">Download Table</button>
+            </div>
+        {% endif %}
+            
+        {% if all_time_table %}
+            <div class="column">
+                <h2 class="title">All Time PL Table</h2>
+                <table class="standing-table" id="all-time-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th></th>
+                            <th class="team">Team</th>
+                            <th>MP</th>
+                            <th>W</th>
+                            <th>D</th>
+                            <th>L</th>
+                            <th>GF</th>
+                            <th>GA</th>
+                            <th>GD</th>
+                            <th>PTS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for team, stats in all_time_table %}
+                            <tr>
+                                <td>{{ stats['rk'] }}</td>
+                                <td><img class="team-logo" src="{{ stats['url'] }}" alt="{{ team }}"></td>
+                                <td class="team no-border-left">{{ team }}</td>
+                                <td>{{ stats['played'] }}</td>
+                                <td>{{ stats['win'] }}</td>
+                                <td>{{ stats['draw'] }}</td>
+                                <td>{{ stats['loss'] }}</td>
+                                <td>{{ stats['goals_for'] }}</td>
+                                <td>{{ stats['goals_against'] }}</td>
+                                <td>{{ stats['gd'] }}</td>
+                                <td class="points">{{ stats['points'] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button class="down-button" id="down-all">Download Table</button>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+{% endblock %}
