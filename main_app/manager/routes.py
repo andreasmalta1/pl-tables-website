@@ -45,7 +45,7 @@ def managers():
         )
 
         return render_template(
-            "manager/managers_test.html",
+            "manager/managers.html",
             current_stints=current_stints,
             ended_stints=ended_stints,
         )

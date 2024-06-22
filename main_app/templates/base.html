@@ -11,6 +11,38 @@
     <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
+    <navbar class="navbar-container">
+        <h1 class="navbar-title">
+            <a href="{{ url_for('home.index') }}">Premier League Tables</a>
+        </h1>
+        <ul class="navbar-list">
+            <li class="navbar-item">
+                <a href="{{ url_for('custom_date.custom_date') }}">Custom Dates</a>
+            </li>
+            <li class="navbar-item">
+                <a href="{{ url_for('season.seasons') }}">Seasons</a>
+            </li>
+            <li class="navbar-item">
+                <a href="{{ url_for('manager.managers') }}">PL Managers</a>
+            </li>
+        </ul>
+        <button class="hamburger">
+            <div class="bar"></div>
+        </button>
+    </navbar>
+
+    <nav class="mobile-nav">
+        <li class="navbar-item">
+            <a href="{{ url_for('custom_date.custom_date') }}">Custom Dates</a>
+        </li>
+        <li class="navbar-item">
+            <a href="{{ url_for('season.seasons') }}">Seasons</a>
+        </li>
+        <li class="navbar-item">
+            <a href="{{ url_for('manager.managers') }}">PL Managers</a>
+        </li>
+    </nav>
+
     <div class="main-content">
         {% block content %} {% endblock %}
     </div>
