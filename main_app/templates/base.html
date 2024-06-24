@@ -17,6 +17,9 @@
         </h1>
         <ul class="navbar-list">
             <li class="navbar-item">
+                <a href="{{ url_for('all_time.index') }}">All Time PL Table</a>
+            </li>
+            <li class="navbar-item">
                 <a href="{{ url_for('custom_date.custom_date') }}">Custom Dates</a>
             </li>
             <li class="navbar-item">
@@ -35,6 +38,9 @@
     </navbar>
 
     <nav class="mobile-nav">
+        <li class="navbar-item">
+            <a href="{{ url_for('all_time.index') }}">All Time PL Table</a>
+        </li>
         <li class="navbar-item">
             <a href="{{ url_for('custom_date.custom_date') }}">Custom Dates</a>
         </li>

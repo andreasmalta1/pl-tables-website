@@ -64,23 +64,22 @@ def generate_table(matches, season):
             standings[away_team]["points"] += 1
 
     if len(standings) < 20 and season:
-        teams = Team.query.filter_by(current=True).order_by(Team.team_name).all()
+        teams = Team.query.filter_by(current=True).order_by(Team.name).all()
         for team in teams:
-            if not standings.get(team.team_name):
-                standings[team.team_name]["team_id"]: None
-                standings[team.team_name]["url"] = None
-                standings[team.team_name]["played"] = 0
-                standings[team.team_name]["win"] = 0
-                standings[team.team_name]["draw"] = 0
-                standings[team.team_name]["loss"] = 0
-                standings[team.team_name]["goals_for"] = 0
-                standings[team.team_name]["goals_against"] = 0
-                standings[team.team_name]["gd"] = 0
-                standings[team.team_name]["points"] = 0
+            if not standings.get(team.name):
+                standings[team.name]["team_id"] = None
+                standings[team.name]["url"] = None
+                standings[team.name]["played"] = 0
+                standings[team.name]["win"] = 0
+                standings[team.name]["draw"] = 0
+                standings[team.name]["loss"] = 0
+                standings[team.name]["goals_for"] = 0
+                standings[team.name]["goals_against"] = 0
+                standings[team.name]["gd"] = 0
+                standings[team.name]["points"] = 0
 
     # Update data with team id and logo
     for team in standings:
-        print(team)
         crest_url = Team.query.filter_by(name=team).first().crest_url
         standings[team]["url"] = crest_url
 
