@@ -24,6 +24,7 @@
 - Function descriptions
 - Update visits
 - Add current season in home page
+- Download images
 
 # Next steps
 - Routing from managers/season/custom_dates page to custom tables (show manager chosen + team ; show season chosen ; show date chosen)
