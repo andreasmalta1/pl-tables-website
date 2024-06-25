@@ -3,8 +3,9 @@ const seasons_url = `${SCRIPT_ROOT}/api/seasons`
 const dropdownElement = document.getElementById('seasons');
 const firstSeason = dropdownElement.options[0].text.replace("/", "-")
 const tableDiv = document.getElementById('standings')
+const titleDiv = document.getElementById('standings-title')
 const genBtn = document.getElementById('genBtn')
-getCurrentSeasonTable()
+getCurrentSeasonTable(firstSeason)
 
 function createTable(data){
     tableDiv.innerHTML = '';
@@ -106,14 +107,18 @@ function sortTable(table){
     }
 }
 
-function getCurrentSeasonTable(){
+function seasonTitle(season){
+    titleDiv.textContent = season
+}
+
+function getCurrentSeasonTable(firstSeason){
     fetch(`${seasons_url}/${firstSeason}`)
         .then(response => response.json())
         .then(data => {
             currentTable = createTable(data)
             sortTable(currentTable)
             sortTable(currentTable)
-            
+            seasonTitle(firstSeason.replace("-", "/"))
         })
         .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
@@ -126,8 +131,8 @@ genBtn.addEventListener('click', () => {
     .then(response => response.json())
     .then(data => {
         table = createTable(data)
-        console.log(table)
         sortTable(table)
+        seasonTitle(selectedValue.replace("-", "/"))
     })
     .catch(error => {
         console.error('There has been a problem with your fetch operation:', error);
