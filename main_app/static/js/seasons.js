@@ -1,4 +1,4 @@
-const seasons_url = `${SCRIPT_ROOT}/api/seasons`
+const seasonUrl = `${SCRIPT_ROOT}/api/seasons`
 
 const dropdownElement = document.getElementById('seasons');
 const firstSeason = dropdownElement.options[0].text.replace("/", "-")
@@ -89,12 +89,8 @@ function sortTable(table){
                     break;
                 }
             }
-            console.log("Here")
-            console.log(shouldSwitch)
         }
         if (shouldSwitch) {
-            console.log("Switching")
-            
             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
             switching = true;
             switchCount++;
@@ -127,7 +123,7 @@ function getCurrentSeasonTable(firstSeason){
 
 genBtn.addEventListener('click', () => {
     let selectedValue = dropdownElement.value.replace("/", "-")
-    fetch(`${seasons_url}/${selectedValue}`)
+    fetch(`${seasonUrl}/${selectedValue}`)
     .then(response => response.json())
     .then(data => {
         table = createTable(data)

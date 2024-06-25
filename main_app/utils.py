@@ -16,7 +16,6 @@ def generate_table(matches, season):
 
     standings = defaultdict(
         lambda: {
-            "team_id": None,
             "url": None,
             "played": 0,
             "win": 0,
@@ -67,7 +66,6 @@ def generate_table(matches, season):
         teams = Team.query.filter_by(current=True).order_by(Team.name).all()
         for team in teams:
             if not standings.get(team.name):
-                standings[team.name]["team_id"] = None
                 standings[team.name]["url"] = None
                 standings[team.name]["played"] = 0
                 standings[team.name]["win"] = 0
