@@ -41,8 +41,14 @@
             {% endfor %}
         </tbody>
     </table>
+
+    <div id="standings" class="standings"></div>
+    <br>
 {% endblock %}
 
 {% block scripts %}
+    <script type="text/javascript">
+        const SCRIPT_ROOT = {{ request.script_root|tojson }}
+    </script>
     <script src="{{ url_for('static', filename='js/current_managers.js') }}"></script>
 {% endblock %}
