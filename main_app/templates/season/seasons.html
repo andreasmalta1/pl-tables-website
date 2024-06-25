@@ -9,16 +9,12 @@
 {% block content %}
     <div class="container">
         <h1 id="seasons-title" class="title">Current Season <span><i class="fa-solid fa-circle-down"></i></span></h1>
-        <form id="seasons-form" action="" method="post" i>
-                <input class="down-button" type="submit" name="season" value="{{ current_season }}"/>
-        </form>
+        <a href="{{ url_for('home.index') }}"class="down-button">{{ current_season }}</a>
         
         <h1 id="seasons-title" class="title">PL Seasons <span><i class="fa-solid fa-circle-down"></i></span></h1>
-        <form id="seasons-form" action="" method="post" i>
-            {% for season in seasons %}
-                <input class="down-button" type="submit" name="season" value="{{ season }}"/>
-            {% endfor %}
-        </form>
+        {% for season in seasons %}
+            <input class="all-seasons down-button" type="submit" name="season" value="{{ season }}"/>
+        {% endfor %}
 
         
 
@@ -70,7 +66,10 @@
 {% endblock %}
 
 {% block scripts %}
+    <script type="text/javascript">
+        const SCRIPT_ROOT = {{ request.script_root|tojson }}
+    </script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
-    <script src="{{ url_for('static', filename='js/download_image.js') }}"></script>
+    <!-- <script src="{{ url_for('static', filename='js/download_image.js') }}"></script> -->
     <script src="{{ url_for('static', filename='js/seasons.js') }}"></script>
 {% endblock %}
