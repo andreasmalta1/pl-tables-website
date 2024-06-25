@@ -5,45 +5,6 @@
 
 {% block content %}
 <div class="container">
-    <h1 id="current-manager" class="title">Current PL Managers <span><i class="fa-solid fa-circle-down"></i></span></h1>
-    <form id="current-form" action="" method="post">
-        <table class="managers-table" id="currentManagers">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Name</th>
-                    <th>Nationality</th>
-                    <th>Club</th>
-                    <th>Day Joined</th>
-                    <th>Days In Charge</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for stint in current_stints %}
-                    <tr>
-                        <td>
-                            <label for="currentManager"> <img class="manager-face" src="{{ stint.face_url }}" ></label>
-                        </td>
-                        <td class="manager-name">
-                            <input class="down-button" type="submit" name="{{ stint.id }}" value="{{ stint.manager_name }}"/>
-                        </td>
-                        <td>
-                            <label for="currentManager"> <img class="team-logo" src="{{ stint.crest_url }}"></label>
-                        </td>
-                        <td>
-                            <label for="currentManager"> <img class="team-logo" src="{{ stint.flag_url }}"></label>
-                        </td>
-                        <td>
-                            <label for="currentManager">{{ stint.date_start }}</label>
-                        </td>
-                        <td></td>
-                        
-                    </tr>   
-                {% endfor %}
-            </tbody>
-        </table>
-    </form>
-
     <h1 id="memorable-manager" class="title">Memorable PL Managers <span><i class="fa-solid fa-circle-down"></i></span></h1>
     <form id="memorable-form" action="" method="post">
         <table class="managers-table" id="memorableManagers">
@@ -59,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for stint in ended_stints %}
+                {% for stint in stints %}
                     <tr>
                         <td>
                             <label for="memorableManager"> <img class="manager-face" src="{{ stint.face_url }}"></label>

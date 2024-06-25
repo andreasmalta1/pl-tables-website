@@ -5,8 +5,8 @@ from models import Team, Nation, Manager, ManagerStint
 from utils import update_visits
 
 
-@manager_blueprint.route("/", methods=["GET"])
-def managers():
+@manager_blueprint.route("/current", methods=["GET"])
+def current_managers():
     # Add page visit to db
     update_visits(request.remote_addr, "managers")
 
@@ -28,6 +28,18 @@ def managers():
             .all()
         )
 
+        return render_template(
+            "manager/current_managers.html",
+            stints=current_stints,
+        )
+
+
+@manager_blueprint.route("/ended", methods=["GET"])
+def old_managers():
+    # Add page visit to db
+    update_visits(request.remote_addr, "managers")
+
+    if request.method == "GET":
         ended_stints = (
             ManagerStint.query.filter_by(current=False)
             .join(Team, ManagerStint.team_id == Team.id)
@@ -47,7 +59,6 @@ def managers():
         )
 
         return render_template(
-            "manager/managers.html",
-            current_stints=current_stints,
-            ended_stints=ended_stints,
+            "manager/old_managers.html",
+            stints=ended_stints,
         )

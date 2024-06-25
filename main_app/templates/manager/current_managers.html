@@ -1,0 +1,48 @@
+{%   extends 'base.html' %}
+
+{% block styles %} <link rel="stylesheet" href="{{ url_for('static', filename='css/managers.css') }}"> {% endblock %}
+{% block title %} PL Tables | Managers {% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 id="current-manager" class="title">Current PL Managers</h1>
+    <table class="managers-table" id="currentManagers">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Nationality</th>
+                <th>Club</th>
+                <th>Day Joined</th>
+                <th>Days In Charge</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for stint in stints %}
+                <tr>
+                    <td>
+                        <label for="currentManager"> <img class="manager-face" src="{{ stint.face_url }}" ></label>
+                    </td>
+                    <td class="manager-name">
+                        <input class="down-button" type="submit" name="{{ stint.id }}" value="{{ stint.manager_name }}"/>
+                    </td>
+                    <td>
+                        <label for="currentManager"> <img class="team-logo" src="{{ stint.crest_url }}"></label>
+                    </td>
+                    <td>
+                        <label for="currentManager"> <img class="team-logo" src="{{ stint.flag_url }}"></label>
+                    </td>
+                    <td>
+                        <label for="currentManager">{{ stint.date_start }}</label>
+                    </td>
+                    <td></td>
+                    
+                </tr>   
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/current_managers.js') }}"></script>
+{% endblock %}

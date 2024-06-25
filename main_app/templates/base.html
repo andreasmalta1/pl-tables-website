@@ -26,7 +26,10 @@
                 <a href="{{ url_for('season.seasons') }}">Seasons</a>
             </li>
             <li class="navbar-item">
-                <a href="{{ url_for('manager.managers') }}">PL Managers</a>
+                <a href="{{ url_for('manager.current_managers') }}">Current PL Managers</a>
+            </li>
+            <li class="navbar-item">
+                <a href="{{ url_for('manager.old_managers') }}">Old PL Managers</a>
             </li>
             <li class="navbar-item">
                 <a href="{{ url_for('contact_page.contact_page') }}">Contact</a>
@@ -48,7 +51,10 @@
             <a href="{{ url_for('season.seasons') }}">Seasons</a>
         </li>
         <li class="navbar-item">
-            <a href="{{ url_for('manager.managers') }}">PL Managers</a>
+            <a href="{{ url_for('manager.current_managers') }}">Current PL Managers</a>
+        </li>
+        <li class="navbar-item">
+            <a href="{{ url_for('manager.old_managers') }}">Old PL Managers</a>
         </li>
         <li class="navbar-item">
             <a href="{{ url_for('contact_page.contact_page') }}">Contact</a>
