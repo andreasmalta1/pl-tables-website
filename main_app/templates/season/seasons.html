@@ -8,60 +8,20 @@
 
 {% block content %}
     <div class="container">
-        <h1 id="seasons-title" class="title">Current Season <span><i class="fa-solid fa-circle-down"></i></span></h1>
-        <a href="{{ url_for('home.index') }}"class="down-button">{{ current_season }}</a>
-        
-        <h1 id="seasons-title" class="title">PL Seasons <span><i class="fa-solid fa-circle-down"></i></span></h1>
-        {% for season in seasons %}
-            <input class="all-seasons down-button" type="submit" name="season" value="{{ season }}"/>
-        {% endfor %}
-
-        
-
-        {% if standings_table %}
-            <script>
-                const titleElScript = document.getElementById("seasons-title")
-                const formElScript = document.getElementById("seasons-form")
-
-                formElScript.classList.add("form-hidden")
-            </script>
-            <h2>Standings</h2>
-            <table id="pl-table" class="standing-table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th></th>
-                        <th class="team">Team</th>
-                        <th>MP</th>
-                        <th>W</th>
-                        <th>D</th>
-                        <th>L</th>
-                        <th>GF</th>
-                        <th>GA</th>
-                        <th>GD</th>
-                        <th>PTS</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for team, stats in standings_table %}
-                        <tr>
-                            <td>{{ stats['rk'] }}</td>
-                            <td><img class="team-logo" src="{{ stats['url'] }}" alt="{{ team }}"></td>
-                            <td class="team no-border-left">{{ team }}</td>
-                            <td>{{ stats['played'] }}</td>
-                            <td>{{ stats['win'] }}</td>
-                            <td>{{ stats['draw'] }}</td>
-                            <td>{{ stats['loss'] }}</td>
-                            <td>{{ stats['goals_for'] }}</td>
-                            <td>{{ stats['goals_against'] }}</td>
-                            <td>{{ stats['gd'] }}</td>
-                            <td class="points">{{ stats['points'] }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <button class="down-button" id="down-table">Download Table</button>
-        {% endif %}
+        <h1 id="seasons-title" class="title">Premier League Seasons</h1>
+        <div style="border-style: solid">
+            <label for="season">Select a Premier League Season:</label>
+            <br>
+            <select name="season" id="seasons">
+            {% for season in seasons %}
+                <option value="{{ season }}">{{ season }}</option>
+            {% endfor %}
+            </select>
+            <br>
+            <button id="genBtn">Get Season Standings</button>
+        </div>
+        <div id="standings" class="standings"></div>
+        <br>
     </div>
 {% endblock %}
 

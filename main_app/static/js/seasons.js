@@ -1,13 +1,17 @@
-let seasons_url = `${SCRIPT_ROOT}/api/seasons`
+const seasons_url = `${SCRIPT_ROOT}/api/seasons`
 
-const allSeasonsElement = Array.from(document.getElementsByClassName("all-seasons"))
+const dropdownElement = document.getElementById('seasons');
+const firstSeason = dropdownElement.options[0].text.replace("/", "-")
+const tableDiv = document.getElementById('standings')
+const genBtn = document.getElementById('genBtn')
+getCurrentSeasonTable()
 
 function createTable(data){
+    tableDiv.innerHTML = '';
     let table = document.createElement('table');
     table.id = 'pl-table';
     table.className = 'standing-table';
 
-    // Create the table header
     let thead = document.createElement('thead');
     let headerRow = document.createElement('tr');
 
@@ -27,10 +31,6 @@ function createTable(data){
 
     // Create the table body
     let tbody = document.createElement('tbody');
-    table.appendChild(tbody);
-
-    // Append the table to the document body or any other container
-    document.body.appendChild(table);
 
     for (const team in data) {
         let row = document.createElement('tr');
@@ -44,7 +44,6 @@ function createTable(data){
         img.style.width = '30px'; // Adjust the size as needed
         logoCell.appendChild(img);
         row.appendChild(logoCell);
-        tbody.appendChild(row);
 
         let teamCell = document.createElement('td');
         teamCell.textContent = team;
@@ -56,8 +55,14 @@ function createTable(data){
             td.textContent = data[team][stat];
             row.appendChild(td);
         });
+        tbody.appendChild(row);
     }
-    
+    table.appendChild(tbody);
+    tableDiv.appendChild(table);
+    return table
+}
+
+function sortTable(table){
     let n = 0
     let rows, switching, i, x, y, shouldSwitch, dir, switchCount = 0;
     switching = true;
@@ -83,8 +88,12 @@ function createTable(data){
                     break;
                 }
             }
+            console.log("Here")
+            console.log(shouldSwitch)
         }
         if (shouldSwitch) {
+            console.log("Switching")
+            
             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
             switching = true;
             switchCount++;
@@ -97,16 +106,30 @@ function createTable(data){
     }
 }
 
-allSeasonsElement.forEach(seasonElement => {
-    seasonElement.addEventListener('click', () => {
-        let inputValue = seasonElement.value.replace("/", "-")
-        fetch(`${seasons_url}/${inputValue}`)
+function getCurrentSeasonTable(){
+    fetch(`${seasons_url}/${firstSeason}`)
         .then(response => response.json())
         .then(data => {
-            createTable(data)
+            currentTable = createTable(data)
+            sortTable(currentTable)
+            sortTable(currentTable)
+            
         })
         .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
         });
+}
+
+genBtn.addEventListener('click', () => {
+    let selectedValue = dropdownElement.value.replace("/", "-")
+    fetch(`${seasons_url}/${selectedValue}`)
+    .then(response => response.json())
+    .then(data => {
+        table = createTable(data)
+        console.log(table)
+        sortTable(table)
+    })
+    .catch(error => {
+        console.error('There has been a problem with your fetch operation:', error);
     });
-})
+});

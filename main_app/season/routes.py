@@ -17,14 +17,15 @@ def seasons():
         )
 
         seasons = [season.season for season in seasons_query]
-        seasons.sort(reverse=True)
+
         current_season = current_season_query.season
 
-        if current_season in seasons:
-            seasons.remove(current_season)
+        if current_season not in seasons:
+            seasons.append(current_season)
 
-            return render_template(
-                "season/seasons.html",
-                seasons=seasons,
-                current_season=current_season,
-            )
+        seasons.sort(reverse=True)
+
+        return render_template(
+            "season/seasons.html",
+            seasons=seasons,
+        )
