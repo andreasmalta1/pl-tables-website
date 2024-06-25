@@ -29,3 +29,30 @@ def seasons(season):
     for team in standings:
         standings_dict[team[0]] = team[1]
     return jsonify(standings_dict)
+
+
+@api_blueprint.route("/managers/int<stint_id>", methods=["GET"])
+def managers(stint_id):
+    print(stint_id)
+    return jsonify({"manager_id": stint_id})
+    season = season.replace("-", "/")
+    HomeTeam = aliased(Team, name="home_team")
+    AwayTeam = aliased(Team, name="away_team")
+
+    matches = (
+        Match.query.filter_by(season=season)
+        .join(HomeTeam, HomeTeam.id == Match.home_team_id)
+        .join(AwayTeam, AwayTeam.id == Match.away_team_id)
+        .add_columns(
+            HomeTeam.name.label("home_team_name"),
+            Match.home_score,
+            AwayTeam.name.label("away_team_name"),
+            Match.away_score,
+        )
+        .all()
+    )
+    standings = generate_table(matches, season)
+    standings_dict = {}
+    for team in standings:
+        standings_dict[team[0]] = team[1]
+    return jsonify(standings_dict)

@@ -21,6 +21,7 @@ def managers():
                 Manager.name.label("manager_name"),
                 Manager.face_url.label("face_url"),
                 Nation.flag_url.label("flag_url"),
+                ManagerStint.id,
                 ManagerStint.date_start,
                 ManagerStint.current,
             )
@@ -37,6 +38,7 @@ def managers():
                 Manager.name.label("manager_name"),
                 Manager.face_url.label("face_url"),
                 Nation.flag_url.label("flag_url"),
+                ManagerStint.id,
                 ManagerStint.date_start,
                 ManagerStint.date_end,
                 ManagerStint.current,
