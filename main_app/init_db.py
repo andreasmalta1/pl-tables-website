@@ -11,6 +11,11 @@ from app import db
 
 
 def add_teams():
+    team_check = Team.query.first()
+    if team_check:
+        print("Teams already exist. Skipping")
+        return
+
     csv_file_path = os.path.join("csvs", "teams.csv")
     with open(csv_file_path, encoding="utf-8") as csv_file:
         csv_reader = csv.DictReader(csv_file)
@@ -30,6 +35,11 @@ def add_teams():
 
 
 def add_nations():
+    nations_check = Nation.query.first()
+    if nations_check:
+        print("Nations already exist. Skipping")
+        return
+
     csv_file_path = os.path.join("csvs", "nations.csv")
     with open(csv_file_path, encoding="utf-8") as csv_file:
         csv_reader = csv.DictReader(csv_file)
@@ -48,6 +58,11 @@ def add_nations():
 
 
 def add_managers():
+    managers_check = Manager.query.first()
+    if managers_check:
+        print("Managers already exist. Skipping")
+        return
+
     nations = Nation.query.all()
     nations_dict = {nation.name: nation.id for nation in nations}
     csv_file_path = os.path.join("csvs", "managers.csv")
@@ -76,6 +91,11 @@ def add_managers():
 
 
 def add_managerial_stints():
+    stints_check = ManagerStint.query.first()
+    if stints_check:
+        print("Managerial stints already exist. Skipping")
+        return
+
     teams = Team.query.all()
     teams_dict = {team.name: team.id for team in teams}
 
@@ -121,6 +141,11 @@ def add_managerial_stints():
 
 
 def add_matches():
+    matches_check = Match.query.first()
+    if matches_check:
+        print("Matches already exist. Skipping")
+        return
+
     teams = Team.query.all()
     teams_dict = {team.name: team.id for team in teams}
 
