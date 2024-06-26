@@ -5,6 +5,7 @@ const managersTableBody = managersTable.getElementsByTagName('tbody')[0];
 const managersRows = Array.from(managersTableBody.getElementsByTagName('tr'));
 const managerBtns = document.querySelectorAll('.down-button');
 const tableDiv = document.getElementById('standings')
+const managersDiv = document.getElementById('currentManagersDiv')
 
 function daysElapsedNow(dateString) {
     const inputDate = new Date(dateString);
@@ -127,6 +128,11 @@ function sortTable(table){
     }
 }
 
+function hideManagers(){
+    if (!managersDiv.classList.contains('hidden')) {
+        managersDiv.classList.add('hidden');
+    }
+}
 
 managerBtns.forEach(btn => {
     btn.addEventListener('click', function() {
@@ -136,6 +142,7 @@ managerBtns.forEach(btn => {
         .then(data => {
             table = createTable(data)
             sortTable(table)
+            hideManagers()
         })
         .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
