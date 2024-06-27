@@ -27,6 +27,6 @@
 - Download images
 
 # Next steps
-- Routing from managers/season/custom_dates page to custom tables (show manager chosen + team ; show season chosen ; show date chosen)
-- For managers, when manager is chosen, collapse table, show manager side profile with info and show table
-- Decide what to do when need to select next manager
+- Page flow + CSS for seasons/manager/dates
+- Table by calendar year
+- Error checking especially for custom dates
