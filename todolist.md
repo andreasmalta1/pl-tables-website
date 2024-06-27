@@ -7,9 +7,9 @@
 
 # Flask App
 
-- Ability to make standing dynamics (use similar to how managers are gettong sorted)
-- Add ability to show table in a calendar
-- Show manager and team when you select stint
+- Ability to make standing dynamics (use similar to how managers are getting sorted)
+- Add ability to show table in a calendar year
+- Highlight when you select stint
 - Remove repetitive code when generating tables
 - Add a page to see all the results
 - Dynamic URL routing & use JS fetch methods

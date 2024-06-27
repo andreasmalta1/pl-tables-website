@@ -8,85 +8,14 @@
 
 {% block content %}
     <div class="container">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    {% if category == "error" %}
-                        <div class="error">
-                            <div class="error-column error-message">
-                                {{ message }}
-                            </div>
-                            <div class="error-column">
-                                <button onclick="deleteError(this)" class="close-error error-button">
-                                <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
-
         <div class="row form">
-            <form action="" method="POST">
-                <label for="start_date">Start Date:</label>
-                {% if start_date %}
-                    <input type="date" id="start_date" name="start_date" value={{ start_date }}>
-                {% else %}
-                    <input type="date" id="start_date" name="start_date">
-                {% endif %}
-                <br>
-                <label for="end_date">End Date:</label>
-                {% if end_date %}
-                    <input type="date" id="end_date" name="end_date" value={{ end_date }}>
-                {% else %}
-                    <input type="date" id="end_date" name="end_date">
-                {% endif %}
-                <br>
-                <input class="down-button" type="submit" value="Get Standings">
-            </form>
-        </div>
-        <div class="row">
-            {% if standings_table %}
-                <h2 class="title">Standings</h2>
-                <table class="standing-table" id="pl-table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th></th>
-                            <th class="team">Team</th>
-                            <th>MP</th>
-                            <th>W</th>
-                            <th>D</th>
-                            <th>L</th>
-                            <th>GF</th>
-                            <th>GA</th>
-                            <th>GD</th>
-                            <th>PTS</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for team, stats in standings_table %}
-                            <tr>
-                                <td>{{ stats['rk'] }}</td>
-                                <td><img class="team-logo" src="{{ stats['url'] }}" alt="{{ team }}"></td>
-                                <td class="team no-border-left">{{ team }}</td>
-                                <td>{{ stats['played'] }}</td>
-                                <td>{{ stats['win'] }}</td>
-                                <td>{{ stats['draw'] }}</td>
-                                <td>{{ stats['loss'] }}</td>
-                                <td>{{ stats['goals_for'] }}</td>
-                                <td>{{ stats['goals_against'] }}</td>
-                                <td>{{ stats['gd'] }}</td>
-                                <td class="points">{{ stats['points'] }}</td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                <button class="down-button" id="down-table">Download Table</button>
-            {% else %}
-                <h1 class="no-table">No matches were played in this date period</h1>
-            {% endif %}
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="start_date" name="start_date">
+            <br>
+            <label for="end_date">End Date:</label>
+            <input type="date" id="end_date" name="end_date">
+            <br>
+            <input class="down-button" type="submit" value="Get Standings">
         </div>
     </div>
 
@@ -94,28 +23,10 @@
 {% endblock %}
 
 {% block scripts %}
-    {% if end_date %}
-        <script type="text/javascript">
-            let endDate = {{ end_date|tojson }}
-        </script>
-    {% else %}
-        <script type="text/javascript">
-            let endDate = null
-        </script>
-    {% endif %}
-
-    {% if start_date %}
-        <script type="text/javascript">
-            let startDate = {{ start_date|tojson }}
-        </script>
-    {% else %}
-        <script type="text/javascript">
-            let startDate = null
-        </script>
-    {% endif %}
-
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script type="text/javascript">
+        const SCRIPT_ROOT = {{ request.script_root|tojson }}
+    </script>
+    <script src="{{ url_for('static', filename='js/custom_dates.js') }}"></script>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
     <script src="{{ url_for('static', filename='js/download_image.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/delete_error.js') }}"></script>
 {% endblock %}
