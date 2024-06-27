@@ -25,11 +25,11 @@ from contact_page import contact_page_blueprint as contact_page
 
 with app.app_context():
     db.create_all()
-    # init_db.add_teams()
-    # init_db.add_nations()
-    # init_db.add_managers()
-    # init_db.add_managerial_stints()
-    # init_db.add_matches()
+    init_db.add_teams()
+    init_db.add_nations()
+    init_db.add_managers()
+    init_db.add_managerial_stints()
+    init_db.add_matches()
 
 
 # Register blueprints

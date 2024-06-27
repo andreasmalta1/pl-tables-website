@@ -257,6 +257,10 @@ body, input, li, a, button, input, label, textarea {
 .form-hidden{
   display: none;
 }
+
+.hidden{
+  display: none;
+}
 /* End Common CSS */
 
 /* Mobile CSS */
