@@ -94,6 +94,14 @@ def dates(date_start, date_end):
     return jsonify(standings_dict)
 
 
+@api_blueprint.route("/years/<int:year>", methods=["GET"])
+def calendar_year(year):
+    date_start = date(year, 1, 1)
+    date_end = date(year, 12, 31)
+    standings_dict = get_matches_by_day(date_start, date_end)
+    return jsonify(standings_dict)
+
+
 def get_matches_by_day(date_start, date_end):
     HomeTeam = aliased(Team, name="home_team")
     AwayTeam = aliased(Team, name="away_team")

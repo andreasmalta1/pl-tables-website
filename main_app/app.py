@@ -20,6 +20,7 @@ from home import home_blueprint as home
 from all_time import all_time_blueprint as all_time
 from manager import manager_blueprint as manager
 from season import season_blueprint as season
+from year import year_blueprint as year
 from custom_date import custom_date_blueprint as custom_date
 from contact_page import contact_page_blueprint as contact_page
 
@@ -38,5 +39,6 @@ app.register_blueprint(home)
 app.register_blueprint(all_time, url_prefix="/league")
 app.register_blueprint(manager, url_prefix="/managers")
 app.register_blueprint(season, url_prefix="/seasons")
+app.register_blueprint(year, url_prefix="/year")
 app.register_blueprint(custom_date, url_prefix="/custom-date")
 app.register_blueprint(contact_page, url_prefix="/contact")
