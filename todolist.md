@@ -27,6 +27,7 @@
 - Download images
 
 # Next steps
+- Add initial week table for custom dates
+- Try to refactor sortTable and createTable
 - Page flow + CSS for seasons/manager/dates
-- Table by calendar year
 - Error checking especially for custom dates
