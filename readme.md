@@ -1,5 +1,5 @@
 # Premier League Tables
-#### Video Demo:  https://youtu.be/4gSKp2CKD6U?si=L5vOGhLCi0SNZ0Sd
+
 ### Description:
 A website built using Flask that generates custom dated PL tables across multiple seasons from 1992 until the present.
 
