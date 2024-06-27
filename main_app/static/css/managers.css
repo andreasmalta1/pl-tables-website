@@ -2,12 +2,6 @@ input{
   color: black;
 }
 
-form{
-  margin: 0 auto;
-  text-align: center;
-  transition: 1s ease-out;
-}
-
 input{
   width: 175px;
 }
@@ -59,6 +53,18 @@ th{
   width: 40px;
   height: 40px;
   vertical-align: middle;
+}
+
+.managerStandings {
+  display: flex;
+}
+
+.managerProfile {
+  flex: 0 0 20%;
+}
+
+.standings {
+  flex: 0 0 80%;
 }
 
 @media screen and (max-width: 1000px) {

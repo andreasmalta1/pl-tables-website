@@ -4,7 +4,7 @@ from datetime import date
 
 from app import db
 from api import api_blueprint
-from models import Team, Match, ManagerStint
+from models import Team, Nation, Match, Manager, ManagerStint
 from utils import generate_table
 
 
@@ -33,8 +33,8 @@ def seasons(season):
     return jsonify(standings_dict)
 
 
-@api_blueprint.route("/managers/<int:stint_id>", methods=["GET"])
-def managers(stint_id):
+@api_blueprint.route("/stints/<int:stint_id>", methods=["GET"])
+def stints(stint_id):
     manager_stint = ManagerStint.query.filter_by(id=stint_id).first()
     date_start = manager_stint.date_start
     if manager_stint.current:
@@ -63,3 +63,47 @@ def managers(stint_id):
     for team in standings:
         standings_dict[team[0]] = team[1]
     return jsonify(standings_dict)
+
+
+@api_blueprint.route("/managers/<int:stint_id>", methods=["GET"])
+def managers(stint_id):
+    ManagerTable = aliased(Manager, name="manager_table")
+    NationTable = aliased(Nation, name="nation_table")
+    TeamTable = aliased(Team, name="team_table")
+
+    manager_query = (
+        ManagerStint.query.filter_by(id=stint_id)
+        .join(ManagerTable, ManagerTable.id == ManagerStint.manager_id)
+        .join(NationTable, NationTable.id == ManagerTable.nation_id)
+        .join(TeamTable, TeamTable.id == ManagerStint.team_id)
+        .add_columns(
+            ManagerStint.date_start,
+            ManagerStint.date_end,
+            ManagerTable.name.label("manager_name"),
+            ManagerTable.face_url.label("manager_face_url"),
+            NationTable.name.label("nation_name"),
+            NationTable.flag_url.label("nation_flag_url"),
+            TeamTable.name.label("team_name"),
+            TeamTable.crest_url.label("team_crest_url"),
+        )
+        .first()
+    )
+
+    print(type(manager_query.date_start.strftime("%m/%d/%Y")))
+
+    manager_info = {
+        "name": manager_query.manager_name,
+        "face_url": manager_query.manager_face_url,
+        "date_start": manager_query.date_start.strftime("%Y-%m-%d"),
+        "date_end": (
+            None
+            if not manager_query.date_end
+            else manager_query.date_end.strftime("%Y-%m-%d")
+        ),
+        "team_name": manager_query.team_name,
+        "team_crest_url": manager_query.team_crest_url,
+        "nation_name": manager_query.nation_name,
+        "nation_flag_url": manager_query.nation_flag_url,
+    }
+
+    return jsonify(manager_info)
