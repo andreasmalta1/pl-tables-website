@@ -46,13 +46,18 @@ function createTable(data){
 
     let headers = ['#', '', 'Team', 'MP', 'W', 'D', 'L', 'GF', 'GA', 'GD', 'PTS'];
 
-    headers.forEach(headerText => {
+    headers.forEach((headerText, index) => {
         let th = document.createElement('th');
         if (headerText === 'Team') {
             th.className = 'team';
         }
         th.textContent = headerText;
         headerRow.appendChild(th);
+        if (index != 1){
+            th.addEventListener('click', () => {
+                sortTable(table, index)
+            });
+        }
     });
 
     thead.appendChild(headerRow);
@@ -91,8 +96,7 @@ function createTable(data){
     return table
 }
 
-function sortTable(table){
-    let n = 0
+function sortTable(table, n){
     let rows, switching, i, x, y, shouldSwitch, dir, switchCount = 0;
     switching = true;
     dir = "asc";
@@ -106,18 +110,33 @@ function sortTable(table){
             x = rows[i].getElementsByTagName("TD")[n];
             y = rows[i + 1].getElementsByTagName("TD")[n];
 
-            if (dir == "asc") {
-                if (Number(x.innerHTML) > Number(y.innerHTML)) {
-                    shouldSwitch = true;
-                    break;
+            if (n != 2){
+                if (dir == "asc") {
+                    if (Number(x.innerHTML) > Number(y.innerHTML)) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (Number(x.innerHTML) < Number(y.innerHTML)) {
+                        shouldSwitch = true;
+                        break;
+                    }
                 }
-            } else if (dir == "desc") {
-                if (Number(x.innerHTML) < Number(y.innerHTML)) {
-                    shouldSwitch = true;
-                    break;
+            } else {
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
                 }
             }
         }
+
         if (shouldSwitch) {
             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
             switching = true;
@@ -191,7 +210,7 @@ managerBtns.forEach(btn => {
         .then(response => response.json())
         .then(data => {
             table = createTable(data)
-            sortTable(table)
+            sortTable(table, 0)
             hideManagers()
         })
         .catch(error => {
