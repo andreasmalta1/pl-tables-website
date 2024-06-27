@@ -108,7 +108,7 @@ function seasonTitle(season){
 }
 
 function getCurrentSeasonTable(firstSeason){
-    fetch(`${seasons_url}/${firstSeason}`)
+    fetch(`${seasonUrl}/${firstSeason}`)
         .then(response => response.json())
         .then(data => {
             currentTable = createTable(data)
