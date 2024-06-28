@@ -4,32 +4,21 @@ from datetime import date
 
 from app import db
 from api import api_blueprint
-from models import Team, Nation, Match, Manager, ManagerStint
+from models import Team, Nation, Match, Manager, ManagerStint, Season
 from utils import generate_table
+
+
+@api_blueprint.route("/current-season", methods=["GET"])
+def index():
+    season = Season.query.first().season
+    standings_dict = get_matches_by_season(season)
+    return jsonify(standings_dict)
 
 
 @api_blueprint.route("/seasons/<season>", methods=["GET"])
 def seasons(season):
     season = season.replace("-", "/")
-    HomeTeam = aliased(Team, name="home_team")
-    AwayTeam = aliased(Team, name="away_team")
-
-    matches = (
-        Match.query.filter_by(season=season)
-        .join(HomeTeam, HomeTeam.id == Match.home_team_id)
-        .join(AwayTeam, AwayTeam.id == Match.away_team_id)
-        .add_columns(
-            HomeTeam.name.label("home_team_name"),
-            Match.home_score,
-            AwayTeam.name.label("away_team_name"),
-            Match.away_score,
-        )
-        .all()
-    )
-    standings = generate_table(matches, season)
-    standings_dict = {}
-    for team in standings:
-        standings_dict[team[0]] = team[1]
+    standings_dict = get_matches_by_season(season)
     return jsonify(standings_dict)
 
 
@@ -100,6 +89,31 @@ def calendar_year(year):
     date_end = date(year, 12, 31)
     standings_dict = get_matches_by_day(date_start, date_end)
     return jsonify(standings_dict)
+
+
+def get_matches_by_season(season):
+    HomeTeam = aliased(Team, name="home_team")
+    AwayTeam = aliased(Team, name="away_team")
+
+    matches = (
+        Match.query.filter_by(season=season)
+        .join(HomeTeam, HomeTeam.id == Match.home_team_id)
+        .join(AwayTeam, AwayTeam.id == Match.away_team_id)
+        .add_columns(
+            HomeTeam.name.label("home_team_name"),
+            Match.home_score,
+            AwayTeam.name.label("away_team_name"),
+            Match.away_score,
+        )
+        .all()
+    )
+
+    standings = generate_table(matches, season)
+    standings_dict = {}
+    for team in standings:
+        standings_dict[team[0]] = team[1]
+
+    return standings_dict
 
 
 def get_matches_by_day(date_start, date_end):
