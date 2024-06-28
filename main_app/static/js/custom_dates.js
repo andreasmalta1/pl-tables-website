@@ -15,6 +15,16 @@ let lastWeekFormatted = lastWeek.toISOString().split('T')[0];
 startDateInput.value = lastWeekFormatted;
 endDateInput.value = todayFormatted;
 
+fetch(`${datesUrl}/${startDateInput.value}/${endDateInput.value}`)
+    .then(response => response.json())
+    .then(data => {
+        table = createTable(data)
+        sortTable(table, 0)
+    })
+    .catch(error => {
+        console.error('There has been a problem with your fetch operation:', error);
+    });
+
 function createTable(data){
     tableDiv.innerHTML = '';
     let table = document.createElement('table');
