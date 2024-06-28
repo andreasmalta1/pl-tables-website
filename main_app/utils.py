@@ -4,12 +4,12 @@ from requests import get
 from os import getenv
 from collections import defaultdict
 from bs4 import BeautifulSoup
-from datetime import date
 from dotenv import load_dotenv
+from sqlalchemy.orm import aliased
 
 load_dotenv()
 
-from models import Team, Visit
+from models import Team, PointDeduction, Visit
 
 
 def generate_table(matches, season):
@@ -76,7 +76,26 @@ def generate_table(matches, season):
                 standings[team.name]["gd"] = 0
                 standings[team.name]["points"] = 0
 
-    # Update data with team id and logo
+    if season:
+        TeamTable = aliased(Team, name="team_table")
+        points_deductions = (
+            PointDeduction.query.filter_by(season=season)
+            .join(TeamTable, TeamTable.id == PointDeduction.team_id)
+            .add_columns(
+                PointDeduction.points_deducted,
+                PointDeduction.reason,
+                PointDeduction.season,
+                TeamTable.name.label("team_name"),
+            )
+            .all()
+        )
+
+        for points_deduction in points_deductions:
+            standings[points_deduction.team_name][
+                "points"
+            ] -= points_deduction.points_deducted
+
+    # Update data with logo
     for team in standings:
         crest_url = Team.query.filter_by(name=team).first().crest_url
         standings[team]["url"] = crest_url
