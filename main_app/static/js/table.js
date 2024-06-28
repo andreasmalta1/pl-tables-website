@@ -109,3 +109,14 @@ function sortTable(table, n){
         }
     }
 }
+
+function createPointsDeduction(pointDeductions){
+    if (Object.keys(pointDeductions).length === 0){
+        return
+    }
+    for (const deduction in pointDeductions) {
+        let deductionPar = document.createElement('p');
+        deductionPar.textContent = `${pointDeductions[deduction]["team_name"]} deducted ${pointDeductions[deduction]["points_deducted"]} points - ${pointDeductions[deduction]["reason"]}`
+        deductionDiv.appendChild(deductionPar)
+    }
+}
