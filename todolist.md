@@ -8,7 +8,6 @@
 
 - Highlight when you select stint
 - Add a page to see all the results
-- Points Deduction CSV & init
 - Home page -> show which season it is
 - Admin button to start a new season with promotion and releagtion and reset of league table
 - Will need pages to add new teams, add new managers, add nations, add/end stints
