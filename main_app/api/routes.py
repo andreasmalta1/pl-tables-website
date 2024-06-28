@@ -4,7 +4,7 @@ from datetime import date
 
 from app import db
 from api import api_blueprint
-from models import Team, Nation, Match, Manager, ManagerStint, Season
+from models import *
 from utils import generate_table
 
 
@@ -89,6 +89,39 @@ def calendar_year(year):
     date_end = date(year, 12, 31)
     standings_dict = get_matches_by_day(date_start, date_end)
     return jsonify(standings_dict)
+
+
+@api_blueprint.route("/deductions/<season>", methods=["GET"])
+def point_deductions(season):
+    if season == "current":
+        season = Season.query.first().season
+
+    season = season.replace("-", "/")
+    TeamTable = aliased(Team, name="team_table")
+    points_deductions = (
+        PointDeduction.query.filter_by(season=season)
+        .join(TeamTable, TeamTable.id == PointDeduction.team_id)
+        .add_columns(
+            PointDeduction.id,
+            PointDeduction.points_deducted,
+            PointDeduction.reason,
+            PointDeduction.season,
+            TeamTable.name.label("team_name"),
+        )
+        .all()
+    )
+
+    if len(points_deductions) == 0:
+        return jsonify({})
+
+    deductions_dict = {}
+    for deduction in points_deductions:
+        deductions_dict[deduction.id] = {
+            "team_name": deduction.team_name,
+            "reason": deduction.reason,
+            "points_deducted": deduction.points_deducted,
+        }
+    return jsonify(deductions_dict)
 
 
 def get_matches_by_season(season):
