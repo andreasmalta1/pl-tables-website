@@ -1,6 +1,3 @@
-# Add managers
-# Add stints
-# Add deductions
 from flask import jsonify
 import os
 from datetime import date
@@ -153,8 +150,6 @@ def add_matches():
     with open(csv_file_path, encoding="utf-8") as csv_file:
         csv_reader = csv.DictReader(csv_file)
         for row in csv_reader:
-            current = None
-
             home_team_id = teams_dict.get(row["home_team_name"])
             away_team_id = teams_dict.get(row["away_team_name"])
 
@@ -177,3 +172,33 @@ def add_matches():
         # Save data to db
         db.session.commit()
         return jsonify({"msg": "Matches added successfully"})
+
+
+def add_point_deductions():
+    deductions_check = PointDeduction.query.first()
+    if deductions_check:
+        print("Point Deductions already exist. Skipping")
+        return
+
+    teams = Team.query.all()
+    teams_dict = {team.name: team.id for team in teams}
+
+    csv_file_path = os.path.join("csvs", "point_deductions.csv")
+    with open(csv_file_path, encoding="utf-8") as csv_file:
+        csv_reader = csv.DictReader(csv_file)
+        for row in csv_reader:
+
+            home_team_id = teams_dict.get(row["team_name"])
+
+            new_deduction = PointDeduction(
+                team_id=home_team_id,
+                points_deducted=row["points_deducted"],
+                reason=row["reason"],
+                season=row["season"],
+            )
+
+            db.session.add(new_deduction)
+
+        # Save data to db
+        db.session.commit()
+        return jsonify({"msg": "Point Deductions added successfully"})

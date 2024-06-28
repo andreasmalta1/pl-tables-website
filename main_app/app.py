@@ -31,6 +31,7 @@ with app.app_context():
     init_db.add_managers()
     init_db.add_managerial_stints()
     init_db.add_matches()
+    init_db.add_point_deductions()
 
 
 # Register blueprints
