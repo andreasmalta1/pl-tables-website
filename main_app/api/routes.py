@@ -124,6 +124,13 @@ def point_deductions(season):
     return jsonify(deductions_dict)
 
 
+@api_blueprint.route("/get-current-season", methods=["GET"])
+def get_current_season():
+    season = Season.query.first().season
+
+    return jsonify({"season": season})
+
+
 def get_matches_by_season(season):
     HomeTeam = aliased(Team, name="home_team")
     AwayTeam = aliased(Team, name="away_team")

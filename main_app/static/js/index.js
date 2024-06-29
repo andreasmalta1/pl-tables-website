@@ -1,11 +1,13 @@
-const currentSeasonsUrl = `${SCRIPT_ROOT}/api/current-season`
+const currentSeasonUrl = `${SCRIPT_ROOT}/api/current-season`
 const deductionsUrl = `${SCRIPT_ROOT}/api/deductions`
+const seasonUrl = `${SCRIPT_ROOT}/api/get-current-season`
 
+const seasonDiv = document.getElementById('standings-title')
 const tableDiv = document.getElementById('standings')
 const deductionDiv = document.getElementById('deductions')
 
 document.addEventListener("DOMContentLoaded", () => {
-    fetch(`${currentSeasonsUrl}`)
+    fetch(`${currentSeasonUrl}`)
         .then(response => response.json())
         .then(data => {
             table = createTable(data)
@@ -19,6 +21,15 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(response => response.json())
         .then(data => {
             createPointsDeduction(data)
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+        });
+    
+    fetch(`${seasonUrl}`)
+        .then(response => response.json())
+        .then(data => {
+            seasonDiv.textContent = `Season ${data.season}`
         })
         .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
