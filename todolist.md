@@ -16,8 +16,16 @@
 - Function descriptions
 - Update visits
 - Download images
+- 404 page
 
 # Next steps
 - Admin updates
+-- New manager
+-- New stint
+-- End stint
+-- New nation
+-- New point deduction
+-- New season + promotion + relegation
 - Page flow + CSS for seasons/manager/dates
-- Error checking especially for custom dates
+- Error checking for apis (dates makes sense, no matches played, invalid injection (e.g. user enters inexistent season/year))
+- Error checking for updates (invalid model entry)

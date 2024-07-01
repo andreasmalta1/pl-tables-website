@@ -13,10 +13,18 @@ def new_team():
         return render_template("updates/new_team.html")
 
     if request.method == "POST":
-        name = request.form.get("team_name")
+        team_name = request.form.get("team_name")
         shortcode = request.form.get("shortcode")
         crest_url = request.form.get("crest_url")
-        print(name)
-        print(shortcode)
-        print(crest_url)
-        return jsonify({"a": "a"})
+
+        new_team = Team(
+            name=team_name,
+            shortcode=shortcode,
+            crest_url=crest_url,
+            current=False,
+        )
+
+        db.session.add(new_team)
+        db.session.commit()
+
+        return render_template("updates/new_team.html", team=new_team)
