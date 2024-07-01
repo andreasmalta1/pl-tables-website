@@ -27,11 +27,11 @@
         </form>
         {% endif %}
         {% if team %}
-        <h1>Team Added</h1>
-        <h3>Team Name - {{ team.name }}</h3>
-        <h3>Team Shortcode - {{ team.shortcode }}</h3>
-        <h3>Team Crest URL - {{ team.crest_url }}</h3>
-        <a href="{{ url_for('updates.new_team') }}">Generate New Team</a>
+            <h1>Team Added</h1>
+            <h3>Team Name - {{ team.name }}</h3>
+            <h3>Team Shortcode - {{ team.shortcode }}</h3>
+            <h3>Team Crest URL - {{ team.crest_url }}</h3>
+            <a href="{{ url_for('updates.new_team') }}">Generate New Team</a>
         {% endif %}
     </div>
 </div>

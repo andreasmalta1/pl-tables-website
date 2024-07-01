@@ -28,3 +28,26 @@ def new_team():
         db.session.commit()
 
         return render_template("updates/new_team.html", team=new_team)
+
+
+@updates_blueprint.route("/new-nation", methods=["GET", "POST"])
+@login_required
+def new_nation():
+    if request.method == "GET":
+        return render_template("updates/new_nation.html")
+
+    if request.method == "POST":
+        nation_name = request.form.get("nation_name")
+        shortcode = request.form.get("shortcode")
+        flag_url = request.form.get("flag_url")
+
+        new_nation = Nation(
+            name=nation_name,
+            shortcode=shortcode,
+            flag_url=flag_url,
+        )
+
+        db.session.add(new_nation)
+        db.session.commit()
+
+        return render_template("updates/new_nation.html", nation=new_nation)
