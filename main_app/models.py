@@ -1,5 +1,8 @@
-from app import db
+from flask_login import UserMixin
 from sqlalchemy.sql import func
+
+
+from app import db
 
 
 class Team(db.Model):
@@ -127,3 +130,17 @@ class Visit(db.Model):
         self.user_ip, self.page_name = user_ip, pagename
         db.session.add(self)
         db.session.commit()
+
+
+class User(UserMixin, db.Model):
+    __tablename__ = "users"
+
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(100), unique=True)
+    password = db.Column(db.String(100))
+    first_name = db.Column(db.String(50))
+    last_name = db.Column(db.String(50))
+
+    def __repr__(self):
+        """Return the string representing a visit."""
+        return self.name
