@@ -51,3 +51,28 @@ def new_nation():
         db.session.commit()
 
         return render_template("updates/new_nation.html", nation=new_nation)
+
+
+@updates_blueprint.route("/new-manager", methods=["GET", "POST"])
+@login_required
+def new_manager():
+    if request.method == "GET":
+        nations = Nation.query.all()
+        return render_template("updates/new_manager.html", nations=nations)
+
+    if request.method == "POST":
+        print(request.form.get("nation"))
+        manager_name = request.form.get("manager_name")
+        face_url = request.form.get("face_url")
+        nation_id = request.form.get("nation")
+
+        new_manager = Manager(
+            name=manager_name,
+            face_url=face_url,
+            nation_id=nation_id,
+        )
+
+        db.session.add(new_manager)
+        db.session.commit()
+
+        return render_template("updates/new_manager.html", manager=new_manager)
