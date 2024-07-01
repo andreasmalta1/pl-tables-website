@@ -2,6 +2,7 @@ from flask import jsonify
 import os
 from datetime import date
 import csv
+from werkzeug.security import generate_password_hash
 
 from models import *
 from app import db
@@ -202,3 +203,23 @@ def add_point_deductions():
         # Save data to db
         db.session.commit()
         return jsonify({"msg": "Point Deductions added successfully"})
+
+
+def add_user():
+    user = User.query.first()
+    if user:
+        print("User already exists. Skipping")
+        return
+
+    new_user = User(
+        email=os.getenv("ADMIN_EMAIL"),
+        first_name=os.getenv("ADMIN_FIRST_NAME"),
+        last_name=os.getenv("ADMIN_LAST_NAME"),
+        password=generate_password_hash(os.getenv("ADMIN_PASSWORD"), method="sha256"),
+    )
+
+    db.session.add(new_user)
+
+    # Save data to db
+    db.session.commit()
+    return jsonify({"msg": "User added successfully"})
