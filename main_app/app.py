@@ -1,5 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
+
 from dotenv import load_dotenv
 from config import Config
 
@@ -22,6 +24,8 @@ from manager import manager_blueprint as manager
 from season import season_blueprint as season
 from year import year_blueprint as year
 from custom_date import custom_date_blueprint as custom_date
+from auth import auth_blueprint as auth_blueprint
+from updates import updates_blueprint as updates
 from contact_page import contact_page_blueprint as contact_page
 
 with app.app_context():
@@ -32,6 +36,16 @@ with app.app_context():
     init_db.add_managerial_stints()
     init_db.add_matches()
     init_db.add_point_deductions()
+    init_db.add_user()
+
+login_manager = LoginManager()
+login_manager.login_view = "auth.login"
+login_manager.init_app(app)
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
 
 
 # Register blueprints
@@ -42,4 +56,6 @@ app.register_blueprint(manager, url_prefix="/managers")
 app.register_blueprint(season, url_prefix="/seasons")
 app.register_blueprint(year, url_prefix="/year")
 app.register_blueprint(custom_date, url_prefix="/custom-date")
+app.register_blueprint(auth_blueprint, url_prefix="/auth")
+app.register_blueprint(updates, url_prefix="/updates")
 app.register_blueprint(contact_page, url_prefix="/contact")
