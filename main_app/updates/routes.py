@@ -1,5 +1,6 @@
-from flask import jsonify, render_template, request
+from flask import render_template, request
 from flask_login import login_required
+from sqlalchemy.orm import aliased
 
 from app import db
 from updates import updates_blueprint
@@ -110,3 +111,37 @@ def new_stint():
         db.session.commit()
 
         return render_template("updates/new_stint.html", stint=new_stint)
+
+
+@updates_blueprint.route("/end-stint", methods=["GET", "POST"])
+@login_required
+def end_stint():
+    if request.method == "GET":
+        TeamTable = aliased(Team, name="team_table")
+        ManagerTable = aliased(Manager, name="manager_table")
+
+        stints = (
+            ManagerStint.query.filter_by(current=True)
+            .join(TeamTable, TeamTable.id == ManagerStint.team_id)
+            .join(ManagerTable, ManagerTable.id == ManagerStint.manager_id)
+            .add_columns(
+                ManagerStint.id,
+                TeamTable.name.label("team_name"),
+                ManagerTable.name.label("manager_name"),
+            )
+            .all()
+        )
+
+        return render_template("updates/end_stint.html", stints=stints)
+
+    if request.method == "POST":
+        stint_id = request.form.get("stint")
+        date_end = request.form.get("end-date")
+
+        stint = ManagerStint.query.filter_by(id=stint_id).first()
+        stint.date_end = date_end
+        stint.current = False
+
+        db.session.commit()
+
+        return render_template("updates/new_stint.html", stint=stint)
