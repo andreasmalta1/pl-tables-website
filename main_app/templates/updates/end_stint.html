@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title %} PL Tables | End Stint {% endblock %}
+
 {% block content %}
 <div class="column is-4 is-offset-4">
     <h3 class="title">End Managerial Stint</h3>
@@ -35,7 +37,7 @@
             <h3>Team Name - {{ stint.team_id }}</h3>
             <h3>Date Start - {{ stint.date_start }}</h3>
             <h3>Date End - {{ stint.date_end }}</h3>
-            <a href="{{ url_for('updates.end_stint') }}">End Another Stint</a>
+            <a href="{{ url_for('updates.end_stint') }}">End Managerial Stint</a>
         {% endif %}
     </div>
 </div>
