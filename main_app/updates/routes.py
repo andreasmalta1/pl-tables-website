@@ -173,3 +173,50 @@ def new_point_deduction():
         return render_template(
             "updates/new_point_deduction.html", deduction=new_deduction
         )
+
+
+@updates_blueprint.route("/new-season", methods=["GET", "POST"])
+@login_required
+def new_season():
+    if request.method == "GET":
+        season = Season.query.first().season
+        current_teams = Team.query.filter_by(current=True).all()
+        non_current_teams = Team.query.filter_by(current=False).all()
+
+        current_year = int(season.split("/")[0])
+        new_season = f"{current_year + 1}/{current_year + 2}"
+        return render_template(
+            "updates/new_season.html",
+            current_teams=current_teams,
+            non_current_teams=non_current_teams,
+            season=new_season,
+        )
+
+    if request.method == "POST":
+        relegated_teams = request.form.getlist("relegated-teams")
+        promoted_teams = request.form.getlist("promoted-teams")
+        new_season = request.form.get("season")
+
+        relegated_teams_list = []
+        for team_id in relegated_teams:
+            team = Team.query.filter_by(id=int(team_id)).first()
+            team.current = False
+            relegated_teams_list.append(team.name)
+
+        promoted_teams_list = []
+        for team_id in promoted_teams:
+            team = Team.query.filter_by(id=int(team_id)).first()
+            team.current = True
+            promoted_teams_list.append(team.name)
+
+        season = Season.query.first()
+        season.season = new_season
+
+        db.session.commit()
+
+        return render_template(
+            "updates/new_season.html",
+            new_season=new_season,
+            promoted_teams=promoted_teams_list,
+            relegated_teams=relegated_teams_list,
+        )
