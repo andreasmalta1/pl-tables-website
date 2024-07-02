@@ -145,3 +145,31 @@ def end_stint():
         db.session.commit()
 
         return render_template("updates/new_stint.html", stint=stint)
+
+
+@updates_blueprint.route("/new-point-deduction", methods=["GET", "POST"])
+@login_required
+def new_point_deduction():
+    if request.method == "GET":
+        teams = Team.query.all()
+        return render_template("updates/new_point_deduction.html", teams=teams)
+
+    if request.method == "POST":
+        team_id = request.form.get("team")
+        points_deducted = request.form.get("points-deducted")
+        reason = request.form.get("reason")
+        season = request.form.get("season")
+
+        new_deduction = PointDeduction(
+            team_id=team_id,
+            points_deducted=points_deducted,
+            reason=reason,
+            season=season,
+        )
+
+        db.session.add(new_deduction)
+        db.session.commit()
+
+        return render_template(
+            "updates/new_point_deduction.html", deduction=new_deduction
+        )
