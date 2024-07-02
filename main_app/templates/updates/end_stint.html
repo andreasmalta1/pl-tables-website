@@ -33,11 +33,14 @@
         {% endif %}
         {% if ended_stint %}
             <h1>Managerial Stint Ended</h1>
-            <h3>Manager Name - {{ stint.manager_id }}</h3>
-            <h3>Team Name - {{ stint.team_id }}</h3>
-            <h3>Date Start - {{ stint.date_start }}</h3>
-            <h3>Date End - {{ stint.date_end }}</h3>
-            <a href="{{ url_for('updates.end_stint') }}">End Managerial Stint</a>
+            <img src="{{ ended_stint.face_url }}" alt="{{ ended_stint.manager_name }}">
+            <br>
+            <h3>Team Name - {{ ended_stint.team_name }}</h3>
+            <img src="{{ ended_stint.crest_url }}" alt="{{ ended_stint.team_name }}">
+            <br>
+            <h3>Date Start - {{ ended_stint.date_start }}</h3>
+            <h3>Date End - {{ ended_stint.date_end }}</h3>
+            <a href="{{ url_for('updates.end_stint') }}">End Another Managerial Stint</a>
         {% endif %}
     </div>
 </div>

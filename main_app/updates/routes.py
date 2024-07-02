@@ -58,7 +58,7 @@ def new_nation():
 @login_required
 def new_manager():
     if request.method == "GET":
-        nations = Nation.query.all()
+        nations = Nation.query.order_by(Nation.name).all()
         return render_template("updates/new_manager.html", nations=nations)
 
     if request.method == "POST":
@@ -75,15 +75,29 @@ def new_manager():
         db.session.add(new_manager)
         db.session.commit()
 
-        return render_template("updates/new_manager.html", manager=new_manager)
+        NationTable = aliased(Nation, name="nation_table")
+
+        manager = (
+            Manager.query.filter_by(id=new_manager.id)
+            .join(NationTable, NationTable.id == Manager.nation_id)
+            .add_columns(
+                Manager.name,
+                Manager.face_url,
+                NationTable.name.label("nation_name"),
+                NationTable.flag_url.label("flag_url"),
+            )
+            .first()
+        )
+
+        return render_template("updates/new_manager.html", manager=manager)
 
 
 @updates_blueprint.route("/new-stint", methods=["GET", "POST"])
 @login_required
 def new_stint():
     if request.method == "GET":
-        managers = Manager.query.all()
-        teams = Team.query.all()
+        managers = Manager.query.order_by(Manager.name).all()
+        teams = Team.query.order_by(Team.name).all()
         return render_template("updates/new_stint.html", managers=managers, teams=teams)
 
     if request.method == "POST":
@@ -110,7 +124,26 @@ def new_stint():
         db.session.add(new_stint)
         db.session.commit()
 
-        return render_template("updates/new_stint.html", stint=new_stint)
+        ManagerTable = aliased(Manager, name="manager_table")
+        TeamTable = aliased(Team, name="team_table")
+
+        stint = (
+            ManagerStint.query.filter_by(id=new_stint.id)
+            .join(ManagerTable, ManagerTable.id == ManagerStint.manager_id)
+            .join(TeamTable, TeamTable.id == ManagerStint.team_id)
+            .add_columns(
+                ManagerStint.date_start,
+                ManagerStint.date_end,
+                ManagerStint.current,
+                ManagerTable.name.label("manager_name"),
+                ManagerTable.face_url.label("face_url"),
+                TeamTable.name.label("team_name"),
+                TeamTable.crest_url.label("crest_url"),
+            )
+            .first()
+        )
+
+        return render_template("updates/new_stint.html", stint=stint)
 
 
 @updates_blueprint.route("/end-stint", methods=["GET", "POST"])
@@ -124,6 +157,7 @@ def end_stint():
             ManagerStint.query.filter_by(current=True)
             .join(TeamTable, TeamTable.id == ManagerStint.team_id)
             .join(ManagerTable, ManagerTable.id == ManagerStint.manager_id)
+            .order_by(ManagerStint.date_start)
             .add_columns(
                 ManagerStint.id,
                 TeamTable.name.label("team_name"),
@@ -138,21 +172,42 @@ def end_stint():
         stint_id = request.form.get("stint")
         date_end = request.form.get("end-date")
 
-        stint = ManagerStint.query.filter_by(id=stint_id).first()
-        stint.date_end = date_end
-        stint.current = False
+        ended_stint = ManagerStint.query.filter_by(id=stint_id).first()
+        ended_stint.date_end = date_end
+        ended_stint.current = False
 
         db.session.commit()
 
-        return render_template("updates/new_stint.html", stint=stint)
+        TeamTable = aliased(Team, name="team_table")
+        ManagerTable = aliased(Manager, name="manager_table")
+
+        stint = (
+            ManagerStint.query.filter_by(id=ended_stint.id)
+            .join(ManagerTable, ManagerTable.id == ManagerStint.manager_id)
+            .join(TeamTable, TeamTable.id == ManagerStint.team_id)
+            .add_columns(
+                ManagerStint.date_start,
+                ManagerStint.date_end,
+                ManagerTable.name.label("manager_name"),
+                ManagerTable.face_url.label("face_url"),
+                TeamTable.name.label("team_name"),
+                TeamTable.crest_url.label("crest_url"),
+            )
+            .first()
+        )
+
+        return render_template("updates/end_stint.html", ended_stint=stint)
 
 
 @updates_blueprint.route("/new-point-deduction", methods=["GET", "POST"])
 @login_required
 def new_point_deduction():
     if request.method == "GET":
-        teams = Team.query.all()
-        return render_template("updates/new_point_deduction.html", teams=teams)
+        teams = Team.query.order_by(Team.name).all()
+        season = Season.query.first().season
+        return render_template(
+            "updates/new_point_deduction.html", teams=teams, season=season
+        )
 
     if request.method == "POST":
         team_id = request.form.get("team")
@@ -170,9 +225,22 @@ def new_point_deduction():
         db.session.add(new_deduction)
         db.session.commit()
 
-        return render_template(
-            "updates/new_point_deduction.html", deduction=new_deduction
+        TeamTable = aliased(Team, name="team_table")
+
+        deduction = (
+            PointDeduction.query.filter_by(id=new_deduction.id)
+            .join(TeamTable, TeamTable.id == PointDeduction.team_id)
+            .add_columns(
+                PointDeduction.points_deducted,
+                PointDeduction.reason,
+                PointDeduction.season,
+                TeamTable.name.label("team_name"),
+                TeamTable.crest_url.label("crest_url"),
+            )
+            .first()
         )
+
+        return render_template("updates/new_point_deduction.html", deduction=deduction)
 
 
 @updates_blueprint.route("/new-season", methods=["GET", "POST"])
@@ -180,8 +248,10 @@ def new_point_deduction():
 def new_season():
     if request.method == "GET":
         season = Season.query.first().season
-        current_teams = Team.query.filter_by(current=True).all()
-        non_current_teams = Team.query.filter_by(current=False).all()
+        current_teams = Team.query.filter_by(current=True).order_by(Team.name).all()
+        non_current_teams = (
+            Team.query.filter_by(current=False).order_by(Team.name).all()
+        )
 
         current_year = int(season.split("/")[0])
         new_season = f"{current_year + 1}/{current_year + 2}"
@@ -201,13 +271,13 @@ def new_season():
         for team_id in relegated_teams:
             team = Team.query.filter_by(id=int(team_id)).first()
             team.current = False
-            relegated_teams_list.append(team.name)
+            relegated_teams_list.append(team)
 
         promoted_teams_list = []
         for team_id in promoted_teams:
             team = Team.query.filter_by(id=int(team_id)).first()
             team.current = True
-            promoted_teams_list.append(team.name)
+            promoted_teams_list.append(team)
 
         season = Season.query.first()
         season.season = new_season

@@ -32,7 +32,8 @@
             <h1>Nation Added</h1>
             <h3>Nation Name - {{ nation.name }}</h3>
             <h3>Nation Shortcode - {{ nation.shortcode }}</h3>
-            <h3>Nation Flag URL - {{ nation.flag_url }}</h3>
+            <img src="{{ nation.flag_url }}" alt="{{ nation.name }}">
+            <br>
             <a href="{{ url_for('updates.new_nation') }}">Generate New Nation</a>
         {% endif %}
     </div>

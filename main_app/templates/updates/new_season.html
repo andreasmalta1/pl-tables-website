@@ -45,11 +45,13 @@
             <h1>Beginning new season: {{ new_season }}</h1>
             <h3>Promoted Teams</h3>
             {% for team in promoted_teams %}
-                <h4>{{ team }}</h4>
+                <h4>Team Name - {{ team.name }}</h4>
+                <img src="{{ team.crest_url }}" alt="{{ team.name }}">
             {% endfor %}
             <h3>Relegated Teams</h3>
             {% for team in relegated_teams %}
-                <h4>{{ team }}</h4>
+                <h4>Team Name - {{ team.name }}</h4>
+                <img src="{{ team.crest_url }}" alt="{{ team.name }}">
             {% endfor %}
         {% endif %}
     </div>
