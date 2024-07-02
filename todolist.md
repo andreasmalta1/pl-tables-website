@@ -25,7 +25,6 @@
 -- Javascript for dates and current in stints
 -- Season check in points deduction
 -- Adjust size of select option in new season
--- Sort lists by name
 -- Admin page with all options
 - Page flow + CSS for seasons/manager/dates
 - Error checking for apis (dates makes sense, no matches played, invalid injection (e.g. user enters inexistent season/year))
