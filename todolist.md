@@ -21,7 +21,6 @@
 
 # Next steps
 - Admin updates
--- New point deduction
 -- New season + promotion + relegation
 -- Show images when showing new
 -- Show relationship fiels not ids when showing changes done to db
