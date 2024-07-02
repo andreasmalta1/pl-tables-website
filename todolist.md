@@ -21,15 +21,13 @@
 
 # Next steps
 - Admin updates
--- New stint
--- End stint
--- New nation
 -- New point deduction
 -- New season + promotion + relegation
 -- Show images when showing new
--- Show relationship
+-- Show relationship fiels not ids when showing changes done to db
 -- Error checking for updates (invalid model entry)
 -- Error checking for dates inputted in stints
--- Javascript for dates and current in stitns
+-- Javascript for dates and current in stints
+-- Admin page with all options
 - Page flow + CSS for seasons/manager/dates
 - Error checking for apis (dates makes sense, no matches played, invalid injection (e.g. user enters inexistent season/year))
