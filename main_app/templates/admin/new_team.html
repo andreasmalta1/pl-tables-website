@@ -7,7 +7,7 @@
     <h3 class="title">Enter New Team</h3>
     <div class="box">
         {% if not team %}
-        <form method="POST" action="{{ url_for('admin.new_team') }}">
+        <form id="adminForm" name="adminForm" method="POST" action="{{ url_for('admin.new_team') }}">
             <div class="field">
                 <div class="control">
                     <input class="input is-large" type="text" name="team_name" placeholder="Team Name" autofocus="">
@@ -25,7 +25,7 @@
                     <input class="input is-large" type="text" name="crest_url" placeholder="Team Crest URL" autofocus="">
                 </div>
             </div>
-            <button class="button is-block is-info is-large is-fullwidth">Submit Team</button>
+            <button id="genBtn" class="button is-block is-info is-large is-fullwidth">Submit Team</button>
         </form>
         {% endif %}
         {% if team %}
@@ -36,6 +36,13 @@
             <br>
             <a href="{{ url_for('admin.new_team') }}">Generate New Team</a>
         {% endif %}
+        {% if message %}
+        <h4>{{ message }}</h4>
+        {% endif %}
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/new_team.js') }}"></script>
 {% endblock %}

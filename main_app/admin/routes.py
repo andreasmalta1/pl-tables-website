@@ -25,10 +25,21 @@ def new_team():
         shortcode = request.form.get("shortcode")
         crest_url = request.form.get("crest_url")
 
+        if not team_name or not shortcode or not crest_url:
+            error_message = "Invalid Inputs"
+            return render_template("admin/new_team.html", message=error_message)
+
+        shortcode = shortcode.upper().strip()
+
+        team_check = Team.query.filter_by(shortcode=shortcode).first()
+        if team_check:
+            error_message = "Shortcode already exists"
+            return render_template("admin/new_team.html", message=error_message)
+
         new_team = Team(
-            name=team_name,
+            name=team_name.strip(),
             shortcode=shortcode,
-            crest_url=crest_url,
+            crest_url=crest_url.strip(),
             current=False,
         )
 
