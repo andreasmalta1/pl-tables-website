@@ -39,6 +39,9 @@
             </li>
             {% if current_user.is_authenticated %}
                 <li class="navbar-item">
+                    <a href="{{ url_for('admin.index') }}">Admin</a>
+                </li>
+                <li class="navbar-item">
                     <a href="{{ url_for('auth.logout') }}">Logout</a>
                 </li>
             {% endif %}
@@ -71,6 +74,9 @@
             <a href="{{ url_for('contact_page.contact_page') }}">Contact</a>
         </li>
         {% if current_user.is_authenticated %}
+            <li class="navbar-item">
+                <a href="{{ url_for('admin.index') }}">Admin</a>
+            </li>
             <li class="navbar-item">
                 <a href="{{ url_for('auth.logout') }}">Logout</a>
             </li>
