@@ -8,6 +8,7 @@
 - About Page
 - Contact Page
 - Highlight when you select stint
+- CSS + JS for errors
 - Add a page to see all the results
 - Admin button to start a new season with promotion and releagtion and reset of league table
 - Will need pages to add new teams, add new managers, add nations, add/end stints
