@@ -25,7 +25,7 @@ from season import season_blueprint as season
 from year import year_blueprint as year
 from custom_date import custom_date_blueprint as custom_date
 from auth import auth_blueprint as auth_blueprint
-from updates import updates_blueprint as updates
+from admin import admin_blueprint as admin
 from contact_page import contact_page_blueprint as contact_page
 
 with app.app_context():
@@ -57,5 +57,5 @@ app.register_blueprint(season, url_prefix="/seasons")
 app.register_blueprint(year, url_prefix="/year")
 app.register_blueprint(custom_date, url_prefix="/custom-date")
 app.register_blueprint(auth_blueprint, url_prefix="/auth")
-app.register_blueprint(updates, url_prefix="/updates")
+app.register_blueprint(admin, url_prefix="/admin")
 app.register_blueprint(contact_page, url_prefix="/contact")
