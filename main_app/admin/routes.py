@@ -86,14 +86,28 @@ def new_nation():
 @admin_blueprint.route("/new-manager", methods=["GET", "POST"])
 @login_required
 def new_manager():
+    nations = Nation.query.order_by(Nation.name).all()
+
     if request.method == "GET":
-        nations = Nation.query.order_by(Nation.name).all()
         return render_template("admin/new_manager.html", nations=nations)
 
     if request.method == "POST":
         manager_name = request.form.get("manager_name")
         face_url = request.form.get("face_url")
         nation_id = request.form.get("nation")
+
+        if not manager_name or not face_url or not nation_id:
+            error_message = "Invalid Inputs"
+            return render_template(
+                "admin/new_manager.html", nations=nations, message=error_message
+            )
+
+        nation_check = Nation.query.filter_by(id=nation_id).first()
+        if not nation_check:
+            error_message = "Chosen nation does not exist"
+            return render_template(
+                "admin/new_manager.html", nations=nations, message=error_message
+            )
 
         new_manager = Manager(
             name=manager_name,

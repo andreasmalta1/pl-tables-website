@@ -7,7 +7,7 @@
     <h3 class="title">Enter New Manager</h3>
     <div class="box">
         {% if not manager %}
-        <form method="POST" action="{{ url_for('admin.new_manager') }}">
+        <form id="adminForm" name="adminForm" method="POST" action="{{ url_for('admin.new_manager') }}">
             <div class="field">
                 <div class="control">
                     <input class="input is-large" type="text" name="manager_name" placeholder="Manager Name" autofocus="">
@@ -44,6 +44,15 @@
             <br>
             <a href="{{ url_for('admin.new_manager') }}">Generate New Manager</a>
         {% endif %}
+
+        {% if message %}
+            <h4>{{ message }}</h4>
+        {% endif %}
+        
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='js/admin/new_manager.js') }}"></script>
 {% endblock %}
