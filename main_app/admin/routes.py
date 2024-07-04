@@ -102,6 +102,8 @@ def new_manager():
                 "admin/new_manager.html", nations=nations, message=error_message
             )
 
+        nation_id = nation_id.strip()
+
         nation_check = Nation.query.filter_by(id=nation_id).first()
         if not nation_check:
             error_message = "Chosen nation does not exist"
@@ -110,8 +112,8 @@ def new_manager():
             )
 
         new_manager = Manager(
-            name=manager_name,
-            face_url=face_url,
+            name=manager_name.strip(),
+            face_url=face_url.strip(),
             nation_id=nation_id,
         )
 
@@ -138,9 +140,10 @@ def new_manager():
 @admin_blueprint.route("/new-stint", methods=["GET", "POST"])
 @login_required
 def new_stint():
+    managers = Manager.query.order_by(Manager.name).all()
+    teams = Team.query.order_by(Team.name).all()
+
     if request.method == "GET":
-        managers = Manager.query.order_by(Manager.name).all()
-        teams = Team.query.order_by(Team.name).all()
         return render_template("admin/new_stint.html", managers=managers, teams=teams)
 
     if request.method == "POST":
@@ -148,6 +151,40 @@ def new_stint():
         team_id = request.form.get("team")
         current = request.form.get("current")
         date_start = request.form.get("start-date")
+
+        if not manager_id or not team_id or not date_start:
+            error_message = "Invalid Inputs"
+            return render_template(
+                "admin/new_stint.html",
+                managers=managers,
+                teams=teams,
+                message=error_message,
+            )
+
+        team_id = team_id.strip()
+        manager_id = manager_id.strip()
+
+        team_check = Team.query.filter_by(id=team_id).first()
+        manager_check = Manager.query.filter_by(id=manager_id).first()
+
+        if not team_check:
+            error_message = "Chosen team does not exist"
+            return render_template(
+                "admin/new_stint.html",
+                managers=managers,
+                teams=teams,
+                message=error_message,
+            )
+
+        if not manager_check:
+            error_message = "Chosen manager does not exist"
+            return render_template(
+                "admin/new_stint.html",
+                managers=managers,
+                teams=teams,
+                message=error_message,
+            )
+
         if not current:
             current = False
             date_end = request.form.get("end-date")
