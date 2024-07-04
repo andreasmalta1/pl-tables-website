@@ -60,10 +60,21 @@ def new_nation():
         shortcode = request.form.get("shortcode")
         flag_url = request.form.get("flag_url")
 
+        if not nation_name or not shortcode or not flag_url:
+            error_message = "Invalid Inputs"
+            return render_template("admin/new_nation.html", message=error_message)
+
+        shortcode = shortcode.upper().strip()
+
+        nation_check = Nation.query.filter_by(shortcode=shortcode).first()
+        if nation_check:
+            error_message = "Shortcode already exists"
+            return render_template("admin/new_nation.html", message=error_message)
+
         new_nation = Nation(
-            name=nation_name,
+            name=nation_name.strip(),
             shortcode=shortcode,
-            flag_url=flag_url,
+            flag_url=flag_url.strip(),
         )
 
         db.session.add(new_nation)
