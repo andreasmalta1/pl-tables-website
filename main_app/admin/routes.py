@@ -1,6 +1,7 @@
 from flask import render_template, request
 from flask_login import login_required
 from sqlalchemy.orm import aliased
+from datetime import datetime
 
 from app import db
 from admin import admin_blueprint
@@ -229,37 +230,58 @@ def new_stint():
 @admin_blueprint.route("/end-stint", methods=["GET", "POST"])
 @login_required
 def end_stint():
-    if request.method == "GET":
-        TeamTable = aliased(Team, name="team_table")
-        ManagerTable = aliased(Manager, name="manager_table")
+    TeamTable = aliased(Team, name="team_table")
+    ManagerTable = aliased(Manager, name="manager_table")
 
-        stints = (
-            ManagerStint.query.filter_by(current=True)
-            .join(TeamTable, TeamTable.id == ManagerStint.team_id)
-            .join(ManagerTable, ManagerTable.id == ManagerStint.manager_id)
-            .order_by(ManagerStint.date_start)
-            .add_columns(
-                ManagerStint.id,
-                TeamTable.name.label("team_name"),
-                ManagerTable.name.label("manager_name"),
-            )
-            .all()
+    stints = (
+        ManagerStint.query.filter_by(current=True)
+        .join(TeamTable, TeamTable.id == ManagerStint.team_id)
+        .join(ManagerTable, ManagerTable.id == ManagerStint.manager_id)
+        .order_by(ManagerStint.date_start)
+        .add_columns(
+            ManagerStint.id,
+            TeamTable.name.label("team_name"),
+            ManagerTable.name.label("manager_name"),
         )
+        .all()
+    )
 
+    if request.method == "GET":
         return render_template("admin/end_stint.html", stints=stints)
 
     if request.method == "POST":
         stint_id = request.form.get("stint")
         date_end = request.form.get("end-date")
 
+        if not stint_id or not date_end:
+            error_message = "Invalid Inputs"
+            return render_template(
+                "admin/end_stint.html",
+                stints=stints,
+                message=error_message,
+            )
+
         ended_stint = ManagerStint.query.filter_by(id=stint_id).first()
+        if not ended_stint:
+            error_message = "Chosen stint does not exist"
+            return render_template(
+                "admin/end_stint.html",
+                stints=stints,
+                message=error_message,
+            )
+
+        if datetime.strptime(date_end, "%Y-%m-%d").date() < ended_stint.date_start:
+            error_message = "End date must be after start date"
+            return render_template(
+                "admin/end_stint.html",
+                stints=stints,
+                message=error_message,
+            )
+
         ended_stint.date_end = date_end
         ended_stint.current = False
 
         db.session.commit()
-
-        TeamTable = aliased(Team, name="team_table")
-        ManagerTable = aliased(Manager, name="manager_table")
 
         stint = (
             ManagerStint.query.filter_by(id=ended_stint.id)
