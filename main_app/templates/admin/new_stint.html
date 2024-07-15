@@ -72,14 +72,17 @@
             <a href="{{ url_for('admin.new_stint') }}">Generate New Stint</a>
         {% endif %}
 
-        {% if message %}
-            <h4>{{ message }}</h4>
-        {% endif %}
-        
+        <div id="messages">
+            {% if message %}
+                <h4>{{ message }}</h4>
+            {% endif %}
+        </div>
+
     </div>
 </div>
 {% endblock %}
 
 {% block scripts %}
     <script src="{{ url_for('static', filename='js/admin/new_stint.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin/message.js') }}"></script>
 {% endblock %}

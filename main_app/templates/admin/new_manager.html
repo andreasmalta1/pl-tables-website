@@ -45,9 +45,11 @@
             <a href="{{ url_for('admin.new_manager') }}">Generate New Manager</a>
         {% endif %}
 
-        {% if message %}
-            <h4>{{ message }}</h4>
-        {% endif %}
+        <div id="messages">
+            {% if message %}
+                <h4>{{ message }}</h4>
+            {% endif %}
+        </div>
         
     </div>
 </div>
@@ -55,4 +57,5 @@
 
 {% block scripts %}
     <script src="{{ url_for('static', filename='js/admin/new_manager.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/admin/message.js') }}"></script>
 {% endblock %}
