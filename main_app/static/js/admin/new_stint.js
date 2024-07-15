@@ -1,29 +1,37 @@
 const formEl = document.getElementById("adminForm")
-const startDate = document.getElementById("startDate")
-const endDate = document.getElementById("endDate")
-const checkbox = document.getElementById("current")
+const startDateEl = document.getElementById("startDate")
+const endDateEl = document.getElementById("endDate")
+const checkboxEl = document.getElementById("current")
 
 function validateForm() {
     const manager = document.forms["adminForm"]["manager"].value
     const team = document.forms["adminForm"]["team"].value
     const startDate = document.forms["adminForm"]["start-date"].value
+    const endDate = document.forms["adminForm"]["end-date"].value
 
     if (manager == "" || team == "" || startDate == ""){
-        console.log("Invalid inputs")
+        addMessage("Inputs not complete")
         return false;
+    }
+
+    if (!checkboxEl.checked){
+        if (endDate < startDate){
+            addMessage("End date must be after start date")
+            return false;
+        }
     }
 }
 
-if (checkbox != null){
-    checkbox.addEventListener('change', function() {
+if (checkboxEl != null){
+    checkboxEl.addEventListener('change', function() {
         if (this.checked) {
-            endDate.disabled = true;
-            startDate.value = todayFormatted;
-            endDate.value = "";
+            endDateEl.disabled = true;
+            startDateEl.value = todayFormatted;
+            endDateEl.value = "";
         } else {
-            endDate.disabled = false;
-            startDate.value = lastWeekFormatted;
-            endDate.value = todayFormatted;
+            endDateEl.disabled = false;
+            startDateEl.value = lastWeekFormatted;
+            endDateEl.value = todayFormatted;
         }
     });
 }
@@ -39,9 +47,9 @@ let lastWeek = new Date();
 lastWeek.setDate(today.getDate() - 7);
 let lastWeekFormatted = lastWeek.toISOString().split('T')[0];
 
-if (checkbox != null){
-    checkbox.checked = true;
-    startDate.value = todayFormatted;
-    endDate.disabled = true;
+if (checkboxEl != null){
+    checkboxEl.checked = true;
+    startDateEl.value = todayFormatted;
+    endDateEl.disabled = true;
 }
 

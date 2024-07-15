@@ -6,7 +6,7 @@ function validateForm() {
     const nation = document.forms["adminForm"]["nation"].value
 
     if (managerName == "" || faceUrl == "" || nation == ""){
-        console.log("Invalid inputs")
+        addMessage("Inputs not complete")
         return false;
     }
 }

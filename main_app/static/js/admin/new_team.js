@@ -6,7 +6,7 @@ function validateForm() {
     const crestUrl = document.forms["adminForm"]["crest_url"].value.trim()
 
     if (teamName == "" || shortcode == "" || crestUrl == ""){
-        console.log("Invalid inputs")
+        addMessage("Inputs not complete")
         return false;
     }
 }

@@ -6,7 +6,7 @@ function validateForm() {
     const flagUrl = document.forms["adminForm"]["flag_url"].value.trim()
 
     if (nationName == "" || shortcode == "" || flagUrl == ""){
-        console.log("Invalid inputs")
+        addMessage("Inputs not complete")
         return false;
     }
 }
