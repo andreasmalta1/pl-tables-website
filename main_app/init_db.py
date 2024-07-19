@@ -7,6 +7,8 @@ from werkzeug.security import generate_password_hash
 from models import *
 from app import db
 
+BUCKET_URL = os.getenv("S3_BUCKET_URL")
+
 
 def add_teams():
     team_check = Team.query.first()
@@ -18,10 +20,11 @@ def add_teams():
     with open(csv_file_path, encoding="utf-8") as csv_file:
         csv_reader = csv.DictReader(csv_file)
         for row in csv_reader:
+            crest_image_filename = row["name"].lower().replace(" ", "-")
             new_team = Team(
                 name=row["name"],
                 shortcode=row["shortcode"],
-                crest_url=f"https://images.fotmob.com/image_resources/logo/teamlogo/{row['logo_id']}.png",
+                crest_url=f"{BUCKET_URL}/team/{crest_image_filename}.png",
                 current=True if row["current"] == "True" else False,
             )
 
@@ -42,10 +45,11 @@ def add_nations():
     with open(csv_file_path, encoding="utf-8") as csv_file:
         csv_reader = csv.DictReader(csv_file)
         for row in csv_reader:
+            flag_image_filename = row["name"].lower().replace(" ", "-")
             new_nation = Nation(
                 name=row["name"],
                 shortcode=row["shortcode"],
-                flag_url=f"https://images.fotmob.com/image_resources/logo/teamlogo/{row['logo_id']}.png",
+                flag_url=f"{BUCKET_URL}/nation/{flag_image_filename}.png",
             )
 
             db.session.add(new_nation)
@@ -67,11 +71,12 @@ def add_managers():
     with open(csv_file_path, encoding="utf-8") as csv_file:
         csv_reader = csv.DictReader(csv_file)
         for row in csv_reader:
-            face_url = None
-            if row.get("face_id"):
-                face_url = "https://images.fotmob.com/image_resources/playerimages/{}.png".format(
-                    row.get("face_id")
-                )
+            if row.get("face_image") == "True":
+                manager_face_image_filename = row["name"].lower().replace(" ", "-")
+                face_url = (f"{BUCKET_URL}/manager/{manager_face_image_filename}.png",)
+
+            if row.get("face_image") == "False":
+                face_url = (f"{BUCKET_URL}/manager/no-face.png",)
 
             nation_id = nations_dict.get(row["nationality"])
 
