@@ -23,12 +23,6 @@
 
 # Next steps
 - Admin updates
--- Error checking for updates (invalid model entry)
--- Error checking for dates inputted in stints
--- Javascript for dates and current in stints
--- Season check in points deduction
--- Adjust size of select option in new season
--- Do not allow login page when already logged in
 - Logos in Amazon S3 buckets
 - Page flow + CSS for seasons/manager/dates
 - Error checking for apis (dates makes sense, no matches played, invalid injection (e.g. user enters inexistent season/year))
