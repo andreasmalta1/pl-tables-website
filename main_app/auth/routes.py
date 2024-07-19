@@ -1,5 +1,5 @@
 from flask import render_template, request, redirect, url_for
-from flask_login import login_user, login_required, logout_user
+from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import check_password_hash
 
 from auth import auth_blueprint
@@ -9,6 +9,9 @@ from models import User
 @auth_blueprint.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "GET":
+        if current_user.is_authenticated:
+            return redirect(url_for("home.index"))
+
         return render_template("auth/login.html")
 
     if request.method == "POST":
