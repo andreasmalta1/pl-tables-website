@@ -7,7 +7,7 @@
 
 - About Page
 - Contact Page
-- Highlight when you select stint
+- Highlight team when you select stint
 - CSS + JS for errors
 - Add page for new match results
 - Auto match results
@@ -22,7 +22,6 @@
 - 404 page
 
 # Next steps
-- Admin updates
-- Logos in Amazon S3 buckets
+- All time pl table showing current season
 - Page flow + CSS for seasons/manager/dates
 - Error checking for apis (dates makes sense, no matches played, invalid injection (e.g. user enters inexistent season/year))
