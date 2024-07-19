@@ -304,11 +304,14 @@ def end_stint():
 @admin_blueprint.route("/new-point-deduction", methods=["GET", "POST"])
 @login_required
 def new_point_deduction():
+    teams = Team.query.order_by(Team.name).all()
+    seasons_query = Match.query.with_entities(Match.season).distinct().all()
+    seasons = [season.season for season in seasons_query]
+    seasons.sort(reverse=True)
+
     if request.method == "GET":
-        teams = Team.query.order_by(Team.name).all()
-        season = Season.query.first().season
         return render_template(
-            "admin/new_point_deduction.html", teams=teams, season=season
+            "admin/new_point_deduction.html", teams=teams, seasons=seasons
         )
 
     if request.method == "POST":
@@ -316,6 +319,39 @@ def new_point_deduction():
         points_deducted = request.form.get("points-deducted")
         reason = request.form.get("reason")
         season = request.form.get("season")
+
+        if not team_id or not points_deducted or not reason or not season:
+            error_message = "Invalid Inputs"
+            return render_template(
+                "admin/new_point_deduction.html",
+                teams=teams,
+                seasons=seasons,
+                message=error_message,
+            )
+
+        team_id = team_id.strip()
+        season = season.strip()
+
+        team_check = Team.query.filter_by(id=team_id).first()
+        season_check = True if season in seasons else False
+
+        if not team_check:
+            error_message = "Chosen team does not exist"
+            return render_template(
+                "admin/new_point_deduction.html",
+                teams=teams,
+                seasons=seasons,
+                message=error_message,
+            )
+
+        if not season_check:
+            error_message = "Chosen season does not exist"
+            return render_template(
+                "admin/new_point_deduction.html",
+                teams=teams,
+                seasons=seasons,
+                message=error_message,
+            )
 
         new_deduction = PointDeduction(
             team_id=team_id,
