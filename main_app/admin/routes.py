@@ -384,15 +384,14 @@ def new_point_deduction():
 @admin_blueprint.route("/new-season", methods=["GET", "POST"])
 @login_required
 def new_season():
-    if request.method == "GET":
-        season = Season.query.first().season
-        current_teams = Team.query.filter_by(current=True).order_by(Team.name).all()
-        non_current_teams = (
-            Team.query.filter_by(current=False).order_by(Team.name).all()
-        )
+    season = Season.query.first().season
+    current_teams = Team.query.filter_by(current=True).order_by(Team.name).all()
+    non_current_teams = Team.query.filter_by(current=False).order_by(Team.name).all()
 
-        current_year = int(season.split("/")[0])
-        new_season = f"{current_year + 1}/{current_year + 2}"
+    current_year = int(season.split("/")[0])
+    new_season = f"{current_year + 1}/{current_year + 2}"
+
+    if request.method == "GET":
         return render_template(
             "admin/new_season.html",
             current_teams=current_teams,
@@ -403,17 +402,44 @@ def new_season():
     if request.method == "POST":
         relegated_teams = request.form.getlist("relegated-teams")
         promoted_teams = request.form.getlist("promoted-teams")
-        new_season = request.form.get("season")
+        new_season_entry = request.form.get("season")
+
+        if not relegated_teams or not promoted_teams or not new_season_entry:
+            error_message = "Invalid Inputs"
+            return render_template(
+                "admin/new_season.html",
+                current_teams=current_teams,
+                non_current_teams=non_current_teams,
+                season=new_season,
+                error_message=error_message,
+            )
 
         relegated_teams_list = []
         for team_id in relegated_teams:
             team = Team.query.filter_by(id=int(team_id)).first()
+            error_message = "Team not found"
+            if not team:
+                return render_template(
+                    "admin/new_season.html",
+                    current_teams=current_teams,
+                    non_current_teams=non_current_teams,
+                    season=new_season,
+                    error_message=error_message,
+                )
             team.current = False
             relegated_teams_list.append(team)
 
         promoted_teams_list = []
         for team_id in promoted_teams:
             team = Team.query.filter_by(id=int(team_id)).first()
+            if not team:
+                return render_template(
+                    "admin/new_season.html",
+                    current_teams=current_teams,
+                    non_current_teams=non_current_teams,
+                    season=new_season,
+                    error_message=error_message,
+                )
             team.current = True
             promoted_teams_list.append(team)
 
