@@ -1,20 +1,20 @@
-name,shortcode,logo_id
-Germany,GER,8570
-Spain,ESP,6720
-Denmark,DEN,8238
-Scotland,SCO,8498
-Portugal,POR,8361
-Wales,WAL,5790
-England,ENG,8491
-Netherlands,NED,6708
-Belgium,BEL,8263
-Italy,ITA,8204
-Argentina,ARG,6706
-France,FRA,6723
-Norway,NOR,8492
-United States,USA,6713
-Republic of Ireland,IRL,5791
-Northern Ireland,NIR,10259
-Israel,ISR,8567
-Australia,AUS,6716
-Austria,AUT,8255
+,name,shortcode
+0,Germany,GER
+1,Spain,ESP
+2,Denmark,DEN
+3,Scotland,SCO
+4,Portugal,POR
+5,Wales,WAL
+6,England,ENG
+7,Netherlands,NED
+8,Belgium,BEL
+9,Italy,ITA
+10,Argentina,ARG
+11,France,FRA
+12,Norway,NOR
+13,United States,USA
+14,Republic of Ireland,IRL
+15,Northern Ireland,NIR
+16,Israel,ISR
+17,Australia,AUS
+18,Austria,AUT
