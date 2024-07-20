@@ -1,0 +1,24 @@
+{%   extends 'base.html' %}
+
+{% block styles %} 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+{% block title %} PL Tables | All Time {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div>All Time Premer League <Table></Table></div>
+        <div id="standings" class="standings"></div>
+        <br>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        const SCRIPT_ROOT = {{ request.script_root|tojson }}
+    </script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+    <script src="{{ url_for('static', filename='js/all_time.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/table.js') }}"></script>
+{% endblock %}

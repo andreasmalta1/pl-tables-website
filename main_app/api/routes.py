@@ -15,6 +15,12 @@ def index():
     return jsonify(standings_dict)
 
 
+@api_blueprint.route("/all-time", methods=["GET"])
+def get_all_time():
+    standings_dict = get_matches_by_season(season=None)
+    return jsonify(standings_dict)
+
+
 @api_blueprint.route("/seasons/<season>", methods=["GET"])
 def seasons(season):
     season = season.replace("-", "/")
@@ -131,22 +137,36 @@ def get_current_season():
     return jsonify({"season": season})
 
 
-def get_matches_by_season(season):
+def get_matches_by_season(season=None):
     HomeTeam = aliased(Team, name="home_team")
     AwayTeam = aliased(Team, name="away_team")
 
-    matches = (
-        Match.query.filter_by(season=season)
-        .join(HomeTeam, HomeTeam.id == Match.home_team_id)
-        .join(AwayTeam, AwayTeam.id == Match.away_team_id)
-        .add_columns(
-            HomeTeam.name.label("home_team_name"),
-            Match.home_score,
-            AwayTeam.name.label("away_team_name"),
-            Match.away_score,
+    if season:
+        matches = (
+            Match.query.filter_by(season=season)
+            .join(HomeTeam, HomeTeam.id == Match.home_team_id)
+            .join(AwayTeam, AwayTeam.id == Match.away_team_id)
+            .add_columns(
+                HomeTeam.name.label("home_team_name"),
+                Match.home_score,
+                AwayTeam.name.label("away_team_name"),
+                Match.away_score,
+            )
+            .all()
         )
-        .all()
-    )
+
+    if not season:
+        matches = (
+            Match.query.join(HomeTeam, HomeTeam.id == Match.home_team_id)
+            .join(AwayTeam, AwayTeam.id == Match.away_team_id)
+            .add_columns(
+                HomeTeam.name.label("home_team_name"),
+                Match.home_score,
+                AwayTeam.name.label("away_team_name"),
+                Match.away_score,
+            )
+            .all()
+        )
 
     standings = generate_table(matches, season)
     standings_dict = {}
