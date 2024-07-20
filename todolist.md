@@ -22,6 +22,5 @@
 - 404 page
 
 # Next steps
-- Group all table routes into one table bluepirint
 - Page flow + CSS for seasons/manager/dates
 - Error checking for apis (dates makes sense, no matches played, invalid injection (e.g. user enters inexistent season/year))
