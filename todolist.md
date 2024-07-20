@@ -17,7 +17,7 @@
 - API protection
 - Empty face placeholder
 - Function descriptions
-- Update visits
+- Update visits - add date of visit
 - Download images
 - 404 page
 
