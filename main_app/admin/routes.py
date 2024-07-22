@@ -454,3 +454,103 @@ def new_season():
             promoted_teams=promoted_teams_list,
             relegated_teams=relegated_teams_list,
         )
+
+
+@admin_blueprint.route("/new-match", methods=["GET", "POST"])
+@login_required
+def new_match():
+    current_season = Season.query.first().season
+    current_teams = Team.query.filter_by(current=True).order_by(Team.name).all()
+
+    if request.method == "GET":
+        return render_template(
+            "admin/new_match.html",
+            teams=current_teams,
+            season=current_season,
+        )
+
+    if request.method == "POST":
+        new_matches = []
+        HomeTeam = aliased(Team, name="home_team")
+        AwayTeam = aliased(Team, name="away_team")
+
+        home_team_ids = request.form.getlist("home-team")
+        away_team_ids = request.form.getlist("away-team")
+        home_scores = request.form.getlist("home-score")
+        away_scores = request.form.getlist("away-score")
+        match_dates = request.form.getlist("match-date")
+
+        for home_team_id, away_team_id, home_score, away_score, match_date in zip(
+            home_team_ids, away_team_ids, home_scores, away_scores, match_dates
+        ):
+
+            if (
+                not home_team_id
+                or not away_team_id
+                or not home_score
+                or not away_score
+                or not match_date
+            ):
+                error_message = "Invalid Inputs"
+                return render_template(
+                    "admin/new_match.html",
+                    teams=current_teams,
+                    season=current_season,
+                    error_message=error_message,
+                )
+
+            home_team_check = Team.query.filter_by(id=int(home_team_id)).first()
+            if not home_team_check:
+                error_message = "Home Team not found"
+                return render_template(
+                    "admin/new_match.html",
+                    teams=current_teams,
+                    season=current_season,
+                    error_message=error_message,
+                )
+
+            away_team_check = Team.query.filter_by(id=int(away_team_id)).first()
+            if not away_team_check:
+                error_message = "Away Team not found"
+                return render_template(
+                    "admin/new_match.html",
+                    teams=current_teams,
+                    season=current_season,
+                    error_message=error_message,
+                )
+
+            new_match = Match(
+                home_team_id=home_team_id,
+                away_team_id=away_team_id,
+                home_score=home_score,
+                away_score=away_score,
+                season=current_season,
+                date=match_date,
+            )
+
+            db.session.add(new_match)
+            db.session.commit()
+
+            match = (
+                Match.query.filter_by(id=new_match.id)
+                .join(HomeTeam, HomeTeam.id == Match.home_team_id)
+                .join(AwayTeam, AwayTeam.id == Match.away_team_id)
+                .add_columns(
+                    HomeTeam.name.label("home_team_name"),
+                    Match.home_score,
+                    HomeTeam.crest_url.label("home_crest_url"),
+                    AwayTeam.name.label("away_team_name"),
+                    Match.away_score,
+                    AwayTeam.crest_url.label("away_crest_url"),
+                    Match.date,
+                    Match.season,
+                )
+                .first()
+            )
+
+            new_matches.append(match)
+
+        return render_template(
+            "admin/new_match.html",
+            new_matches=new_matches,
+        )
