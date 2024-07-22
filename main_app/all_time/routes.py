@@ -1,9 +1,7 @@
 from flask import render_template, request
-from sqlalchemy.orm import aliased
 
 from all_time import all_time_blueprint
-from models import Team, Match, Season
-from utils import generate_table, update_visits
+from utils import update_visits
 
 
 @all_time_blueprint.route("/", methods=["GET"])
