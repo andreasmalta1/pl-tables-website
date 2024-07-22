@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
@@ -48,6 +48,11 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template("error_handling/404.html"), 404
+
+
 # Register blueprints
 app.register_blueprint(api, url_prefix="/api")
 app.register_blueprint(home)
@@ -59,3 +64,4 @@ app.register_blueprint(custom_date, url_prefix="/custom-date")
 app.register_blueprint(auth_blueprint, url_prefix="/auth")
 app.register_blueprint(admin, url_prefix="/admin")
 app.register_blueprint(contact_page, url_prefix="/contact")
+app.register_error_handler(404, page_not_found)
