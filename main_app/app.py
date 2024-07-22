@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_mail import Mail
 
 from dotenv import load_dotenv
 from config import Config
@@ -9,6 +10,10 @@ load_dotenv()
 
 app = Flask(__name__)
 app.config.from_object(Config)
+app.config["MAIL_USE_TLS"] = True
+app.config["MAIL_USE_SSL"] = False
+mail = Mail(app)
+print(app.config)
 
 # Create db instance
 db = SQLAlchemy()
