@@ -6,3 +6,8 @@ from home import home_blueprint
 @home_blueprint.route("/", methods=["GET"])
 def index():
     return render_template("main/index.html")
+
+
+@home_blueprint.route("/about", methods=["GET"])
+def about():
+    return render_template("main/about.html")
