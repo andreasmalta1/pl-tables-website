@@ -1,17 +1,20 @@
-# General
-- Switch from render.com
-- Come up with a new UI
-
-# Flask App
-- Contact Page
-- Highlight team when you select stint
-- CSS + JS for errors
-- Add a page to see all the results
-- API protection
-- Function descriptions
-
-# Next steps
-- Auto match results
-- Update visits - add date of visit + if admin
+# PL Tables website
+- Generate auto match results
+- Update how visits page works
+  -- Add date of visit
+  -- Add if user is an admin
+- General CSS and page content/layout for all pages
+  -- Group CSS as much as possible
+- General JS for all pages
+  -- Group JS as much as possible
+  -- Use JS fro error checking when sending data
+  -- Error checking examples: dates make sense, no future dates, user inputs invalid year/season, show no matches played
 - Page flow + CSS for seasons/manager/dates
-- Error checking for apis (dates makes sense, no matches played, invalid injection (e.g. user enters inexistent season/year))
+- Highlight selected team when you select stint
+- Add a page to see all the results (Might be a version 3 thing)
+- Add admin API protection (API Key)
+- Add function descriptions for better readability
+- Modify readme.md
+- Merge to master
+- Buy domain for website
+- Deploy using AWS
