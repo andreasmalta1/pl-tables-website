@@ -131,14 +131,16 @@ class Visit(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_ip = db.Column(db.String(15), unique=False)
     page_name = db.Column(db.String(25))
+    admin = db.Column(db.Boolean, default=False, nullable=False)
+    date_added = db.Column(db.DateTime(timezone=True), server_default=func.now())
 
     def __repr__(self):
         """Return the string representing a visit."""
         return "Page: {}".format(self.page_name)
 
-    def update_visits(self, user_ip, pagename):
+    def update_visits(self, user_ip, pagename, admin):
         """Add a visit to the database"""
-        self.user_ip, self.page_name = user_ip, pagename
+        self.user_ip, self.page_name, self.admin = user_ip, pagename, admin
         db.session.add(self)
         db.session.commit()
 
