@@ -1,5 +1,4 @@
 # PL Tables website
-- Send email with all details everytime someone logs in
 - General CSS and page content/layout for all pages
   -- Group CSS as much as possible
 - General JS for all pages
