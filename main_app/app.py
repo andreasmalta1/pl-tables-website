@@ -13,7 +13,6 @@ app.config.from_object(Config)
 app.config["MAIL_USE_TLS"] = True
 app.config["MAIL_USE_SSL"] = False
 mail = Mail(app)
-print(app.config)
 
 # Create db instance
 db = SQLAlchemy()
