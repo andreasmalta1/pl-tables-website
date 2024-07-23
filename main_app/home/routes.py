@@ -1,10 +1,17 @@
-from flask import render_template
+from flask import render_template, request
+from flask_login import current_user
 
 from home import home_blueprint
+from utils import update_visits
 
 
 @home_blueprint.route("/", methods=["GET"])
 def index():
+    admin = False
+    if current_user.is_authenticated:
+        admin = True
+
+    update_visits(request.remote_addr, "home", admin)
     return render_template("home/index.html")
 
 

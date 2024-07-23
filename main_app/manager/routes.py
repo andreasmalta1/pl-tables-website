@@ -1,4 +1,5 @@
 from flask import render_template, request
+from flask_login import current_user
 
 from manager import manager_blueprint
 from models import Team, Nation, Manager, ManagerStint
@@ -7,8 +8,11 @@ from utils import update_visits
 
 @manager_blueprint.route("/current", methods=["GET"])
 def current_managers():
-    # Add page visit to db
-    update_visits(request.remote_addr, "managers")
+    admin = False
+    if current_user.is_authenticated:
+        admin = True
+
+    update_visits(request.remote_addr, "current_managers", admin)
 
     if request.method == "GET":
         current_stints = (
@@ -36,8 +40,11 @@ def current_managers():
 
 @manager_blueprint.route("/ended", methods=["GET"])
 def old_managers():
-    # Add page visit to db
-    update_visits(request.remote_addr, "managers")
+    admin = False
+    if current_user.is_authenticated:
+        admin = True
+
+    update_visits(request.remote_addr, "old_managers", admin)
 
     if request.method == "GET":
         ended_stints = (

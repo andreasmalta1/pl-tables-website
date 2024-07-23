@@ -169,7 +169,7 @@ def get_pl_matches():
     df.to_csv(csv_file_path)
 
 
-def update_visits(ip_address, page_name):
+def update_visits(ip_address, page_name, admin):
     """Add a user's visit to the Visit model"""
     visit = Visit()
-    visit.update_visits(user_ip=ip_address, pagename=page_name)
+    visit.update_visits(user_ip=ip_address, pagename=page_name, admin=admin)
