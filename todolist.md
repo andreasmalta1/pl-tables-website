@@ -1,5 +1,4 @@
 # PL Tables website
-- Generate auto match results
 - Update how visits page works
   -- Add date of visit
   -- Add if user is an admin
