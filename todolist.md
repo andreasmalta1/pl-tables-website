@@ -1,7 +1,5 @@
 # PL Tables website
-- Update how visits page works
-  -- Add date of visit
-  -- Add if user is an admin
+- Send email with all details everytime someone logs in
 - General CSS and page content/layout for all pages
   -- Group CSS as much as possible
 - General JS for all pages
