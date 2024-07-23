@@ -114,6 +114,17 @@ class Season(db.Model):
         return "Season: {}".format(self.season)
 
 
+class LastRow(db.Model):
+    __tablename__ = "lastrow"
+
+    id = db.Column(db.Integer, primary_key=True)
+    last_row = db.Column(db.Integer, unique=False, nullable=False)
+
+    def __repr__(self):
+        """Return the string representing the lastrow."""
+        return "Last Row: {}".format(self.last_row)
+
+
 class Visit(db.Model):
     __tablename__ = "visits"
 

@@ -446,6 +446,9 @@ def new_season():
         season = Season.query.first()
         season.season = new_season
 
+        last_row = LastRow.query.first()
+        last_row.last_row = -1
+
         db.session.commit()
 
         return render_template(
