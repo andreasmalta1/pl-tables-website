@@ -3,7 +3,7 @@
   -- Group CSS as much as possible
 - General JS for all pages
   -- Group JS as much as possible
-  -- Use JS fro error checking when sending data
+  -- Use JS for error checking when sending data
   -- Error checking examples: dates make sense, no future dates, user inputs invalid year/season, show no matches played
 - Page flow + CSS for seasons/manager/dates
 - Highlight selected team when you select stint

@@ -36,10 +36,11 @@ body, input, li, a, button, input, label, textarea {
 
 .navbar-title{
   margin-right: auto;
+  display: flex;
 }
 
 .navbar-title a{
-  font-size: 1.8rem;
+  font-size: 1.6rem;
 }
 
 .navbar-list{
@@ -48,15 +49,15 @@ body, input, li, a, button, input, label, textarea {
 
 .navbar-list li{
   display: inline-block;
-  padding: 0px 20px;
+  padding: 0px 15px;
 }
 
-.navbar-list li a{
+.navbar-list li a, .navbar-title a{
   transition: all 0.3s ease 0s;
 }
 
-.navbar-list li a:hover{
-  color: red
+.navbar-list li a:hover, .navbar-title a:hover{
+  color: #8F4BE4
 }
 
 /* Mobile Navbar CSS*/
@@ -186,82 +187,9 @@ body, input, li, a, button, input, label, textarea {
 }
 /* End Footer CSS */
 
-/* Flask Errors CSS */
-.error{
-  width: 400px;
-  margin: 0px auto;
-  padding: 25px 25px; 
-  background: #29183E;
-  border-radius: 8px;
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.close-error{
-  background-color: red;
-  color: black;
-  font-size: 1.5rem;
-  font-weight: bold;
-  padding: 5px 10px;
-  border: none;
-  border-radius: 5px;
-  transition: all 0.3s ease 0s;
-}
-
-.close-error:hover{
-  transform: scale(1.1);
-}
-/* End Flask Errors CSS */
-
-
-
-/* Common CSS */
 .main-content{
   padding-top: 100px;
 }
-
-.title{
-  text-align: center;
-  margin: 20px;
-  font-size: 1.6rem
-}
-
-.team-logo {
-  width: 30px;
-  height: 30px;
-  vertical-align: middle;
-}
-
-.down-button{
-  color: white;
-  border: none;
-  padding: 15px 20px;
-  border-radius: 5px;
-  background-color: #432a61;
-  margin: 15px auto;
-  justify-content: center;
-  transition: .2s ease-in-out 0s;
-  font-weight: bold;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-}
-
-.down-button:hover{
-  transform: scale(1.1);
-  cursor: pointer;
-  color: #432a61;
-  background-color: white;
-}
-
-.form-hidden{
-  display: none;
-}
-
-.hidden{
-  display: none;
-}
-/* End Common CSS */
 
 /* Mobile CSS */
 @media screen and (max-width: 1000px) {

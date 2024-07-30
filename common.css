@@ -1,0 +1,49 @@
+
+
+
+
+/* Common CSS */
+.main-content{
+    padding-top: 100px;
+  }
+  
+  .title{
+    text-align: center;
+    margin: 20px;
+    font-size: 1.6rem
+  }
+  
+  .team-logo {
+    width: 30px;
+    height: 30px;
+    vertical-align: middle;
+  }
+  
+  .down-button{
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 5px;
+    background-color: #432a61;
+    margin: 15px auto;
+    justify-content: center;
+    transition: .2s ease-in-out 0s;
+    font-weight: bold;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .down-button:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+    color: #432a61;
+    background-color: white;
+  }
+  
+  .form-hidden{
+    display: none;
+  }
+  
+  .hidden{
+    display: none;
+  }
+  /* End Common CSS */
