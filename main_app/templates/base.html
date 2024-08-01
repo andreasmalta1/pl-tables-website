@@ -17,9 +17,15 @@
         </h1>
         <ul class="navbar-list">
             <li class="navbar-item">
+                <a href="{{ url_for('home.index') }}">Home</a>
+            </li>
+            <li class="navbar-item">
                 <a href="{{ url_for('home.about') }}">About</a>
             </li>
             <li class="navbar-item">
+                <a href="{{ url_for('home.index') }}">Generate Tables</a>
+            </li>
+            <!-- <li class="navbar-item">
                 <a href="{{ url_for('all_time.index') }}">All Time PL Table</a>
             </li>
             <li class="navbar-item">
@@ -36,7 +42,7 @@
             </li>
             <li class="navbar-item">
                 <a href="{{ url_for('manager.old_managers') }}">Past PL Managers</a>
-            </li>
+            </li> -->
             <li class="navbar-item">
                 <a href="{{ url_for('contact_page.contact_page') }}">Contact Page</a>
             </li>
@@ -56,28 +62,13 @@
 
     <nav class="mobile-nav">
         <li class="navbar-item">
-                <a href="{{ url_for('home.about') }}">About</a>
-            </li>
-        <li class="navbar-item">
-            <a href="{{ url_for('all_time.index') }}">All Time PL Table</a>
+            <a href="{{ url_for('home.index') }}">Home</a>
         </li>
         <li class="navbar-item">
-            <a href="{{ url_for('custom_date.custom_date') }}">Custom Dates</a>
+            <a href="{{ url_for('home.about') }}">About</a>
         </li>
         <li class="navbar-item">
-            <a href="{{ url_for('season.seasons') }}">Seasons</a>
-        </li>
-        <li class="navbar-item">
-            <a href="{{ url_for('year.yearly') }}">Calendar Year</a>
-        </li>
-        <li class="navbar-item">
-            <a href="{{ url_for('manager.current_managers') }}">Current PL Managers</a>
-        </li>
-        <li class="navbar-item">
-            <a href="{{ url_for('manager.old_managers') }}">Old PL Managers</a>
-        </li>
-        <li class="navbar-item">
-            <a href="{{ url_for('contact_page.contact_page') }}">Contact</a>
+            <a href="{{ url_for('home.index') }}">Generate Tables</a>
         </li>
         {% if current_user.is_authenticated %}
             <li class="navbar-item">
