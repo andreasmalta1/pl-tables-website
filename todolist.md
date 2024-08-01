@@ -14,3 +14,15 @@
 - Merge to master
 - Buy domain for website
 - Deploy using AWS
+
+
+## Page Layout
+
+- https://www.wix.com/website-template/view/html/1734?originUrl=https%3A%2F%2Fwww.wix.com%2Fwebsite%2Ftemplates&tpClick=view_button&esi=bbbae5b3-bba8-4d24-ba0d-fe39e1785318
+- Navbar
+ -- No background
+ -- Highlight Chosen page
+ -- Mobile
+  --- Show nothing except link
+  --- No background
+  --- Highlight page currently on
