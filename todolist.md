@@ -17,7 +17,8 @@
 
 
 ## Page Layout
-- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_sidenav
+- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_sidenav - mobile ??
+
 - Manager stints not working
 - Go through each page, web + mobile
 - When hovering over table header, edit cursor
