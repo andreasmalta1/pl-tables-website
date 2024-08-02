@@ -61,23 +61,49 @@
     </navbar>
 
     <nav class="mobile-nav">
-        <li class="navbar-item">
-            <a href="{{ url_for('home.index') }}">Home</a>
-        </li>
-        <li class="navbar-item">
-            <a href="{{ url_for('home.about') }}">About</a>
-        </li>
-        <li class="navbar-item">
-            <a href="{{ url_for('home.index') }}">Generate Tables</a>
-        </li>
-        {% if current_user.is_authenticated %}
+        <button class="hamburger">
+            <div class="bar"></div>
+        </button>
+
+        <div class="mobile-nav-list">
             <li class="navbar-item">
-                <a href="{{ url_for('admin.index') }}">Admin</a>
+                <a href="{{ url_for('home.index') }}">Home</a>
             </li>
             <li class="navbar-item">
-                <a href="{{ url_for('auth.logout') }}">Logout</a>
+                <a href="{{ url_for('home.about') }}">About</a>
             </li>
-        {% endif %}
+            <li class="navbar-item">
+                <a href="{{ url_for('home.index') }}">Generate Tables</a>
+            </li>
+            <li class="navbar-item">
+                <a href="{{ url_for('contact_page.contact_page') }}">Contact Page</a>
+            </li>
+            {% if current_user.is_authenticated %}
+                <li class="navbar-item">
+                    <a href="{{ url_for('admin.index') }}">Admin</a>
+                </li>
+                <li class="navbar-item">
+                    <a href="{{ url_for('auth.logout') }}">Logout</a>
+                </li>
+            {% endif %}
+            <ul class="footer-list">
+                <li class="footer-item hamburger-icon">
+                    <a href="{{ url_for('contact_page.contact_page') }}"><i class="fa-sharp fa-solid fa-envelope"></i></a>
+                </li>
+                <li class="footer-item hamburger-icon">
+                    <a href="https://bmc.link/andreascal" target="_blank"><i class="fa-solid fa-mug-hot"></i></a>
+                </li>
+                <li class="footer-item hamburger-icon">
+                    <a href="https://twitter.com/andreascalleja" target="_blank"><i class="fa-brands fa-twitter"></i></a>
+                </li>
+                <li class="footer-item hamburger-icon">
+                    <a href="https://github.com/andreasmalta1/pl_table" target="_blank"><i class="fa-brands fa-github"></i></a>
+                </li>
+                <li class="footer-item hamburger-icon">
+                    <a href="https://www.linkedin.com/in/andreascalleja/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                </li>
+            </ul>
+        </div>
     </nav>
 
     <div class="main-content">
