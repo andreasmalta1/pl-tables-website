@@ -4,3 +4,7 @@
     text-align: center;
     flex-wrap: wrap;
 }
+
+#standings-title{
+    font-size: 1.6rem;
+}

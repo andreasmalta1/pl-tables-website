@@ -17,5 +17,9 @@
 
 
 ## Page Layout
-
-  -- Modify the hamburger menu so that when active, showing the menu in full page, highlight selected page, remove the footer and header, show the icons in the hamburger menu
+- https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_sidenav
+- Manager stints not working
+- Go through each page, web + mobile
+- When hovering over table header, edit cursor
+- 404 page
+- Admin pages after release

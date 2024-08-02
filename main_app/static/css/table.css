@@ -5,21 +5,19 @@ table{
   background-image: url('/static/images/pl.png');
   background-size: cover;
   margin-top: 20px;
+  font-size: 0.9rem;
 }
   
 th, td{
   border-bottom: none;
   border-top: none;
-  padding: 8px;
+  padding: 6px;
   text-align: center;
 }
 
 th{
+  cursor: pointer;
   background-color: black;
-}
-
-.team{
-  text-align: left;
 }
   
 .team-name{

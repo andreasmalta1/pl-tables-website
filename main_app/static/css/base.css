@@ -22,25 +22,21 @@ body, input, li, a, button, input, label, textarea {
 /* End General CSS */
 
 /* Navbar CSS */
-.navbar-container{
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  padding: 30px 30px;
-  background: #29183E;
+.sidenav{
+  height: 100%;
+  width: 200px;
   position: fixed;
+  z-index: 1;
   top: 0;
-  width: 100%;
-  z-index: 99;
+  left: 0;
+  background: #29183E;
+  overflow-x: hidden;
+  padding-top: 20px;
 }
 
 .navbar-title{
   margin-right: auto;
-  display: flex;
-}
-
-.navbar-container.is-active{
-  display: none
+  text-align: center;
 }
 
 .navbar-title a{
@@ -52,12 +48,13 @@ body, input, li, a, button, input, label, textarea {
 }
 
 .navbar-list{
+  margin-top: 50px;
   list-style: none;
 }
 
 .navbar-list li{
-  display: inline-block;
-  padding: 0px 15px;
+  display: block;
+  padding: 15px 15px;
 }
 
 .navbar-list li a, .navbar-title a{
@@ -155,11 +152,6 @@ body, input, li, a, button, input, label, textarea {
   display: none;
 }
 
-.footer-title{
-  font-size: 1.2rem;
-  line-height: 3rem;
-}
-
 .footer-list{
   list-style: none;
   display: flex;
@@ -194,10 +186,6 @@ body, input, li, a, button, input, label, textarea {
   opacity: .4;
 }
 /* End Footer CSS */
-
-.main-content{
-  padding-top: 100px;
-}
 
 .hamburger-icon a{
   font-size: 2rem
