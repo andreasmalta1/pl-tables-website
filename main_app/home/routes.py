@@ -18,3 +18,8 @@ def index():
 @home_blueprint.route("/about", methods=["GET"])
 def about():
     return render_template("home/about.html")
+
+
+@home_blueprint.route("/generate", methods=["GET"])
+def generate():
+    return render_template("home/generate.html")

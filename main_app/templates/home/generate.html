@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %} PL Tables | Generate {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <li class="navbar-item">
+            <a href="{{ url_for('all_time.index') }}">All Time PL Table</a>
+        </li>
+        <li class="navbar-item">
+            <a href="{{ url_for('custom_date.custom_date') }}">Custom Dates</a>
+        </li>
+        <li class="navbar-item">
+            <a href="{{ url_for('season.seasons') }}">Seasons</a>
+        </li>
+        <li class="navbar-item">
+            <a href="{{ url_for('year.yearly') }}">Calendar Year</a>
+        </li>
+        <li class="navbar-item">
+            <a href="{{ url_for('manager.current_managers') }}">Current PL Managers</a>
+        </li>
+        <li class="navbar-item">
+            <a href="{{ url_for('manager.old_managers') }}">Past PL Managers</a>
+        </li>
+    </div>
+{% endblock %}
