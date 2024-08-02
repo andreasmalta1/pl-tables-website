@@ -228,3 +228,18 @@ def add_user():
     # Save data to db
     db.session.commit()
     return jsonify({"msg": "User added successfully"})
+
+
+def add_last_row():
+    last_row = LastRow.query.first()
+    if last_row:
+        print("Last Row already exists. Skipping")
+        return
+
+    last_row = LastRow(last_row=-1)
+
+    db.session.add(last_row)
+
+    # Save data to db
+    db.session.commit()
+    return jsonify({"msg": "Last Row added successfully"})

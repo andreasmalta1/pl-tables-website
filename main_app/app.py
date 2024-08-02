@@ -41,6 +41,7 @@ with app.app_context():
     init_db.add_matches()
     init_db.add_point_deductions()
     init_db.add_user()
+    init_db.add_last_row()
 
 login_manager = LoginManager()
 login_manager.login_view = "auth.login"
