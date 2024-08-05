@@ -17,7 +17,7 @@
 
 
 ## Page Layout
-- Group blueprints in folder named blueprints
+- Make footprint text a bit larger
 - Download tables js functionality
 - Manager stints not working
 - Go through each page, web + mobile
