@@ -1,7 +1,7 @@
 from flask import render_template, request
 from flask_login import current_user
 
-from custom_date import custom_date_blueprint
+from blueprints.custom_date import custom_date_blueprint
 from utils import update_visits
 
 

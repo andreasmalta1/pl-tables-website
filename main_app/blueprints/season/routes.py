@@ -1,7 +1,7 @@
 from flask import render_template, request
 from flask_login import current_user
 
-from season import season_blueprint
+from blueprints.season import season_blueprint
 from models import Match, Season
 from utils import update_visits
 

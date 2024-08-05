@@ -2,7 +2,7 @@ from flask import render_template, request
 from flask_login import current_user
 from datetime import datetime
 
-from year import year_blueprint
+from blueprints.year import year_blueprint
 from utils import update_visits
 
 

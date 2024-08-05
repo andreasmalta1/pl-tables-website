@@ -21,16 +21,16 @@ db.init_app(app)
 from models import *
 import init_db
 
-from api import api_blueprint as api
-from home import home_blueprint as home
-from all_time import all_time_blueprint as all_time
-from manager import manager_blueprint as manager
-from season import season_blueprint as season
-from year import year_blueprint as year
-from custom_date import custom_date_blueprint as custom_date
-from auth import auth_blueprint as auth_blueprint
-from admin import admin_blueprint as admin
-from contact_page import contact_page_blueprint as contact_page
+from blueprints.api import api_blueprint as api
+from blueprints.home import home_blueprint as home
+from blueprints.all_time import all_time_blueprint as all_time
+from blueprints.manager import manager_blueprint as manager
+from blueprints.season import season_blueprint as season
+from blueprints.year import year_blueprint as year
+from blueprints.custom_date import custom_date_blueprint as custom_date
+from blueprints.auth import auth_blueprint as auth_blueprint
+from blueprints.admin import admin_blueprint as admin
+from blueprints.contact_page import contact_page_blueprint as contact_page
 
 with app.app_context():
     db.create_all()
