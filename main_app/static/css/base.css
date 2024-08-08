@@ -21,7 +21,6 @@ body, input, li, a, a:visited, a:active, a:focus, button, input, label, textarea
 }
 
 .main-content{
-  padding: 50px;
   margin-left: 200px;
 }
 
@@ -111,6 +110,7 @@ body, input, li, a, a:visited, a:active, a:focus, button, input, label, textarea
 .footer-bottom p{
   font-size: 14px;
   word-spacing: 2px;
+  line-height: 1.5;
 }
 
 .footer-bottom span{
