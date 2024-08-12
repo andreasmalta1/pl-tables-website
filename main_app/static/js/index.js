@@ -2,7 +2,7 @@ const currentSeasonUrl = `${SCRIPT_ROOT}/api/current-season`
 const deductionsUrl = `${SCRIPT_ROOT}/api/deductions`
 const seasonUrl = `${SCRIPT_ROOT}/api/get-current-season`
 
-const seasonDiv = document.getElementById('standings-title')
+const seasonDiv = document.getElementById('standingsTitle')
 const tableDiv = document.getElementById('standings')
 const deductionDiv = document.getElementById('deductions')
 
