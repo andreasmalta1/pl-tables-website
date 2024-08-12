@@ -13,7 +13,7 @@ function createTable(data){
     headers.forEach((headerText, index) => {
         let th = document.createElement('th');
         if (headerText === 'Team') {
-            th.className = 'team';
+            th.className = 'team-name';
         }
         th.textContent = headerText;
         headerRow.appendChild(th);
@@ -39,18 +39,22 @@ function createTable(data){
         let logoCell = document.createElement('td');
         let img = document.createElement('img');
         img.src = data[team]["url"]
-        img.style.width = '30px'; // Adjust the size as needed
+        img.className = 'team-logo'
         logoCell.appendChild(img);
         row.appendChild(logoCell);
 
         let teamCell = document.createElement('td');
         teamCell.textContent = team;
+        teamCell.className = 'team-name'
         row.appendChild(teamCell);
 
         let stats = ["played", "win", "draw", "loss", "goals_for", "goals_against", "gd", "points"];
         stats.forEach(stat => {
             let td = document.createElement('td');
             td.textContent = data[team][stat];
+            if (stat === 'points') {
+                td.className = 'points';
+        }
             row.appendChild(td);
         });
         tbody.appendChild(row);
