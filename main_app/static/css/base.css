@@ -20,7 +20,7 @@ body, input, li, a, a:visited, a:active, a:focus, button, input, label, textarea
   text-decoration: none;
 }
 
-.main-content{
+.container{
   margin-left: 200px;
 }
 
@@ -219,7 +219,7 @@ body, input, li, a, a:visited, a:active, a:focus, button, input, label, textarea
     display: none;
   }
 
-  .main-content{
+  .container{
     margin: 0;
     padding: 25px;
   }
