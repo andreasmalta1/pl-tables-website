@@ -1,0 +1,34 @@
+.container{
+    text-align: center;
+    flex-wrap: wrap;
+}
+  
+.title{
+  text-align: center;
+  margin: 45px;
+  font-size: 1.6rem
+}
+
+.tableArea{
+  margin: 0 auto;
+  width: 90%;
+}
+
+.standings{
+  text-align: center;
+}
+
+.deductions{
+  text-align: left;
+  font-weight: bold;
+  color: black;
+  font-size: 0.9rem;
+}
+
+.form-hidden{
+  display: none;
+}
+
+.hidden{
+  display: none;
+  }

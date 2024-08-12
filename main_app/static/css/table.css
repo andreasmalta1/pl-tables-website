@@ -1,25 +1,22 @@
 table{
   border-collapse: collapse;
-  width: 100%;
   background: #432a61;
   background-image: url('/static/images/pl.png');
   background-size: cover;
-  margin-top: 20px;
+  margin: 0 auto;
+  width: 100%;
 }
   
 th, td{
   border-bottom: none;
   border-top: none;
-  padding: 8px;
+  padding: 6px;
   text-align: center;
 }
 
 th{
+  cursor: pointer;
   background-color: black;
-}
-
-.team{
-  text-align: left;
 }
   
 .team-name{
@@ -29,7 +26,12 @@ th{
 .points{
   font-weight: bold;
   font-size: 1.1rem;
-  color: #eb2f2f;
+}
+
+.team-logo {
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
 }
   
 .standing-table th, .standing-table td{
@@ -39,14 +41,9 @@ th{
 @media screen and (max-width: 1000px) {
   th, td{
     padding: 12px;
-    font-size: 1.5rem;
   }
 
   table{
     margin-bottom: 15px;
-  }
-
-  .points{
-    font-size: 2rem;
   }
 }
