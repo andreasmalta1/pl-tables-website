@@ -221,7 +221,7 @@ body, input, li, a, a:visited, a:active, a:focus, button, input, label, textarea
 
   .container{
     margin: 0;
-    padding: 25px;
+    /* padding: 25px; */
   }
 
   .hamburger{

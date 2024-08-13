@@ -32,3 +32,15 @@
 .hidden{
   display: none;
   }
+
+
+@media screen and (max-width: 1000px) {
+  .title{
+    font-size: 2rem
+  }
+
+  .deductions{
+    font-size: 1.1rem;
+  }
+}
+  

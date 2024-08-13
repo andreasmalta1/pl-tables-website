@@ -39,11 +39,22 @@ th{
 }
 
 @media screen and (max-width: 1000px) {
-  th, td{
-    padding: 12px;
-  }
-
   table{
     margin-bottom: 15px;
+  }
+  
+  th, td{
+    padding: 12px;
+    font-size: 1.5rem;
+  }
+
+  .team-logo {
+    width: 60px;
+    height: 60px;
+    vertical-align: middle;
+  }
+
+  .points{
+    font-size: 1.7rem;
   }
 }
