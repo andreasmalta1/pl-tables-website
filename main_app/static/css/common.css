@@ -36,8 +36,12 @@
 
 
 @media screen and (max-width: 1000px) {
+  .container{
+    height: 100vh;
+  }
+  
   .title{
-    font-size: 2rem
+    font-size: 3rem
   }
 
   .deductions{
