@@ -19,5 +19,4 @@
 ## Page Layout
 - Manager stints not working
 - Go through each page, web + mobile
-- When hovering over table header, edit cursor
 - Admin pages after release
