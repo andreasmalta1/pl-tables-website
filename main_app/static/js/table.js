@@ -115,6 +115,7 @@ function sortTable(table, n){
 }
 
 function createPointsDeduction(pointDeductions){
+    deductionDiv.innerHTML = ""
     if (Object.keys(pointDeductions).length === 0){
         return
     }
