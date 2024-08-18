@@ -13,4 +13,4 @@ def custom_date():
 
     update_visits(request.remote_addr, "custom_dates", admin)
 
-    return render_template("custom_date/custom_dates.html")
+    return render_template("blueprints/custom_dates.html")

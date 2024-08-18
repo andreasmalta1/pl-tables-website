@@ -30,6 +30,6 @@ def seasons():
         seasons.sort(reverse=True)
 
         return render_template(
-            "season/seasons.html",
+            "blueprints/seasons.html",
             seasons=seasons,
         )

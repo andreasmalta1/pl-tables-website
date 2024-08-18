@@ -20,6 +20,6 @@ def yearly():
         years = [year for year in range(current_year, 1991, -1)]
 
         return render_template(
-            "year/yearly.html",
+            "blueprints/yearly.html",
             years=years,
         )

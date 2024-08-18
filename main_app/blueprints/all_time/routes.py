@@ -13,4 +13,4 @@ def index():
 
     update_visits(request.remote_addr, "all_time", admin)
 
-    return render_template("all_time/all_time.html")
+    return render_template("blueprints/all_time.html")

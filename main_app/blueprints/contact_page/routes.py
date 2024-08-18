@@ -16,13 +16,13 @@ def contact_page():
     """
     form = ContactForm()
     if request.method == "GET":
-        return render_template("contact_page/contact_page.html", form=form)
+        return render_template("blueprints/contact_page.html", form=form)
 
     if request.method == "POST":
         # Ensure that form data is valid
         if form.validate() == False:
             flash("Enter a valid email address", category="email_contact")
-            return render_template("contact_page/contact_page.html", form=form)
+            return render_template("blueprints/contact_page.html", form=form)
 
         # Send a message with data collected from form
         msg = Message(
@@ -36,4 +36,4 @@ def contact_page():
             form.message.data,
         )
         mail.send(msg)
-        return render_template("contact_page/contact_page.html")
+        return render_template("blueprints/contact_page.html")

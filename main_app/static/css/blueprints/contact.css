@@ -1,0 +1,157 @@
+.container{
+  display: flex;
+  width: 75%;
+  margin: 0 auto;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.column {
+  flex: 50%;
+  padding: 0 20px;
+  justify-content: center;
+}
+
+.details{
+  margin: 0 auto;
+}
+
+table{
+  margin: 0 auto;
+}
+
+td{
+  font-weight: bold;
+  text-align: left;
+  height: 35px
+}
+
+.label{
+  width: 180px;
+}
+
+.data{
+  width: 265px;
+}
+
+.coffee a, .success{
+  color: #FFA535;
+  font-weight: bold;
+  font-size: 1.5rem;
+  transition: 0.5s ease-out;
+}
+
+.coffee a:hover{
+  font-size: 1.8rem;
+}
+
+form label{
+  font-size: 1.2em;
+  font-weight: bold;
+  display: block;
+  padding: 10px 0;
+}
+
+#name, #email, #subject, #message{
+  width: 400px;
+  color: black;
+  background-color: #fafafa;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #cccccc;
+  padding: 10px;
+  font-size: 1.1em;
+}
+
+#message {
+  height: 150px;
+}
+
+#submit{
+  display: block;
+  margin: 20px auto;
+  color: white;
+  border: none;
+  padding: 15px 20px;
+  border-radius: 5px;
+  background-color: #432a61;
+  margin: 15px auto;
+  justify-content: center;
+  transition: .2s ease-in-out 0s;
+  font-weight: bold;
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+#submit:hover{
+  transform: scale(1.1);
+  cursor: pointer;
+  color: #432a61;
+  background-color: white;
+}
+
+.coffee-container{
+  margin: 25px auto;
+}
+
+.coffee{
+  text-align: center;
+}
+
+.link a{
+  font-size: 1.1rem;
+  transition: all 0.3s ease 0s;
+}
+
+.link a:hover i{
+  color: #FFA535;
+}
+
+@media screen and (max-width: 1000px) {
+  .container{
+      width: 90%;
+  }
+
+  .column {
+    flex: 100%;
+    margin-bottom: 50px;
+    font-size: 1.7rem;
+  }
+
+  .label{
+    width: fit-content;
+    padding: 1rem;
+  }
+
+  .data{
+    width: fit-content;
+    padding: 1rem;
+  }
+
+  form label, #name, #email, #subject, #message{
+    width: 75%;
+    text-align: center;
+    padding: 1.2rem;
+    margin: 0 auto;
+  }
+
+  #submit{
+    margin-top: 3rem;
+    font-size: 2rem;
+    padding: 1.8rem 4rem;
+  }
+
+  .coffee a{
+    font-size: 3rem;
+  }
+
+  .link a{
+    font-size: 2.5rem;
+  }
+
+  .coffee-container{
+    margin: 50px auto;
+  }
+}

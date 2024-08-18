@@ -33,7 +33,7 @@ def current_managers():
         )
 
         return render_template(
-            "manager/current_managers.html",
+            "blueprints/current_managers.html",
             stints=current_stints,
         )
 
@@ -66,6 +66,6 @@ def old_managers():
         )
 
         return render_template(
-            "manager/old_managers.html",
+            "blueprints/past_managers.html",
             stints=ended_stints,
         )

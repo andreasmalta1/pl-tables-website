@@ -1,0 +1,36 @@
+{%   extends 'base.html' %}
+
+{% block styles %} 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/blueprints/seasons.css') }}">
+{% endblock %}
+{% block title %} PL Tables | Seasons {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 id="year-title" class="title">Premier League Calendar Years</h1>
+        <div style="border-style: solid">
+            <label for="year">Select a Premier League Calendar Year:</label>
+            <br>
+            <select name="year" id="years">
+            {% for year in years %}
+                <option value="{{ year }}">{{ year }}</option>
+            {% endfor %}
+            </select>
+            <br>
+            <button id="genBtn">Get Calendar Year Standings</button>
+        </div>
+        <br>
+        <div id="standings-title"></div>
+        <div id="standings" class="standings"></div>
+        <br>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        const SCRIPT_ROOT = {{ request.script_root|tojson }}
+    </script>
+    <script src="{{ url_for('static', filename='js/blueprints/yearly.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/table.js') }}"></script>
+{% endblock %}
