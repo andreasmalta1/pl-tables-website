@@ -1,0 +1,61 @@
+.title{
+    margin-bottom: 20px;
+}
+
+.dateInput{
+    width: 50%;
+    margin: 0 auto;
+    transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
+}
+
+label{
+    display: inline-block;
+    text-align: left;
+    width: 100%;
+}
+
+input[type="date"]{
+    width: 100%;
+    background: transparent;
+    border: 2px solid black;
+    border-radius: 5px;
+    text-align: left; 
+    margin-top: 10px;
+    margin-bottom: 25px;
+    padding: 10px;
+    -webkit-appearance: none;
+}
+
+.genBtn, .genBtn:visited, .genBtn:active, .genBtn:focus{
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+h3{
+    font-weight: normal;
+    color: #FFD700;
+}
+
+.toggleArrow{
+    /* margin-top: -20px; */
+    color: #FFD700;
+    cursor: pointer;
+    font-size: 24px;
+    transition: transform 0.4s ease;
+}
+
+.arrowText{
+    font-size: 0.9rem;
+}
+
+.toggleArrow:hover{
+    color: #8F4BE4
+}
+
+@media screen and (max-width: 1000px) {
+    .genBtn, .genBtn:visited, .genBtn:active, .genBtn:focus{
+        height: 70px;
+        font-size: 1.1rem;
+        line-height: 70px;
+    }
+  }

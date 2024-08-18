@@ -17,10 +17,7 @@
 
 
 ## Page Layout
-- Make footprint text a bit larger
-- Download tables js functionality
 - Manager stints not working
 - Go through each page, web + mobile
 - When hovering over table header, edit cursor
-- 404 page
 - Admin pages after release
