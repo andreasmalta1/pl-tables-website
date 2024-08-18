@@ -5,7 +5,7 @@
 .dateInput{
     width: 50%;
     margin: 0 auto;
-    transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
+    transition: max-height 1s ease, opacity 1s ease, padding 1s ease;
 }
 
 label{
@@ -28,7 +28,6 @@ input[type="date"]{
 
 .genBtn, .genBtn:visited, .genBtn:active, .genBtn:focus{
     margin-top: 0;
-    margin-bottom: 25px;
 }
 
 h3{
@@ -37,11 +36,11 @@ h3{
 }
 
 .toggleArrow{
-    /* margin-top: -20px; */
-    color: #FFD700;
+    margin-bottom: 20px;
+    color: #29183E;
     cursor: pointer;
     font-size: 24px;
-    transition: transform 0.4s ease;
+    transition: transform 1s ease;
 }
 
 .arrowText{
