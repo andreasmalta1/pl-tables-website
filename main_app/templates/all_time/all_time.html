@@ -1,14 +1,15 @@
 {%   extends 'base.html' %}
 
-{% block styles %} 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}"> 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
 {% endblock %}
+
 {% block title %} PL Tables | All Time {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <div>All Time Premer League <Table></Table></div>
+    <div id="standingsTitle" class="title">All Time Premier League Table</div>
+    <div class="tableArea">
         <div id="standings" class="standings"></div>
         <br>
     </div>
