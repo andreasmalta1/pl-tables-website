@@ -24,7 +24,7 @@ body, input, li, a, a:visited, a:active, a:focus, button, input, label, textarea
   margin-left: 200px;
 }
 
-.is-active{
+.isActive{
   display: none;
 }
 /* End General CSS */
@@ -140,15 +140,15 @@ body, input, li, a, a:visited, a:active, a:focus, button, input, label, textarea
   transition: 0.4s
 }
 
-.hamburger.is-active:before{
+.hamburger.isActive:before{
   transform: rotate(-45deg) translate(-8px, 6px);
 }
 
-.hamburger.is-active .bar{
+.hamburger.isActive .bar{
   opacity: 0;
 }
 
-.hamburger.is-active:after{
+.hamburger.iActive:after{
   transform: rotate(45deg) translate(-9px, -8px);
 }
 
@@ -166,7 +166,7 @@ body, input, li, a, a:visited, a:active, a:focus, button, input, label, textarea
   justify-content: space-between;
 }
 
-.mobile.nav.is-active{
+.mobile.nav.isActive{
   left: 0;
 }
 
