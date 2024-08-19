@@ -19,7 +19,7 @@ th{
   background-color: black;
 }
   
-.team-name{
+.teamName{
   font-weight: bold;
 }
   
@@ -28,14 +28,18 @@ th{
   font-size: 1.1rem;
 }
 
-.team-logo {
+.teamLogo {
   width: 30px;
   height: 30px;
   vertical-align: middle;
 }
   
-.standing-table th, .standing-table td{
+.standingTable th, .standingTable td{
   width: 20px;
+}
+
+.highlight{
+  background-color: #301850;
 }
 
 @media screen and (max-width: 1000px) {
@@ -48,7 +52,7 @@ th{
     font-size: 1.5rem;
   }
 
-  .team-logo {
+  .teamLogo {
     width: 60px;
     height: 60px;
     vertical-align: middle;
