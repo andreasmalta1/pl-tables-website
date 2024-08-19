@@ -3,9 +3,14 @@ const deductionsUrl = `${SCRIPT_ROOT}/api/deductions`
 
 const dropdownElement = document.getElementById('seasons');
 const firstSeason = dropdownElement.options[0].text.replace("/", "-")
+const seasonInputEl = document.getElementById('seasonInput')
+const seasonTitleEl = document.getElementById('seasonTitle')
+const seasonTextEl = document.getElementById('seasonText')
 const tableDiv = document.getElementById('standings')
 const genBtn = document.getElementById('genBtn')
 const deductionDiv = document.getElementById('deductions')
+const toggleArrowBtn = document.getElementById('toggleArrowBtn')
+const toggleArrowTitle = document.getElementById('toggleArrowTitle')
 
 getCurrentSeasonTable(firstSeason)
 
@@ -27,6 +32,8 @@ function getCurrentSeasonTable(firstSeason){
         .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
         });
+
+    seasonTextEl.innerHTML = `Season: ${firstSeason.replace("-", "/")}`
 }
 
 genBtn.addEventListener('click', () => {
@@ -49,4 +56,20 @@ genBtn.addEventListener('click', () => {
         .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
         });
+    
+    seasonTextEl.innerHTML = `Season: ${selectedValue.replace("-", "/")}`
+    seasonTitleEl.classList.remove('hidden');
+    seasonInputEl.classList.add('hidden')
 });
+
+
+toggleArrowBtn.addEventListener('click', () => {
+    seasonTitleEl.classList.remove('hidden');
+    seasonInputEl.classList.add('hidden')
+})
+
+
+toggleArrowTitle.addEventListener('click', () => {
+    seasonInputEl.classList.remove('hidden');
+    seasonTitleEl.classList.add('hidden')
+})
