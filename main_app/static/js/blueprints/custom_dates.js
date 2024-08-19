@@ -38,13 +38,6 @@ function incorrectDates(){
     tableDiv.appendChild(errorMsg)
 }
 
-function noMatches(){
-    tableDiv.innerHTML = '';
-    let errorMsg = document.createElement('h3');
-    errorMsg.textContent = "No matches played in these dates. Please choose different dates"
-    tableDiv.appendChild(errorMsg)
-}
-
 function changeAppearance(){
     toggleArrow.innerHTML = '&#x25B6; <span class="arrowText"> Change Dates</span>';
     dateInputEl.classList.add('hidden');
@@ -54,10 +47,9 @@ fetch(`${datesUrl}/${startDateInput.value}/${endDateInput.value}`)
     .then(response => response.json())
     .then(data => {
         if(Object.keys(data).length === 0 && data.constructor === Object){
-            noMatches()
+            noMatches("No matches played in these dates. Please choose different dates")
             return;
         }
-            
         table = createTable(data)
         sortTable(table, 0)
     })
@@ -75,7 +67,7 @@ genBtn.addEventListener('click', () => {
     .then(response => response.json())
     .then(data => {
         if(Object.keys(data).length === 0 && data.constructor === Object){
-            noMatches()
+            noMatches("No matches played in these dates. Please choose different dates")
             return;
         }
         table = createTable(data)

@@ -16,6 +16,10 @@ function getCurrentYearTable(firstYear){
     fetch(`${yearUrl}/${firstYear}`)
         .then(response => response.json())
         .then(data => {
+            if(Object.keys(data).length === 0 && data.constructor === Object){
+                noMatches("Invalid year. Please choose a different calendar year")
+                return;
+            }
             currentTable = createTable(data)
             sortTable(currentTable, 0)
         })
@@ -30,6 +34,10 @@ genBtn.addEventListener('click', () => {
     fetch(`${yearUrl}/${selectedValue}`)
     .then(response => response.json())
     .then(data => {
+        if(Object.keys(data).length === 0 && data.constructor === Object){
+                noMatches("Invalid year. Please choose a different calendar year")
+                return;
+            }
         table = createTable(data)
         sortTable(table, 0)
     })

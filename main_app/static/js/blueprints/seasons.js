@@ -18,6 +18,10 @@ function getCurrentSeasonTable(firstSeason){
     fetch(`${seasonUrl}/${firstSeason}`)
         .then(response => response.json())
         .then(data => {
+            if(Object.keys(data).length === 0 && data.constructor === Object){
+                noMatches("Invalid season. Please choose a different season")
+                return;
+            }
             currentTable = createTable(data)
             sortTable(currentTable, 0)
         })
@@ -41,6 +45,10 @@ genBtn.addEventListener('click', () => {
     fetch(`${seasonUrl}/${selectedValue}`)
         .then(response => response.json())
         .then(data => {
+            if(Object.keys(data).length === 0 && data.constructor === Object){
+                noMatches("Invalid season. Please choose a different season")
+                return;
+            }
             table = createTable(data)
             sortTable(table, 0)
         })
