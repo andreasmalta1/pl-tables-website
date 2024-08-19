@@ -1,52 +1,64 @@
 table{
   border-collapse: collapse;
-  width: 100%;
   background: #432a61;
   background-image: url('/static/images/pl.png');
   background-size: cover;
-  margin-top: 20px;
+  margin: 0 auto;
+  width: 100%;
 }
   
 th, td{
   border-bottom: none;
   border-top: none;
-  padding: 8px;
+  padding: 6px;
   text-align: center;
 }
 
 th{
+  cursor: pointer;
   background-color: black;
 }
-
-.team{
-  text-align: left;
-}
   
-.team-name{
+.teamName{
   font-weight: bold;
 }
   
 .points{
   font-weight: bold;
   font-size: 1.1rem;
-  color: #eb2f2f;
+}
+
+.teamLogo {
+  width: 30px;
+  height: 30px;
+  vertical-align: middle;
 }
   
-.standing-table th, .standing-table td{
+.standingTable th, .standingTable td{
   width: 20px;
 }
 
+.highlight{
+  background-color: #301850;
+}
+
 @media screen and (max-width: 1000px) {
+  table{
+    margin-bottom: 15px;
+  }
+  
   th, td{
     padding: 12px;
     font-size: 1.5rem;
   }
 
-  table{
-    margin-bottom: 15px;
+  .teamLogo {
+    width: 60px;
+    height: 60px;
+    vertical-align: middle;
   }
 
   .points{
-    font-size: 2rem;
+    font-size: 1.7rem;
   }
 }

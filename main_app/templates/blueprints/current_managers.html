@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block styles %} 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/blueprints/managers.css') }}">
+{% endblock %}
+{% block title %} PL Tables | Current Managers {% endblock %}
+
+{% block content %}
+    <div id="standingsTitle" class="title">Current Premier League Managers</div>
+    <div id="managersTableDiv" class="managersTableDiv">
+        <table class="managersTable" id="managersTable">
+            <thead>
+                <tr>
+                    <th><div id="toggleArrowBtn" class="toggleArrow">&#x25B2; <span class="arrowText"> Collapse</span></div></th>
+                    <th>Name</th>
+                    <th>Nationality</th>
+                    <th>Club</th>
+                    <th>Day Joined</th>
+                    <th>Days In Charge</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stint in stints %}
+                    <tr>
+                        <td>
+                            <label for="currentManager"> <img class="managerFace" src="{{ stint.face_url }}" ></label>
+                        </td>
+                        <td class="managerName">
+                            <input id="genBtn" class="genBtn" type="submit" name="{{ stint.id }}" value="{{ stint.manager_name }}"/>
+                        </td>
+                        <td>
+                            <label for="currentManager"> <img class="teamLogo" src="{{ stint.crest_url }}"></label>
+                        </td>
+                        <td>
+                            <label for="currentManager"> <img class="teamLogo" src="{{ stint.flag_url }}"></label>
+                        </td>
+                        <td>
+                            <label for="currentManager">{{ stint.date_start }}</label>
+                        </td>
+                        <td></td>
+                    </tr>   
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tableArea">
+        <div id="managerProfile" class="managerProfile hidden">
+            <div id="toggleArrowCard" class="toggleArrow toggleCard">&#x25B6; <span class="arrowText"> Change Managerial Stint</span></div>
+        </div>
+        <div id="standings" class="standings"></div>
+        <br>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        const SCRIPT_ROOT = {{ request.script_root|tojson }}
+    </script>
+    <script src="{{ url_for('static', filename='js/blueprints/current_managers.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/table.js') }}"></script>
+{% endblock %}

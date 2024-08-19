@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/blueprints/about.css') }}">
+{% endblock %}
+
+{% block title %} PL Tables | About {% endblock %}
+
+{% block content %}
+    <div class="title">About PL Tables</div>
+    <div class="about">
+        <h3>Generate your own customised Premier League Tables across multiple seasons from 1992 to the present day.</h3>
+        <h4>Generate tables by season, calendar & custom dates or view the all time premier league table.</h4>
+        <br>
+        <h4>You can also generate the Premier League Table during a current or past manager's time in charge of a club.</h4>
+        <h4>All the current Premier League Managers are listed, as well as a selection of past Premier League Managers.</h4>
+        <h4>Don't see your managerial choice? Contact me to add the manager to the list or enter the start and end dates during their time in charge.</h4>
+        <br>
+        <div class="btnContainer">
+            <a class="genBtn" href="{{ url_for('home.generate') }}">Generate Here</a>
+        </div>
+    </div>
+{% endblock %}

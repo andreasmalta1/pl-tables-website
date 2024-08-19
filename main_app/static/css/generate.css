@@ -1,0 +1,23 @@
+.generate-item{
+    list-style: none;
+    line-height: 3;
+    transition: transform 0.2s ease;
+}
+
+.generate-item:hover {
+    transform: translateY(-2px);
+}
+
+@media screen and (max-width: 1000px) {
+    .generate{
+        margin-top: 125px;
+    }
+    
+    .generate-item{
+        line-height: 3.3;
+    }
+
+    .generate-item a{
+        font-size: 2.1rem;
+  }
+}

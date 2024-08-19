@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}">
+{% endblock %}
+
+{% block title %} PL Tables | All Time {% endblock %}
+
+{% block content %}
+    <div id="standingsTitle" class="title">All Time Premier League Table</div>
+    <div class="tableArea">
+        <div id="standings" class="standings"></div>
+        <br>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        const SCRIPT_ROOT = {{ request.script_root|tojson }}
+    </script>
+    <script src="{{ url_for('static', filename='js/blueprints/all_time.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/table.js') }}"></script>
+{% endblock %}

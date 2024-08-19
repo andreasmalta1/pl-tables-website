@@ -1,0 +1,116 @@
+.container{
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.title{
+  text-align: center;
+  margin: 45px;
+  font-size: 1.6rem;
+  color: #F5E1FF
+}
+
+.tableArea{
+  margin: 0 auto;
+  width: 90%;
+}
+
+.standings{
+  text-align: center;
+}
+
+.deductions{
+  text-align: left;
+  font-weight: bold;
+  color: black;
+  font-size: 0.9rem;
+}
+
+.form-hidden{
+  display: none;
+}
+
+.hidden{
+  display: none;
+}
+
+.btnContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.genBtn, .genBtn:visited, .genBtn:active, .genBtn:focus{
+  color: white;
+  margin-top: 5vh;
+  font-size: 1.2rem;
+  font-weight: bold;
+  height: 60px;
+  width: 200px;
+  opacity: 100%;
+  background: #3D2062;
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  display: block;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  line-height: 60px;
+}
+
+.genBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.toggleArrow{
+  margin-bottom: 20px;
+  color: black;
+  cursor: pointer;
+  font-size: 24px;
+  transition: transform 1s ease;
+}
+
+.arrowText{
+  font-size: 0.9rem;
+}
+
+.toggleArrow:hover{
+  color: #8F4BE4
+}
+
+
+@media screen and (max-width: 1000px) {
+  .container{
+    height: 100vh;
+  }
+  
+  .title{
+    font-size: 3rem
+  }
+
+  .deductions{
+    font-size: 1.1rem;
+  }
+
+  .genBtn, .genBtn:visited, .genBtn:active, .genBtn:focus{
+    color: white;
+    margin-top: 5vh;
+    font-size: 1.75rem;
+    font-weight: bold;
+    height: 100px;
+    width: 250px;
+    opacity: 100%;
+    background: #3D2062;
+    border-radius: 15px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    display: block;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    line-height: 100px;
+  }
+  
+  .arrowText{
+    font-size: 2rem;
+  }
+}
+  

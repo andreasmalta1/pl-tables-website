@@ -1,0 +1,120 @@
+input{
+  color: black;
+  width: 175px;
+}
+
+.managersTableDiv{
+  width: 60%;
+  margin: 0 auto;
+  transition: max-height 1s ease, opacity 1s ease, padding 1s ease;
+}
+
+.managerFace{
+  width: 50px;
+  height: 50px
+}
+
+.managersTable th{
+  cursor: default;
+}
+
+.genBtn, .genBtn:visited, .genBtn:active, .genBtn:focus{
+  height: 50px;
+  line-height: 50px;
+  margin: 0 auto;
+  box-shadow:  none;
+  border: none;
+}
+
+.genBtn:hover {
+  box-shadow:  none;
+}
+
+.managerProfile{
+  background: #3D2062;
+  width: 25%;
+  border-radius: 15px;
+  margin-bottom: 25px;
+}
+
+.managerNameCard, .managerNationCard, .managerTeamCard{
+  display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  padding: 10px;
+  align-items: center;
+}
+
+.managerTitle, .managerNation, .managerTeam{
+  font-weight: normal;
+  font-size: 1.2rem;
+}
+
+.managerStart, .managerDays, .managerEnd{
+  margin: 10px;
+  padding: 10px;
+  text-align: left;
+  font-weight: normal;
+  font-size: 1;
+  color: #FFD700
+}
+
+.managerFaceCard, .nationFlag, .managerTeamImg{
+  width: 35px;
+}
+
+.toggleArrow{
+    cursor: pointer;
+    font-size: 16px;
+    transition: transform 1s ease;
+}
+
+.toggleCard{
+  text-align: left;
+  padding: 10px;
+  margin: 10px
+}
+
+.toggleArrow{
+  color: white;
+}
+
+.arrowText{
+    font-size: 0.8rem;
+    color: white;
+}
+
+.toggleArrow:hover{
+    color: #8F4BE4
+}
+
+@media screen and (max-width: 1000px) {
+  .title{
+    font-size: 2.5rem
+  }
+
+  .managerFaceCard, .nationFlag, .managerTeamImg{
+    width: 45px;
+  }
+
+  .managersTableDiv{
+    width: 90%;
+  }
+
+  .arrowText{
+    font-size: 1.3rem;
+  }
+
+  .managerProfile{
+    width: 50%;
+  }
+
+  .managerTitle, .managerNation, .managerTeam, .managerStart, .managerDays, .managerEn{
+    font-weight: normal;
+    font-size: 1.6rem;
+  }
+
+  .genBtn, .genBtn:visited, .genBtn:active, .genBtn:focus{
+    font-size: 1.4rem;
+  }
+}

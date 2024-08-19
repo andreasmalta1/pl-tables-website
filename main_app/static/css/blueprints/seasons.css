@@ -1,0 +1,40 @@
+select{
+    appearance: none;
+    border: 0;
+    box-shadow: none;
+    flex: 1;
+    color: #fff;
+    background-color: #29183E;
+    background-image: none;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+}
+
+.genBtn, .genBtn:visited, .genBtn:active, .genBtn:focus{
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.seasonTitle{
+    margin: 0 auto;
+    width: 90%;
+    text-align: left;
+}
+
+.seasonText{
+    font-size: 1.2rem;
+}
+
+@media screen and (max-width: 1000px) {
+    label, select{
+        font-size: 1.5rem;
+    }
+
+    .genBtn, .genBtn:visited, .genBtn:active, .genBtn:focus{
+        height: 70px;
+        font-size: 1.1rem;
+        line-height: 70px;
+    }
+}

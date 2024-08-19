@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/blueprints/contact_page.css') }}">
+{% endblock %}
+{% block title %} PL Tables | Contact Page {% endblock %}
+
+{% block content %}
+  <div class="title">Contact Page</div>
+  <div class="flexContainer">
+    <div class="column">
+      <div class="details">
+        <table>
+          <tbody>
+              <tr>
+                <td class="label">Developer Name:</td>
+                <td class="data"><i class="fa-regular fa-user"></i> Andreas Calleja</td>
+              </tr>
+              <tr>
+                <td class="label">Email Address:</td>
+                <td class="data"> <i class="fa-solid fa-envelope"></i> andreascalleja@gmail.com</td>
+              </tr>
+              <tr>
+                <td class="label">GitHub:</td>
+                <td class="data link"><a href="https://github.com/andreasmalta1/pl_table" target="_blank"><i class="fa-brands fa-github"></i></a></td>
+              </tr>
+            <tr>
+              <td class="label">Twitter:</td>
+              <td class="data link"><a href="https://twitter.com/andreascalleja" target="_blank"><i class="fa-brands fa-twitter"></i></td>
+            </tr>
+            <tr>
+              <td class="label">LinkedIn:</td>
+              <td class="data link"><a href="https://www.linkedin.com/in/andreascalleja/" target="_blank"><i class="fa-brands fa-linkedin"></i></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="coffeeContainer">
+          <h3 class="coffee"><a href="https://bmc.link/andreascal" target="_blank">Buy Me a Coffee <i class="fa-solid fa-mug-hot"></i></a></h3>
+        </div>
+      </div>
+    </div>
+    
+    <div class="column">
+        <form action="{{ url_for('contact_page.contact_page') }}" method="post">
+          {{ form.hidden_tag() }}
+          {{ form.name.label }}
+          {{ form.name }}
+          {{ form.email.label }}
+          {{ form.email }}
+          {{ form.subject.label }}
+          {{ form.subject }}
+          {{ form.message.label }}
+          {{ form.message }}
+          {{ form.submit }}
+        </form>
+        {% if message %}
+        <div class="formMessage">
+          {{ message }}
+        </div>
+        {% endif %}
+    </div>
+  </div>
+{% endblock %}

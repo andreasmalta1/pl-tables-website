@@ -1,0 +1,35 @@
+h3, h4, h5{
+    font-weight: normal;
+    font-size: 1.1rem;
+}
+
+h3{
+    color: #FFD700;
+    margin-bottom: 6vh;
+    margin-top: 10vh
+}
+
+h4{
+    color: #FFD700 ;
+    line-height: 2;
+}
+
+
+@media screen and (max-width: 1000px) {
+    h3, h4, h5{
+        font-weight: normal;
+        font-size: 2rem;
+        line-height: 1.5;
+    }
+
+    h3{
+        margin-bottom: 100px;
+        margin-top: 0
+    }
+
+    .about{
+        margin-top: 100px;
+        padding: 75px
+    }
+  }
+  

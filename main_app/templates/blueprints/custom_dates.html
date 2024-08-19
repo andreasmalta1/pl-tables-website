@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block styles %} 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/blueprints/custom_dates.css') }}">
+{% endblock %}
+{% block title %} PL Tables | Custom Dates {% endblock %}
+
+{% block content %}
+    <div id="standingsTitle" class="title">Custom Dates</div>
+    <div id="dateInput" class="dateInput">
+        <label for="startDate">Start Date:</label>
+        <br>
+        <input type="date" id="startDate" name="start_date">
+        <br>
+        <label for="endDate">End Date:</label>
+        <br>
+        <input type="date" id="endDate" name="end_date">
+        <br>
+        <div class="btnContainer">
+            <button id="genBtn" class="genBtn">Get Standings</button>
+        </div>
+    </div>
+
+    <div id="toggleArrow" class="toggleArrow">&#x25B2; <span class="arrowText"> Collapse</span></div>
+
+    <div class="tableArea">
+        <div id="standings" class="standings"></div>
+        <br>
+    </div>
+
+   
+{% endblock %}
+
+{% block scripts %}
+    <script type="text/javascript">
+        const SCRIPT_ROOT = {{ request.script_root|tojson }}
+    </script>
+    <script src="{{ url_for('static', filename='js/blueprints/custom_dates.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/table.js') }}"></script>
+{% endblock %}

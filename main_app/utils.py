@@ -1,51 +1,21 @@
 import pandas as pd
-import csv
+import os
 from requests import get
 from os import getenv
 from collections import defaultdict
 from bs4 import BeautifulSoup
-from datetime import date
+from dotenv import load_dotenv
+from sqlalchemy.orm import aliased
 
-from main_app.models import Visit, Match, CurrentTeams
-from main_app import db
+load_dotenv()
+
+from models import Team, PointDeduction, Visit
 
 
-def generate_table(start_date, end_date, season):
-    """
-    Returns the table for the chose start and end dates.
-
-        Parameters:
-            start_date (str): A date in string format
-            end_date (str): Another date in string format
-
-        Returns:
-            standings_table (dict): A dictionary of teams and their league info
-    """
-
-    # Get teams data including id and logo id
-    team_data = get_teams_info()
-
-    if start_date and end_date:
-        date_from = start_date.split("-")
-        date_to = end_date.split("-")
-        matches = Match.query.filter(
-            db.and_(
-                Match.date
-                >= date(
-                    year=int(date_from[0]),
-                    month=int(date_from[1]),
-                    day=int(date_from[2]),
-                ),
-                Match.date
-                <= date(
-                    year=int(date_to[0]), month=int(date_to[1]), day=int(date_to[2])
-                ),
-            )
-        ).all()
+def generate_table(matches, season):
 
     standings = defaultdict(
         lambda: {
-            "team_id": None,
             "url": None,
             "played": 0,
             "win": 0,
@@ -57,38 +27,6 @@ def generate_table(start_date, end_date, season):
             "points": 0,
         }
     )
-
-    if season:
-        matches = Match.query.filter_by(season=season).all()
-        if not matches:
-            teams = CurrentTeams.query.order_by(CurrentTeams.team_name).all()
-            for team in teams:
-                standings[team.team_name]["played"] = 0
-
-            # Update data with team id and logo
-            for team in standings:
-                if not standings[team]["url"]:
-                    team_id = team_data.get(team)["logo_id"]
-                    if team:
-                        standings[team]["url"] = f"{getenv('CREST_URL')}{team_id}.png"
-
-            # Sort teams by points and goal differences
-            standings_table = sorted(
-                standings.items(),
-                key=lambda x: (x[1]["points"], x[1]["gd"]),
-                reverse=True,
-            )
-
-            # Add ranking
-            rank = 1
-            for team in standings_table:
-                team[1]["rk"] = rank
-                rank += 1
-
-            return standings_table
-
-    if not start_date and not end_date and not season:
-        matches = Match.query.all()
 
     # Go though matches and save data
     for match in matches:
@@ -125,26 +63,42 @@ def generate_table(start_date, end_date, season):
             standings[away_team]["points"] += 1
 
     if len(standings) < 20 and season:
-        teams = CurrentTeams.query.order_by(CurrentTeams.team_name).all()
+        teams = Team.query.filter_by(current=True).order_by(Team.name).all()
         for team in teams:
-            if not standings.get(team.team_name):
-                standings[team.team_name]["team_id"]: None
-                standings[team.team_name]["url"] = None
-                standings[team.team_name]["played"] = 0
-                standings[team.team_name]["win"] = 0
-                standings[team.team_name]["draw"] = 0
-                standings[team.team_name]["loss"] = 0
-                standings[team.team_name]["goals_for"] = 0
-                standings[team.team_name]["goals_against"] = 0
-                standings[team.team_name]["gd"] = 0
-                standings[team.team_name]["points"] = 0
+            if not standings.get(team.name):
+                standings[team.name]["url"] = None
+                standings[team.name]["played"] = 0
+                standings[team.name]["win"] = 0
+                standings[team.name]["draw"] = 0
+                standings[team.name]["loss"] = 0
+                standings[team.name]["goals_for"] = 0
+                standings[team.name]["goals_against"] = 0
+                standings[team.name]["gd"] = 0
+                standings[team.name]["points"] = 0
 
-    # Update data with team id and logo
+    if season:
+        TeamTable = aliased(Team, name="team_table")
+        points_deductions = (
+            PointDeduction.query.filter_by(season=season)
+            .join(TeamTable, TeamTable.id == PointDeduction.team_id)
+            .add_columns(
+                PointDeduction.points_deducted,
+                PointDeduction.reason,
+                PointDeduction.season,
+                TeamTable.name.label("team_name"),
+            )
+            .all()
+        )
+
+        for points_deduction in points_deductions:
+            standings[points_deduction.team_name][
+                "points"
+            ] -= points_deduction.points_deducted
+
+    # Update data with logo
     for team in standings:
-        if not standings[team]["url"]:
-            team_id = team_data.get(team)["logo_id"]
-            if team:
-                standings[team]["url"] = f"{getenv('CREST_URL')}{team_id}.png"
+        crest_url = Team.query.filter_by(name=team).first().crest_url
+        standings[team]["url"] = crest_url
 
     # Sort teams by points and goal differences
     standings_table = sorted(
@@ -169,21 +123,17 @@ def get_pl_matches():
     data = {
         "match_no": [],
         "season": [],
-        "home_team_id": [],
         "home_team_name": [],
-        "away_team_id": [],
         "away_team_name": [],
         "home_score": [],
         "away_score": [],
         "date": [],
     }
 
-    team_data = get_teams_info()
-
     match_no = 1
     num_rounds = 42
-    start_year = int(getenv("START_YEAR"))
-    for year in range(start_year, 2023):
+    for year in range(1992, 2024):
+        print(year)
         if year > 1994:
             num_rounds = 38
         for round in range(1, num_rounds + 1):
@@ -201,17 +151,13 @@ def get_pl_matches():
                     date = cells[0].get_text()
 
                 home_team_name = cells[2].get_text().strip()
-                home_team_id = team_data[home_team_name]["team_id"]
-                away_team_name = cells[2].get_text().strip()
-                away_team_id = team_data[away_team_name]["team_id"]
+                away_team_name = cells[4].get_text().strip()
                 score = cells[-2].get_text().strip().split()[0].split(":")
 
                 data["match_no"].append(match_no)
                 data["season"].append(f"{year}/{year+1}")
-                data["home_team_id"].append(home_team_id)
                 data["home_team_name"].append(home_team_name)
-                data["away_team_id"].append(away_team_id)
-                data["away_team_name"].append(cells[4].get_text().strip())
+                data["away_team_name"].append(away_team_name)
                 data["home_score"].append(score[0])
                 data["away_score"].append(score[1])
                 data["date"].append(date)
@@ -219,24 +165,11 @@ def get_pl_matches():
                 match_no += 1
 
     df = pd.DataFrame(data=data)
-    df.to_csv("csvs/pl_results.csv")
+    csv_file_path = os.path.join("..", "csvs", "pl_results.csv")
+    df.to_csv(csv_file_path)
 
 
-def get_teams_info():
-    """Return team id and team logo id"""
-    team_data = {}
-
-    with open("csvs/team_ids.csv", "r") as file:
-        csvreader = csv.reader(file)
-        next(csvreader, None)
-
-        for row in csvreader:
-            team_data[row[1]] = {"team_id": row[0], "logo_id": row[2]}
-
-    return team_data
-
-
-def update_visits(ip_address, page_name):
+def update_visits(ip_address, page_name, admin):
     """Add a user's visit to the Visit model"""
     visit = Visit()
-    visit.update_visits(user_ip=ip_address, pagename=page_name)
+    visit.update_visits(user_ip=ip_address, pagename=page_name, admin=admin)

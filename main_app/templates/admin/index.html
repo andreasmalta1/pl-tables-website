@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %} PL Tables | Admin Dashboard {% endblock %}
+
+{% block content %}
+<div class="column is-4 is-offset-4">
+    <h3 class="title">Admin Dashboard</h3>
+    <div class="box">
+        <li>
+            <a href="{{ url_for('admin.new_team') }}">Add New Team</a>
+        </li>
+        <li>
+            <a href="{{ url_for('admin.new_nation') }}">Add New Nation</a>
+        </li>
+        <li>
+            <a href="{{ url_for('admin.new_manager') }}">Add New Manager</a>
+        </li>
+        <li>
+            <a href="{{ url_for('admin.new_stint') }}">Add New Managerial Stint</a>
+        </li>
+        <li>
+            <a href="{{ url_for('admin.end_stint') }}">End Managerial Stint</a>
+        </li>
+        <li>
+            <a href="{{ url_for('admin.new_point_deduction') }}">Add New Points Deduction</a>
+        </li>
+        <li>
+            <a href="{{ url_for('admin.new_season') }}">Start New Season</a>
+        </li>
+        <li>
+            <a href="{{ url_for('admin.new_match') }}">Add New Match</a>
+        </li>
+    </div>
+</div>
+{% endblock %}
