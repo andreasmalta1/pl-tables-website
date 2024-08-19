@@ -3,6 +3,6 @@ const mobileMenu = document.getElementById("mobileNav")
 
 
 menuBtn.addEventListener("click", () => {
-    menuBtn.classList.toggle("is-active")
-    mobileMenu.classList.toggle("is-active")
+    menuBtn.classList.toggle("isActive")
+    mobileMenu.classList.toggle("isActive")
 })
