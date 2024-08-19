@@ -1,4 +1,4 @@
-from flask import render_template, request, flash
+from flask import render_template, request
 from flask_mail import Message
 from os import getenv
 
@@ -21,8 +21,10 @@ def contact_page():
     if request.method == "POST":
         # Ensure that form data is valid
         if form.validate() == False:
-            flash("Enter a valid email address", category="email_contact")
-            return render_template("blueprints/contact_page.html", form=form)
+            message = "Enter a valid email address"
+            return render_template(
+                "blueprints/contact_page.html", form=form, message=message
+            )
 
         # Send a message with data collected from form
         msg = Message(
@@ -30,10 +32,14 @@ def contact_page():
             sender=form.email.data,
             recipients=[getenv("MAIL_USERNAME")],
         )
-        msg.body = "From: %s <%s> \n%s" % (
+        msg.body = "From: %s <%s> \n%s\n\n\n%s" % (
             form.name.data,
             form.email.data,
             form.message.data,
+            "Sent from PL Tables Website",
         )
         mail.send(msg)
-        return render_template("blueprints/contact_page.html")
+        message = "Message sent. I will be in contact with you very soon"
+        return render_template(
+            "blueprints/contact_page.html", form=form, message=message
+        )
