@@ -125,3 +125,10 @@ function createPointsDeduction(pointDeductions){
         deductionDiv.appendChild(deductionPar)
     }
 }
+
+function noMatches(msg){
+    tableDiv.innerHTML = '';
+    let errorMsg = document.createElement('h3');
+    errorMsg.textContent = msg
+    tableDiv.appendChild(errorMsg)
+}
