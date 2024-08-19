@@ -1,28 +1,36 @@
 {%   extends 'base.html' %}
 
-{% block styles %} 
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}"> 
     <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}"> 
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/blueprints/seasons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/blueprints/yearly.css') }}">
 {% endblock %}
 {% block title %} PL Tables | Seasons {% endblock %}
 
 {% block content %}
-    <div class="container">
-        <h1 id="year-title" class="title">Premier League Calendar Years</h1>
-        <div style="border-style: solid">
-            <label for="year">Select a Premier League Calendar Year:</label>
-            <br>
-            <select name="year" id="years">
+    <div id="standingsTitle" class="title">Premier League Calendar Year</div>
+    <div id="yearInput" class="yearInput">
+        <label for="year">Select a Calendar Year:</label>
+        <select name="year" id="years">
             {% for year in years %}
                 <option value="{{ year }}">{{ year }}</option>
             {% endfor %}
-            </select>
-            <br>
-            <button id="genBtn">Get Calendar Year Standings</button>
+        </select>
+        <div class="btnContainer">
+            <button id="genBtn" class="genBtn">Get Standings</button>
         </div>
-        <br>
-        <div id="standings-title"></div>
+        <div id="toggleArrowBtn" class="toggleArrow">&#x25B2; <span class="arrowText"> Collapse</span></div>
+    </div>
+
+    <div id="yearTitle" class="yearTitle hidden">
+        <div id="yearText" class="yearText"></div>
+        <div id="toggleArrowTitle" class="toggleArrow">&#x25B6; <span class="arrowText"> Change Calendar Year</span></div>
+    </div>
+
+    <div class="tableArea">
         <div id="standings" class="standings"></div>
+        <br>
+        <div id="deductions" class="deductions"></div>
         <br>
     </div>
 {% endblock %}

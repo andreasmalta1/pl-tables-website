@@ -12,9 +12,9 @@
     <div id="seasonInput" class="seasonInput">
         <label for="season">Select a Premier League Season:</label>
         <select name="season" id="seasons">
-        {% for season in seasons %}
-            <option value="{{ season }}">{{ season }}</option>
-        {% endfor %}
+            {% for season in seasons %}
+                <option value="{{ season }}">{{ season }}</option>
+            {% endfor %}
         </select>
         <div class="btnContainer">
             <button id="genBtn" class="genBtn">Get Standings</button>
