@@ -75,8 +75,13 @@ input{
   margin: 10px
 }
 
+.toggleArrow{
+  color: white;
+}
+
 .arrowText{
     font-size: 0.8rem;
+    color: white;
 }
 
 .toggleArrow:hover{
@@ -84,4 +89,32 @@ input{
 }
 
 @media screen and (max-width: 1000px) {
+  .title{
+    font-size: 2.5rem
+  }
+
+  .managerFaceCard, .nationFlag, .managerTeamImg{
+    width: 45px;
+  }
+
+  .managersTableDiv{
+    width: 90%;
+  }
+
+  .arrowText{
+    font-size: 1.3rem;
+  }
+
+  .managerProfile{
+    width: 50%;
+  }
+
+  .managerTitle, .managerNation, .managerTeam, .managerStart, .managerDays, .managerEn{
+    font-weight: normal;
+    font-size: 1.6rem;
+  }
+
+  .genBtn, .genBtn:visited, .genBtn:active, .genBtn:focus{
+    font-size: 1.4rem;
+  }
 }

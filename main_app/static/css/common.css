@@ -62,6 +62,22 @@
   box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.3);
 }
 
+.toggleArrow{
+  margin-bottom: 20px;
+  color: black;
+  cursor: pointer;
+  font-size: 24px;
+  transition: transform 1s ease;
+}
+
+.arrowText{
+  font-size: 0.9rem;
+}
+
+.toggleArrow:hover{
+  color: #8F4BE4
+}
+
 
 @media screen and (max-width: 1000px) {
   .container{
@@ -91,6 +107,10 @@
     display: block;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     line-height: 100px;
-}
+  }
+  
+  .arrowText{
+    font-size: 2rem;
+  }
 }
   

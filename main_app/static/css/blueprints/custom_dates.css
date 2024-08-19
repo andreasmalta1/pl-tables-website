@@ -35,26 +35,10 @@ h3{
     color: #FFD700;
 }
 
-.toggleArrow{
-    margin-bottom: 20px;
-    color: #29183E;
-    cursor: pointer;
-    font-size: 24px;
-    transition: transform 1s ease;
-}
-
-.arrowText{
-    font-size: 0.9rem;
-}
-
-.toggleArrow:hover{
-    color: #8F4BE4
-}
-
 @media screen and (max-width: 1000px) {
     .genBtn, .genBtn:visited, .genBtn:active, .genBtn:focus{
         height: 70px;
         font-size: 1.1rem;
         line-height: 70px;
     }
-  }
+}

@@ -148,7 +148,7 @@ body, input, li, a, a:visited, a:active, a:focus, button, input, label, textarea
   opacity: 0;
 }
 
-.hamburger.iActive:after{
+.hamburger.isActive:after{
   transform: rotate(45deg) translate(-9px, -8px);
 }
 
@@ -228,8 +228,8 @@ body, input, li, a, a:visited, a:active, a:focus, button, input, label, textarea
   .hamburger{
     display: block;
     position: fixed;
-    left: 25px;
-    top: 25px;
+    left: 35px;
+    top: 55px;
   }
 
   .mobile.nav{
