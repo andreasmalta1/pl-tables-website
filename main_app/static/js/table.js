@@ -1,8 +1,8 @@
 function createTable(data){
     tableDiv.innerHTML = '';
     let table = document.createElement('table');
-    table.id = 'pl-table';
-    table.className = 'standing-table';
+    table.id = 'plTable';
+    table.className = 'standingTable';
     table.value = -1
 
     let thead = document.createElement('thead');
@@ -13,7 +13,7 @@ function createTable(data){
     headers.forEach((headerText, index) => {
         let th = document.createElement('th');
         if (headerText === 'Team') {
-            th.className = 'team-name';
+            th.className = 'teamName';
         }
         th.textContent = headerText;
         headerRow.appendChild(th);
@@ -39,13 +39,13 @@ function createTable(data){
         let logoCell = document.createElement('td');
         let img = document.createElement('img');
         img.src = data[team]["url"]
-        img.className = 'team-logo'
+        img.className = 'teamLogo'
         logoCell.appendChild(img);
         row.appendChild(logoCell);
 
         let teamCell = document.createElement('td');
         teamCell.textContent = team;
-        teamCell.className = 'team-name'
+        teamCell.className = 'teamName'
         row.appendChild(teamCell);
 
         let stats = ["played", "win", "draw", "loss", "goals_for", "goals_against", "gd", "points"];
@@ -131,4 +131,14 @@ function noMatches(msg){
     let errorMsg = document.createElement('h3');
     errorMsg.textContent = msg
     tableDiv.appendChild(errorMsg)
+}
+
+function highlightTeam(table, data){
+    let rows = table.rows;
+    for (let i = 1; i < rows.length; i++) { // Start from 1 to skip the header row
+        let cell = table.rows[i].cells[2];
+        if (cell.textContent === data.team_name) {
+            table.rows[i].classList.add("highlight");
+        }
+    }
 }
