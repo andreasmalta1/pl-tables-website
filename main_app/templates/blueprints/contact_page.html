@@ -1,11 +1,14 @@
 {% extends 'base.html' %}
 
-{% block styles %} <link rel="stylesheet" href="{{ url_for('static', filename='css/blueprints/contact.css') }}"> {% endblock %}
-{% block title %} PL Tables | Contact Us {% endblock %}
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/blueprints/contact.css') }}">
+{% endblock %}
+{% block title %} PL Tables | Contact Page {% endblock %}
 
 {% block content %}
-  <h2 class="title">Contact</h2>
-  <div class="container">
+  <div class="title">Contact Page</div>
+  <div class="flexContainer">
     <div class="column">
       <div class="details">
         <table>
@@ -17,10 +20,6 @@
               <tr>
                 <td class="label">Email Address:</td>
                 <td class="data"> <i class="fa-solid fa-envelope"></i> andreascalleja@gmail.com</td>
-              </tr>
-              <tr>
-                <td class="label">Teck Stack Used:</td>
-                <td class="data"><i class="fa-solid fa-code"></i> Python + Flask + PostgreSQL</td>
               </tr>
               <tr>
                 <td class="label">GitHub:</td>
@@ -35,32 +34,14 @@
               <td class="data link"><a href="https://www.linkedin.com/in/andreascalleja/" target="_blank"><i class="fa-brands fa-linkedin"></i></td>
             </tr>
           </tbody>
-      </table>
-      <div class="coffee-container">
-        <h3 class="coffee"><a href="https://bmc.link/andreascal" target="_blank">Buy Me a Coffee <i class="fa-solid fa-mug-hot"></i></a></h3>
-      </div>
+        </table>
+        <div class="coffeeContainer">
+          <h3 class="coffee"><a href="https://bmc.link/andreascal" target="_blank">Buy Me a Coffee <i class="fa-solid fa-mug-hot"></i></a></h3>
+        </div>
       </div>
     </div>
+    
     <div class="column">
-      {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                {% if category == "email_contact" %}
-                    <div class="error">
-                        <div class="error-column error-message">
-                          {{ message }}
-                        </div>
-                        <div class="error-column">
-                          <button onclick="deleteError(this)" class="close-error error-button">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-      {% endwith %}
-      {% if form %}
         <form action="{{ url_for('contact_page.contact_page') }}" method="post">
           {{ form.hidden_tag() }}
           {{ form.name.label }}
@@ -73,15 +54,11 @@
           {{ form.message }}
           {{ form.submit }}
         </form>
-      {% else %}
-        <div class="success-container">
-          <h3 class="success">Message sent</h3>
+        {% if message %}
+        <div class="formMessage">
+          {{ message }}
         </div>
-      {% endif %}
+        {% endif %}
     </div>
   </div>
-{% endblock %}
-
-{% block scripts %}
-    <script src="{{ url_for('static', filename='js/delete_error.js') }}"></script>
 {% endblock %}
