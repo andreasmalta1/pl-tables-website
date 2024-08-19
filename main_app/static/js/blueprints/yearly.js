@@ -2,14 +2,15 @@ const yearUrl = `${SCRIPT_ROOT}/api/years`
 
 const dropdownElement = document.getElementById('years');
 const firstYear = dropdownElement.options[0].text.replace("/", "-")
+const yearInputEl = document.getElementById('yearInput')
+const yearTitleEl = document.getElementById('yearTitle')
+const yearTextEl = document.getElementById('yearText')
 const tableDiv = document.getElementById('standings')
-const titleDiv = document.getElementById('standings-title')
 const genBtn = document.getElementById('genBtn')
-getCurrentYearTable(firstYear)
+const toggleArrowBtn = document.getElementById('toggleArrowBtn')
+const toggleArrowTitle = document.getElementById('toggleArrowTitle')
 
-function yearTitle(year){
-    titleDiv.textContent = year
-}
+getCurrentYearTable(firstYear)
 
 function getCurrentYearTable(firstYear){
     fetch(`${yearUrl}/${firstYear}`)
@@ -17,11 +18,11 @@ function getCurrentYearTable(firstYear){
         .then(data => {
             currentTable = createTable(data)
             sortTable(currentTable, 0)
-            yearTitle(firstYear.replace("-", "/"))
         })
         .catch(error => {
             console.error('There has been a problem with your fetch operation:', error);
         });
+    yearTextEl.innerHTML = `Calendar year: ${firstYear}`
 }
 
 genBtn.addEventListener('click', () => {
@@ -31,9 +32,23 @@ genBtn.addEventListener('click', () => {
     .then(data => {
         table = createTable(data)
         sortTable(table, 0)
-        yearTitle(selectedValue)
     })
     .catch(error => {
         console.error('There has been a problem with your fetch operation:', error);
     });
+    yearTextEl.innerHTML = `Calendar year: ${selectedValue}`
+    yearTitleEl.classList.remove('hidden');
+    yearInputEl.classList.add('hidden')
 });
+
+
+toggleArrowBtn.addEventListener('click', () => {
+    yearTitleEl.classList.remove('hidden');
+    yearInputEl.classList.add('hidden')
+})
+
+
+toggleArrowTitle.addEventListener('click', () => {
+    yearInputEl.classList.remove('hidden');
+    yearTitleEl.classList.add('hidden')
+})
