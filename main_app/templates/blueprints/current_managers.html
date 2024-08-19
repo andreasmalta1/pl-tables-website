@@ -1,16 +1,19 @@
-{%   extends 'base.html' %}
+{% extends 'base.html' %}
 
-{% block styles %} <link rel="stylesheet" href="{{ url_for('static', filename='css/blueprints/managers.css') }}"> {% endblock %}
-{% block title %} PL Tables | Managers {% endblock %}
+{% block styles %} 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/common.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/table.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/blueprints/managers.css') }}">
+{% endblock %}
+{% block title %} PL Tables | Current Managers {% endblock %}
 
 {% block content %}
-<div class="container">
-    <div id="currentManagersDiv">
-        <h1 id="current-manager" class="title">Current PL Managers</h1>
-        <table class="managers-table" id="currentManagers">
+    <div id="standingsTitle" class="title">Current Premier League Managers</div>
+    <div id="managersTableDiv" class="managersTableDiv">
+        <table class="managersTable" id="managersTable">
             <thead>
                 <tr>
-                    <th></th>
+                    <th><div id="toggleArrowBtn" class="toggleArrow">&#x25B2; <span class="arrowText"> Collapse</span></div></th>
                     <th>Name</th>
                     <th>Nationality</th>
                     <th>Club</th>
@@ -22,40 +25,40 @@
                 {% for stint in stints %}
                     <tr>
                         <td>
-                            <label for="currentManager"> <img class="manager-face" src="{{ stint.face_url }}" ></label>
+                            <label for="currentManager"> <img class="managerFace" src="{{ stint.face_url }}" ></label>
                         </td>
-                        <td class="manager-name">
-                            <input class="down-button" type="submit" name="{{ stint.id }}" value="{{ stint.manager_name }}"/>
-                        </td>
-                        <td>
-                            <label for="currentManager"> <img class="team-logo" src="{{ stint.crest_url }}"></label>
+                        <td class="managerName">
+                            <input id="genBtn" class="genBtn" type="submit" name="{{ stint.id }}" value="{{ stint.manager_name }}"/>
                         </td>
                         <td>
-                            <label for="currentManager"> <img class="team-logo" src="{{ stint.flag_url }}"></label>
+                            <label for="currentManager"> <img class="teamLogo" src="{{ stint.crest_url }}"></label>
+                        </td>
+                        <td>
+                            <label for="currentManager"> <img class="teamLogo" src="{{ stint.flag_url }}"></label>
                         </td>
                         <td>
                             <label for="currentManager">{{ stint.date_start }}</label>
                         </td>
                         <td></td>
-                        
                     </tr>   
                 {% endfor %}
             </tbody>
         </table>
     </div>
 
-    <div class="managerStandings">
-        <div id="managerProfile"></div>
-        <br>
+    <div class="tableArea">
+        <div id="managerProfile" class="managerProfile hidden">
+            <div id="toggleArrowCard" class="toggleArrow toggleCard">&#x25B6; <span class="arrowText"> Change Managerial Stint</span></div>
+        </div>
         <div id="standings" class="standings"></div>
+        <br>
     </div>
-    <br>
 {% endblock %}
 
 {% block scripts %}
     <script type="text/javascript">
         const SCRIPT_ROOT = {{ request.script_root|tojson }}
     </script>
-    <script src="{{ url_for('static', filename='js/bleuprints/current_managers.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/blueprints/current_managers.js') }}"></script>
     <script src="{{ url_for('static', filename='js/table.js') }}"></script>
 {% endblock %}
