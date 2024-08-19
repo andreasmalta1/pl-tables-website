@@ -1,21 +1,23 @@
-.container{
+.flexContainer{
   display: flex;
-  width: 75%;
-  margin: 0 auto;
+  width: 90%;
   text-align: center;
+  margin: 0 auto;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
 }
 
 .column {
   flex: 50%;
   padding: 0 20px;
+  margin: 20px;
+  border-radius: 25px;
   justify-content: center;
+  background-color: #3D2062;
 }
 
 .details{
-  margin: 0 auto;
+  margin: 20px auto;
 }
 
 table{
@@ -36,7 +38,7 @@ td{
   width: 265px;
 }
 
-.coffee a, .success{
+.coffee a{
   color: #FFA535;
   font-weight: bold;
   font-size: 1.5rem;
@@ -92,7 +94,7 @@ form label{
   background-color: white;
 }
 
-.coffee-container{
+.coffeeContainer{
   margin: 25px auto;
 }
 
@@ -109,11 +111,13 @@ form label{
   color: #FFA535;
 }
 
-@media screen and (max-width: 1000px) {
-  .container{
-      width: 90%;
-  }
+.formMessage{
+  margin: 20px;
+  padding: 10px;
+  color: #FFD700;
+}
 
+@media screen and (max-width: 1000px) {
   .column {
     flex: 100%;
     margin-bottom: 50px;
@@ -151,7 +155,7 @@ form label{
     font-size: 2.5rem;
   }
 
-  .coffee-container{
+  .coffeeContainer{
     margin: 50px auto;
   }
 }
