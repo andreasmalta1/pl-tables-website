@@ -1,0 +1,51 @@
+select{
+    appearance: none;
+    border: 0;
+    box-shadow: none;
+    flex: 1;
+    color: #fff;
+    background-color: #29183E;
+    background-image: none;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 10px;
+    text-align: center;
+}
+
+.genBtn, .genBtn:visited, .genBtn:active, .genBtn:focus{
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+
+.toggleArrow{
+    margin-bottom: 15px;
+}
+
+.toggleArrow{
+    margin-bottom: 20px;
+    color: #29183E;
+    cursor: pointer;
+    font-size: 24px;
+    transition: transform 1s ease;
+}
+
+.arrowText{
+    font-size: 0.9rem;
+}
+
+.toggleArrow:hover{
+    color: #8F4BE4
+}
+
+.yearTitle{
+    margin: 0 auto;
+    width: 90%;
+    text-align: left;
+}
+
+.yearText{
+    font-size: 1.2rem;
+}
+
+@media screen and (max-width: 1000px) {
+}
