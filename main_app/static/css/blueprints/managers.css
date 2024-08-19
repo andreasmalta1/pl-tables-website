@@ -1,80 +1,87 @@
 input{
   color: black;
-}
-
-input{
   width: 175px;
 }
 
-.container{
-  width: 75%;
+.managersTableDiv{
+  width: 60%;
   margin: 0 auto;
-  text-align: center;
-  flex-wrap: wrap;
-  margin-bottom: 20px;
+  transition: max-height 1s ease, opacity 1s ease, padding 1s ease;
 }
 
-.down-button{
-  width: 100%;
+.managerFace{
+  width: 50px;
+  height: 50px
 }
 
-table{
+.managersTable th{
+  cursor: default;
+}
+
+.genBtn, .genBtn:visited, .genBtn:active, .genBtn:focus{
+  height: 50px;
+  line-height: 50px;
   margin: 0 auto;
+  box-shadow:  none;
+  border: none;
 }
 
-h1{
-  cursor: pointer;
+.genBtn:hover {
+  box-shadow:  none;
 }
 
-#current-manager:hover, #memorable-manager:hover{
-  transform: scale(1.05);
+.managerProfile{
+  background: #3D2062;
+  width: 25%;
+  border-radius: 15px;
+  margin-bottom: 25px;
 }
 
-table{
-  border-collapse: collapse;
-  width: 80%;
-  background: #432a61;
-  background-image: url('/static/images/pl.png');
-  background-size: cover;
-}
-  
-th, td{
-  border-bottom: none;
-  border-top: none;
-  padding: 8px;
-  text-align: center;
-}
-
-th{
-  background-color: black;
-}
-
-.manager-face{
-  width: 40px;
-  height: 40px;
-  vertical-align: middle;
-}
-
-.managerStandings {
+.managerNameCard, .managerNationCard, .managerTeamCard{
   display: flex;
+  justify-content: space-between;
+  margin: 10px;
+  padding: 10px;
+  align-items: center;
 }
 
-.managerProfile {
-  flex: 0 0 20%;
+.managerTitle, .managerNation, .managerTeam{
+  font-weight: normal;
+  font-size: 1.2rem;
 }
 
-.standings {
-  flex: 0 0 80%;
+.managerStart, .managerDays, .managerEnd{
+  margin: 10px;
+  padding: 10px;
+  text-align: left;
+  font-weight: normal;
+  font-size: 1;
+  color: #FFD700
+}
+
+.managerFaceCard, .nationFlag, .managerTeamImg{
+  width: 35px;
+}
+
+.toggleArrow{
+    cursor: pointer;
+    font-size: 16px;
+    transition: transform 1s ease;
+}
+
+.toggleCard{
+  text-align: left;
+  padding: 10px;
+  margin: 10px
+}
+
+.arrowText{
+    font-size: 0.8rem;
+}
+
+.toggleArrow:hover{
+    color: #8F4BE4
 }
 
 @media screen and (max-width: 1000px) {
-  .container{
-      width: 90%;
-  }
-
-  .team-logo {
-    width: 50px;
-    height: 50px;
-    vertical-align: middle;
-  }
 }

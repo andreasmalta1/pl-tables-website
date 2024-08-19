@@ -18,10 +18,6 @@ select{
 }
 
 .toggleArrow{
-    margin-bottom: 15px;
-}
-
-.toggleArrow{
     margin-bottom: 20px;
     color: #29183E;
     cursor: pointer;
