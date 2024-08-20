@@ -1,11 +1,11 @@
-from flask import render_template, request
+from flask import Blueprint, render_template, request
 from flask_mail import Message
 from os import getenv
 
-from forms import ContactForm
-from app import mail
+from ...forms import ContactForm
+from ...app import mail
 
-from blueprints.contact_page import contact_page_blueprint
+contact_page_blueprint = Blueprint("contact_page", __name__)
 
 
 @contact_page_blueprint.route("/", methods=["GET", "POST"])

@@ -1,9 +1,10 @@
-from flask import render_template, request
+from flask import Blueprint, render_template, request
 from flask_login import current_user
 from datetime import datetime
 
-from blueprints.year import year_blueprint
-from utils import update_visits
+from ...utils import update_visits
+
+year_blueprint = Blueprint("year", __name__)
 
 
 @year_blueprint.route("/", methods=["GET"])

@@ -1,8 +1,9 @@
 from flask_login import UserMixin
+from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
 
 
-from app import db
+db = SQLAlchemy()
 
 
 class Team(db.Model):

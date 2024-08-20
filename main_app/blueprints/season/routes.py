@@ -1,9 +1,10 @@
-from flask import render_template, request
+from flask import Blueprint, render_template, request
 from flask_login import current_user
 
-from blueprints.season import season_blueprint
-from models import Match, Season
-from utils import update_visits
+from ...models import Match, Season
+from ...utils import update_visits
+
+season_blueprint = Blueprint("season", __name__)
 
 
 @season_blueprint.route("/", methods=["GET"])

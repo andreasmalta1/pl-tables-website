@@ -1,13 +1,14 @@
-from flask import render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for
 from flask_login import login_user, login_required, logout_user, current_user
 from flask_mail import Message
 from werkzeug.security import check_password_hash
 import os
 import datetime
 
-from app import mail
-from blueprints.auth import auth_blueprint
-from models import User
+from ...models import User
+from ...app import mail
+
+auth_blueprint = Blueprint("auth", __name__)
 
 
 @auth_blueprint.route("/login", methods=["GET", "POST"])

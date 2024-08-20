@@ -1,9 +1,10 @@
-from flask import render_template, request
+from flask import Blueprint, render_template, request
 from flask_login import current_user
 
-from blueprints.manager import manager_blueprint
-from models import Team, Nation, Manager, ManagerStint
-from utils import update_visits
+from ...models import Team, Nation, Manager, ManagerStint
+from ...utils import update_visits
+
+manager_blueprint = Blueprint("manager", __name__)
 
 
 @manager_blueprint.route("/current", methods=["GET"])

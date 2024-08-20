@@ -1,8 +1,9 @@
-from flask import render_template, request
+from flask import Blueprint, render_template, request
 from flask_login import current_user
 
-from blueprints.custom_date import custom_date_blueprint
-from utils import update_visits
+from ...utils import update_visits
+
+custom_date_blueprint = Blueprint("custom_date", __name__)
 
 
 @custom_date_blueprint.route("/", methods=["GET"])

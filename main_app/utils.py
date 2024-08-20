@@ -9,11 +9,10 @@ from sqlalchemy.orm import aliased
 
 load_dotenv()
 
-from models import Team, PointDeduction, Visit
+from .models import Team, PointDeduction, Visit
 
 
 def generate_table(matches, season):
-
     standings = defaultdict(
         lambda: {
             "url": None,

@@ -1,8 +1,9 @@
-from flask import render_template, request
+from flask import Blueprint, render_template, request
 from flask_login import current_user
 
-from blueprints.home import home_blueprint
-from utils import update_visits
+from ...utils import update_visits
+
+home_blueprint = Blueprint("home", __name__)
 
 
 @home_blueprint.route("/", methods=["GET"])

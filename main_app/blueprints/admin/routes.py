@@ -1,11 +1,11 @@
-from flask import render_template, request
+from flask import Blueprint, render_template, request
 from flask_login import login_required
 from sqlalchemy.orm import aliased
 from datetime import datetime
 
-from app import db
-from blueprints.admin import admin_blueprint
-from models import *
+from ...models import *
+
+admin_blueprint = Blueprint("admin", __name__)
 
 
 @admin_blueprint.route("/", methods=["GET"])

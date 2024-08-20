@@ -1,11 +1,11 @@
-from flask import jsonify
+from flask import Blueprint, jsonify
 from sqlalchemy.orm import aliased
 from datetime import date
 
-from app import db
-from blueprints.api import api_blueprint
-from models import *
-from utils import generate_table
+from ...models import *
+from ...utils import generate_table
+
+api_blueprint = Blueprint("api", __name__)
 
 
 @api_blueprint.route("/current-season", methods=["GET"])

@@ -1,8 +1,9 @@
-from flask import render_template, request
+from flask import Blueprint, render_template, request
 from flask_login import current_user
 
-from blueprints.all_time import all_time_blueprint
-from utils import update_visits
+from ...utils import update_visits
+
+all_time_blueprint = Blueprint("all_time", __name__)
 
 
 @all_time_blueprint.route("/", methods=["GET"])

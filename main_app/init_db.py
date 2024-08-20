@@ -4,8 +4,7 @@ from datetime import date
 import csv
 from werkzeug.security import generate_password_hash
 
-from models import *
-from app import db
+from .models import *
 
 BUCKET_URL = os.getenv("S3_BUCKET_URL")
 
