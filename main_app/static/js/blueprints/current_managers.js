@@ -94,7 +94,7 @@ function createManagerCard(data){
 
     let daysElapsedValue = daysElapsedNow(data.date_start);
     let managerDays = document.createElement('p');
-    managerDays.textContent = `Days in Charge ${daysElapsedValue}`
+    managerDays.textContent = `Days in Charge: ${daysElapsedValue}`
     managerDays.className = "managerDays"
 
     let toggleCard = document.createElement("div");
