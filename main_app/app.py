@@ -44,9 +44,7 @@ def create_app():
         init_db.add_point_deductions()
         init_db.add_user()
         init_db.add_last_row()
-        print("Test 1")
 
-    print("Test 2")
     login_manager = LoginManager()
     login_manager.login_view = "auth.login"
     login_manager.init_app(app)
