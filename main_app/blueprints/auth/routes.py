@@ -25,7 +25,7 @@ def login():
         user = User.query.filter_by(email=email).first()
 
         msg = Message(
-            "Login Attempt New",
+            "Login Attempt Newer",
             sender=os.getenv("MAIL_USERNAME"),
             recipients=[os.getenv("MAIL_USERNAME")],
         )
@@ -41,11 +41,11 @@ def login():
         mail.send(msg)
 
         if not user or not check_password_hash(user.password, password):
-            return render_template("auth/login.html")
+            # return render_template("auth/login.html")
+            return redirect("https://iqtest.com/take-the-test/")
 
         login_user(user, remember=False)
-        # return redirect(url_for("home.index"))
-        return redirect("https://iqtest.com/take-the-test/")
+        return redirect(url_for("home.index"))
 
 
 @auth_blueprint.route("/logout", methods=["GET"])
