@@ -98,6 +98,3 @@ downloadBtn.addEventListener("click", () => {
       )
     })
 })
-
-// Format table
-// Add image
