@@ -1,6 +1,13 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from sqlalchemy.orm import aliased
 from datetime import date
+import io
+import base64
+import pandas as pd
+import matplotlib
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
 
 from ...models import *
 from ...utils import generate_table
@@ -135,6 +142,36 @@ def get_current_season():
     season = Season.query.first().season
 
     return jsonify({"season": season})
+
+
+@api_blueprint.route("/download-table", methods=["POST"])
+def download_table():
+    data = request.json.get("tableData")
+    df = pd.DataFrame(data)
+
+    fig, ax = plt.subplots(figsize=(12, len(data) * 0.5 + 1))
+    ax.axis("off")
+
+    table = ax.table(
+        cellText=df.values,
+        colLabels=df.columns,
+        loc="center",
+        cellLoc="center",
+        colColours=["#f2f2f2"] * len(df.columns),
+    )
+
+    table.auto_set_font_size(False)
+    table.set_fontsize(10)
+    table.scale(1.2, 1.5)
+
+    buf = io.BytesIO()
+    fig.savefig(buf, format="png", bbox_inches="tight", dpi=150)
+    plt.close(fig)
+    buf.seek(0)
+
+    img_str = base64.b64encode(buf.getvalue()).decode("utf-8")
+
+    return jsonify({"image": img_str})
 
 
 def get_matches_by_season(season=None):
