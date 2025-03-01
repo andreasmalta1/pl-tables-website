@@ -1,9 +1,7 @@
 # PL Tables website
-- Merge to master
-- Buy domain for website
-- Deploy using AWS or upgarde tier on render.com
 
 ## Version 3
-- Admin pages CSS + functionality
+- Download images using backend
+- Admin pages CSS + functionality + flow
 - Page to see all results
 - API protection
