@@ -5,6 +5,8 @@ import io
 import base64
 import pandas as pd
 import matplotlib
+import urllib.request
+from PIL import Image
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -150,22 +152,109 @@ def download_table():
     df = pd.DataFrame(data)
 
     fig, ax = plt.subplots(figsize=(12, len(data) * 0.5 + 1))
-    ax.axis("off")
+    ax = plt.subplot()
 
-    table = ax.table(
-        cellText=df.values,
-        colLabels=df.columns,
-        loc="center",
-        cellLoc="center",
-        colColours=["#f2f2f2"] * len(df.columns),
+    ncols = 11
+    nrows = df.shape[0]
+
+    ax.set_xlim(0, ncols + 1)
+    ax.set_ylim(0, nrows + 1)
+
+    positions = [0.05, 1, 2, 5.5, 6.5, 7.5, 8.5, 9.5, 10.5, 11.5, 12.5]
+    columns = ["#", "", "Team", "MP", "W", "D", "L", "GF", "GA", "GD", "PTS"]
+
+    for i in range(nrows):
+        for j, column in enumerate(columns):
+            fontsize = 10
+
+            if not column:
+                continue
+
+            text_label = f"{df[column].iloc[i]}"
+            weight = "normal"
+
+            ax.annotate(
+                xy=(positions[j], nrows - i - 0.5),
+                text=text_label,
+                ha="center",
+                va="center",
+                weight=weight,
+                fontsize=fontsize,
+            )
+
+    DC_to_FC = ax.transData.transform
+    FC_to_NFC = fig.transFigure.inverted().transform
+
+    DC_to_NFC = lambda x: FC_to_NFC(DC_to_FC(x))
+
+    ax_point_1 = DC_to_NFC([5.75, 0.25])
+    ax_point_2 = DC_to_NFC([6.25, 0.75])
+    ax_width = abs(ax_point_1[0] - ax_point_2[0])
+    ax_height = abs(ax_point_1[1] - ax_point_2[1]) * 1.2
+
+    for x in range(0, nrows):
+        pos = nrows - x - 1
+        ax_coords = DC_to_NFC([4, x + 0.25])
+        flag_ax = fig.add_axes([ax_coords[0], ax_coords[1], ax_width, ax_height])
+        show_logo(df[""].iloc[pos], flag_ax)
+
+    ax_point_1 = DC_to_NFC([4, 0.05])
+    ax_point_2 = DC_to_NFC([5, 0.95])
+    ax_width = abs(ax_point_1[0] - ax_point_2[0])
+    ax_height = abs(ax_point_1[1] - ax_point_2[1])
+
+    ax.plot(
+        [ax.get_xlim()[0], ax.get_xlim()[1]],
+        [nrows, nrows],
+        lw=1.5,
+        color="black",
+        marker="",
+        zorder=4,
+    )
+    ax.plot(
+        [ax.get_xlim()[0], ax.get_xlim()[1]],
+        [0, 0],
+        lw=1.5,
+        color="black",
+        marker="",
+        zorder=4,
     )
 
-    table.auto_set_font_size(False)
-    table.set_fontsize(10)
-    table.scale(1.2, 1.5)
+    for x in range(1, nrows):
+        ax.plot(
+            [ax.get_xlim()[0], ax.get_xlim()[1]],
+            [x, x],
+            lw=1.15,
+            color="gray",
+            ls=":",
+            zorder=3,
+            marker="",
+        )
+
+    ax.set_axis_off()
+
+    fig.text(
+        x=0.15,
+        y=0.86,
+        s="Test Table",
+        ha="left",
+        va="bottom",
+        weight="bold",
+        size=12,
+    )
+
+    ax.annotate(
+        "Download from pl-tables.com",
+        (0, 0),
+        (0, -18.5),
+        fontsize=10,
+        xycoords="axes fraction",
+        textcoords="offset points",
+        va="top",
+    )
 
     buf = io.BytesIO()
-    fig.savefig(buf, format="png", bbox_inches="tight", dpi=150)
+    fig.savefig(buf, format="png", bbox_inches="tight", dpi=300)
     plt.close(fig)
     buf.seek(0)
 
@@ -236,3 +325,10 @@ def get_matches_by_day(date_start, date_end):
         standings_dict[team[0]] = team[1]
 
     return standings_dict
+
+
+def show_logo(url, ax):
+    icon = Image.open(urllib.request.urlopen(url))
+    ax.imshow(icon, alpha=1)
+    ax.axis("off")
+    return ax
