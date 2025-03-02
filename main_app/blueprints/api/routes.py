@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from sqlalchemy.orm import aliased
 from datetime import date
+import os
 import io
 import base64
 import pandas as pd
@@ -10,6 +11,7 @@ from PIL import Image
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 
 from ...models import *
 from ...utils import generate_table
@@ -149,7 +151,11 @@ def get_current_season():
 @api_blueprint.route("/download-table", methods=["POST"])
 def download_table():
     data = request.json.get("tableData")
+    # print(data)
     df = pd.DataFrame(data)
+
+    image_path = os.path.join(os.getcwd(), "main_app", "static", "images", "pl.png")
+    bg_img = mpimg.imread(image_path)
 
     fig, ax = plt.subplots(figsize=(12, len(data) * 0.5 + 1))
     ax = plt.subplot()
@@ -244,13 +250,19 @@ def download_table():
     )
 
     ax.annotate(
-        "Download from pl-tables.com",
+        "Downloaded from pl-tables.com",
         (0, 0),
         (0, -18.5),
         fontsize=10,
         xycoords="axes fraction",
         textcoords="offset points",
         va="top",
+    )
+
+    ax.set_xlim(0, ncols + 1)
+    ax.set_ylim(0, nrows + 1)
+    ax.imshow(
+        bg_img, extent=[0, ncols + 1, 0, nrows + 1], aspect="auto", alpha=0.3, zorder=-1
     )
 
     buf = io.BytesIO()
