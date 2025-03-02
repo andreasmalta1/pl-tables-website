@@ -72,12 +72,19 @@ downloadBtn.addEventListener("click", () => {
     tableData.push(rowData)
   })
 
+  let tableDataObj = JSON.stringify({ tableData: tableData })
+  console.log(JSON.stringify({ tableData: tableData }))
+  tableDataObj.title = "This is the title"
+  tableDataObj.deuctions = "these are the deductions"
+  console.log(tableDataObj)
+
   fetch(downloadTableUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ tableData: tableData }),
+    // body: JSON.stringify({ tableData: tableData }),
+    body: tableDataObj,
   })
     .then((response) => response.json())
     .then((data) => {
