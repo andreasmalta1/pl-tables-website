@@ -157,7 +157,7 @@ def download_table():
     image_path = os.path.join(os.getcwd(), "main_app", "static", "images", "pl.png")
     bg_img = mpimg.imread(image_path)
 
-    fig, ax = plt.subplots(figsize=(12, len(data) * 0.5 + 1))
+    fig = plt.figure(figsize=(12, len(data) * 0.5 + 1), dpi=300, facecolor="#EFE9E6")
     ax = plt.subplot()
 
     ncols = 11
