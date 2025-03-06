@@ -53,6 +53,8 @@ downloadBtn.addEventListener("click", () => {
   const headers = []
   const headerCells = table.querySelectorAll("thead tr th")
 
+  downloadBtn.textContent = "Processing"
+
   headerCells.forEach((cell) => {
     headers.push(cell.textContent)
   })
@@ -72,23 +74,20 @@ downloadBtn.addEventListener("click", () => {
     tableData.push(rowData)
   })
 
-  let tableDataObj = JSON.stringify({ tableData: tableData })
-  console.log(JSON.stringify({ tableData: tableData }))
-  tableDataObj.title = "This is the title"
-  tableDataObj.deuctions = "these are the deductions"
-  console.log(tableDataObj)
+  let tableDataObj = JSON.stringify({
+    tableData: tableData,
+    title: seasonDiv.textContent,
+  })
 
   fetch(downloadTableUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    // body: JSON.stringify({ tableData: tableData }),
     body: tableDataObj,
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data)
       const imageData = data.image
       const link = document.createElement("a")
       link.href = "data:image/png;base64," + imageData
@@ -96,7 +95,7 @@ downloadBtn.addEventListener("click", () => {
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
-      console.log("done")
+      downloadBtn.textContent = "Download Table"
     })
     .catch((error) => {
       console.error(

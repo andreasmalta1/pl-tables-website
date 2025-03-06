@@ -150,14 +150,14 @@ def get_current_season():
 
 @api_blueprint.route("/download-table", methods=["POST"])
 def download_table():
-    data = request.json.get("tableData")
-    # print(data)
-    df = pd.DataFrame(data)
+    table = request.json.get("tableData")
+    title = request.json.get("title")
+    df = pd.DataFrame(table)
 
     image_path = os.path.join(os.getcwd(), "main_app", "static", "images", "pl.png")
     bg_img = mpimg.imread(image_path)
 
-    fig = plt.figure(figsize=(12, len(data) * 0.5 + 1), dpi=300, facecolor="#EFE9E6")
+    fig = plt.figure(figsize=(12, len(table) * 0.5 + 1), dpi=300, facecolor="#EFE9E6")
     ax = plt.subplot()
 
     ncols = 11
@@ -242,7 +242,7 @@ def download_table():
     fig.text(
         x=0.15,
         y=0.86,
-        s="Test Table",
+        s=title,
         ha="left",
         va="bottom",
         weight="bold",
