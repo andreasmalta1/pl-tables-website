@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from sqlalchemy.orm import aliased
-from datetime import date
+from datetime import date, datetime
 import os
 import io
 import base64
@@ -157,7 +157,7 @@ def download_table():
     image_path = os.path.join(os.getcwd(), "main_app", "static", "images", "pl.png")
     bg_img = mpimg.imread(image_path)
 
-    fig = plt.figure(figsize=(12, len(table) * 0.5 + 1), dpi=300, facecolor="#EFE9E6")
+    fig = plt.figure(figsize=(12, len(table) * 0.5 + 2), dpi=300, facecolor="#EFE9E6")
     ax = plt.subplot()
 
     ncols = 11
@@ -209,6 +209,15 @@ def download_table():
     ax_width = abs(ax_point_1[0] - ax_point_2[0])
     ax_height = abs(ax_point_1[1] - ax_point_2[1])
 
+    for index, c in enumerate(columns):
+        ax.annotate(
+            xy=(positions[index], nrows + 0.25),
+            text=columns[index],
+            ha="center",
+            va="bottom",
+            weight="bold",
+        )
+
     ax.plot(
         [ax.get_xlim()[0], ax.get_xlim()[1]],
         [nrows, nrows],
@@ -240,13 +249,23 @@ def download_table():
     ax.set_axis_off()
 
     fig.text(
-        x=0.15,
-        y=0.86,
+        x=0.5,
+        y=0.88,
         s=title,
-        ha="left",
+        ha="center",
         va="bottom",
         weight="bold",
         size=12,
+    )
+
+    ax.annotate(
+        f"Generated on {datetime.today().strftime('%Y-%m-%d')}",
+        (0, 0),
+        (0, -2),
+        fontsize=10,
+        xycoords="axes fraction",
+        textcoords="offset points",
+        va="top",
     )
 
     ax.annotate(
