@@ -1,4 +1,4 @@
-function downloadImage() {
+function downloadImage(title) {
   const table = document.getElementById("plTable")
   const tableData = []
   const headers = []
@@ -27,7 +27,7 @@ function downloadImage() {
 
   let tableDataObj = JSON.stringify({
     tableData: tableData,
-    title: seasonDiv.textContent,
+    title: title,
   })
 
   fetch(downloadTableUrl, {

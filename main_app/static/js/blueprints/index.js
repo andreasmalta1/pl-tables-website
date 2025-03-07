@@ -48,5 +48,5 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 downloadBtn.addEventListener("click", () => {
-  downloadImage()
+  downloadImage(seasonDiv.textContent)
 })
