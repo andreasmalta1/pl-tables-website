@@ -11,7 +11,9 @@
     <div id="standingsTitle" class="title">All Time Premier League Table</div>
     <div class="tableArea">
         <div id="standings" class="standings"></div>
-        <br>
+        <div class="btnContainer">
+            <button id="downBtn" class="genBtn">Download Table</button>
+        </div>
     </div>
 {% endblock %}
 
@@ -21,4 +23,5 @@
     </script>
     <script src="{{ url_for('static', filename='js/blueprints/all_time.js') }}"></script>
     <script src="{{ url_for('static', filename='js/table.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/image.js') }}"></script>
 {% endblock %}
