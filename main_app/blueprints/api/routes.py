@@ -157,7 +157,13 @@ def download_table():
     image_path = os.path.join(os.getcwd(), "main_app", "static", "images", "pl.png")
     bg_img = mpimg.imread(image_path)
 
-    fig = plt.figure(figsize=(12, len(table) * 0.5 + 2), dpi=300, facecolor="#EFE9E6")
+    aspect_ratio = 12 / (20 * 0.5 + 2)
+    fig_height = len(table) * 0.5 + 2
+    fig_width = fig_height * aspect_ratio
+    if fig_width > 20:
+        fig_width = fig_width * 0.75
+
+    fig = plt.figure(figsize=(fig_width, fig_height), dpi=300, facecolor="#EFE9E6")
     ax = plt.subplot()
 
     ncols = 11
