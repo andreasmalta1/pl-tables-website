@@ -2,15 +2,13 @@
 
 ## Version 3
 - Download images using backend
-    - Add download image to all pages
     - Fix UI issues with download btn for all pages
     - Fix issue that button shows up when no table is present in manager pages
-    - Add deductions
-    - Add highlighted manager
-    - Add manager card ??
-    - Add loading state
     - Button loads after table
+    - Add deductions to seasons and current
+    - Add loading state
 - Fix managers table issue
+- Add captcha
 - Redo in react
 - Firebase Integration
 - Admin pages CSS + functionality + flow
