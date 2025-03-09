@@ -156,6 +156,8 @@ def download_table():
     manager_face = dataObj.get("managerFace")
     team_logo = dataObj.get("teamLogo")
     nation_logo = dataObj.get("nationLogo")
+    highlight_team = dataObj.get("teamName")
+    highlight_color = "#FFD700"
 
     df = pd.DataFrame(table)
 
@@ -181,6 +183,20 @@ def download_table():
     columns = ["#", "", "Team", "MP", "W", "D", "L", "GF", "GA", "GD", "PTS"]
 
     for i in range(nrows):
+        if highlight_team:
+            team_name = df["Team"].iloc[i]
+            if team_name == highlight_team:
+                ax.add_patch(
+                    plt.Rectangle(
+                        (0, nrows - i - 1),  # Bottom-left corner
+                        ncols + 1,  # Width
+                        1,  # Height (one row)
+                        color=highlight_color,
+                        alpha=0.3,  # Transparency
+                        zorder=1,  # Place it behind the text
+                    )
+                )
+
         for j, column in enumerate(columns):
             fontsize = 10
 
@@ -262,7 +278,7 @@ def download_table():
     title_location = 0.88
     title_size = 14
 
-    if manager_face and nation_logo and team_logo:
+    if manager_face and nation_logo and team_logo and highlight_team:
         face_ax = fig.add_axes([0.15, 0.89, 0.05, 0.05])
         team_ax = fig.add_axes([0.22, 0.89, 0.05, 0.05])
         nation_ax = fig.add_axes([0.80, 0.89, 0.05, 0.05])

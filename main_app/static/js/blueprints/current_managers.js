@@ -179,6 +179,7 @@ downloadBtn.addEventListener("click", () => {
   const managerFace = document.getElementById("managerFaceCard").src
   const nationLogo = document.getElementById("nationFlag").src
   const teamLogo = document.getElementById("managerTeamImg").src
+  const teamName = document.getElementById("managerTeam").textContent
   const managerStartDate = document
     .getElementById("managerStart")
     .textContent.replace("Start Day: ", "")
@@ -188,6 +189,7 @@ downloadBtn.addEventListener("click", () => {
     `${managerName}: ${managerStartDate} - ${managerEndDate}`,
     managerFace,
     nationLogo,
-    teamLogo
+    teamLogo,
+    teamName
   )
 })

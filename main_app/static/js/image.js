@@ -2,7 +2,8 @@ function downloadImage(
   title,
   managerFace = null,
   nationLogo = null,
-  teamLogo = null
+  teamLogo = null,
+  teamName = null
 ) {
   const table = document.getElementById("plTable")
   const tableData = []
@@ -45,6 +46,10 @@ function downloadImage(
 
   if (teamLogo) {
     tableDataObj.teamLogo = teamLogo
+  }
+
+  if (teamName) {
+    tableDataObj.teamName = teamName
   }
 
   tableDataObj = JSON.stringify({ tableDataObj })
