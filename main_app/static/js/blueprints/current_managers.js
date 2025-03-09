@@ -59,6 +59,7 @@ function createManagerCard(data) {
   let managerFace = document.createElement("img")
   managerFace.src = data.face_url
   managerFace.className = "managerFaceCard"
+  managerFace.id = "managerFaceCard"
 
   managerNameDiv.appendChild(managerTitle)
   managerNameDiv.appendChild(managerFace)
@@ -73,6 +74,7 @@ function createManagerCard(data) {
   let nationFlag = document.createElement("img")
   nationFlag.src = data.nation_flag_url
   nationFlag.className = "nationFlag"
+  nationFlag.id = "nationFlag"
 
   managerNationDiv.appendChild(managerNation)
   managerNationDiv.appendChild(nationFlag)
@@ -88,6 +90,7 @@ function createManagerCard(data) {
   let teamCrest = document.createElement("img")
   teamCrest.src = data.team_crest_url
   teamCrest.className = "managerTeamImg"
+  teamCrest.id = "managerTeamImg"
 
   managerTeamDiv.appendChild(managerTeam)
   managerTeamDiv.appendChild(teamCrest)
@@ -95,6 +98,7 @@ function createManagerCard(data) {
   let managerStart = document.createElement("p")
   managerStart.textContent = `Start Day: ${data.date_start}`
   managerStart.className = "managerStart"
+  managerStart.id = "managerStart"
 
   let daysElapsedValue = daysElapsedNow(data.date_start)
   let managerDays = document.createElement("p")
@@ -169,7 +173,21 @@ toggleArrowCard.addEventListener("click", () => {
 })
 
 downloadBtn.addEventListener("click", () => {
+  const today = new Date()
+
   const managerName = document.getElementById("managerTitle").textContent
-  const managerTeam = document.getElementById("managerTeam").textContent
-  downloadImage(`Premier Legaue Table - ${managerName} - ${managerTeam}`)
+  const managerFace = document.getElementById("managerFaceCard").src
+  const nationLogo = document.getElementById("nationFlag").src
+  const teamLogo = document.getElementById("managerTeamImg").src
+  const managerStartDate = document
+    .getElementById("managerStart")
+    .textContent.replace("Start Day: ", "")
+  const managerEndDate = today.toISOString().split("T")[0]
+
+  downloadImage(
+    `${managerName}: ${managerStartDate} - ${managerEndDate}`,
+    managerFace,
+    nationLogo,
+    teamLogo
+  )
 })

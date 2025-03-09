@@ -1,4 +1,9 @@
-function downloadImage(title) {
+function downloadImage(
+  title,
+  managerFace = null,
+  nationLogo = null,
+  teamLogo = null
+) {
   const table = document.getElementById("plTable")
   const tableData = []
   const headers = []
@@ -25,10 +30,24 @@ function downloadImage(title) {
     tableData.push(rowData)
   })
 
-  let tableDataObj = JSON.stringify({
+  let tableDataObj = {
     tableData: tableData,
     title: title,
-  })
+  }
+
+  if (managerFace) {
+    tableDataObj.managerFace = managerFace
+  }
+
+  if (nationLogo) {
+    tableDataObj.nationLogo = nationLogo
+  }
+
+  if (teamLogo) {
+    tableDataObj.teamLogo = teamLogo
+  }
+
+  tableDataObj = JSON.stringify({ tableDataObj })
 
   fetch(downloadTableUrl, {
     method: "POST",

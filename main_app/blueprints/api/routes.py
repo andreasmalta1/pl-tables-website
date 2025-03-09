@@ -150,8 +150,13 @@ def get_current_season():
 
 @api_blueprint.route("/download-table", methods=["POST"])
 def download_table():
-    table = request.json.get("tableData")
-    title = request.json.get("title")
+    dataObj = request.json.get("tableDataObj")
+    table = dataObj.get("tableData")
+    title = dataObj.get("title")
+    manager_face = dataObj.get("managerFace")
+    team_logo = dataObj.get("teamLogo")
+    nation_logo = dataObj.get("nationLogo")
+
     df = pd.DataFrame(table)
 
     image_path = os.path.join(os.getcwd(), "main_app", "static", "images", "pl.png")
@@ -254,14 +259,38 @@ def download_table():
 
     ax.set_axis_off()
 
+    title_location = 0.88
+    title_size = 14
+
+    if manager_face and nation_logo and team_logo:
+        face_ax = fig.add_axes([0.15, 0.89, 0.05, 0.05])
+        team_ax = fig.add_axes([0.22, 0.89, 0.05, 0.05])
+        nation_ax = fig.add_axes([0.80, 0.89, 0.05, 0.05])
+
+        face = Image.open(urllib.request.urlopen(manager_face))
+        team = Image.open(urllib.request.urlopen(team_logo))
+        nation = Image.open(urllib.request.urlopen(nation_logo))
+
+        face_ax.imshow(face, alpha=1)
+        face_ax.axis("off")
+
+        team_ax.imshow(team, alpha=1)
+        team_ax.axis("off")
+
+        nation_ax.imshow(nation, alpha=1)
+        nation_ax.axis("off")
+
+        title_location = 0.90
+        title_size = 18
+
     fig.text(
         x=0.5,
-        y=0.88,
+        y=title_location,
         s=title,
         ha="center",
         va="bottom",
         weight="bold",
-        size=12,
+        size=title_size,
     )
 
     ax.annotate(
