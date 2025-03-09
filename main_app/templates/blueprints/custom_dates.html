@@ -28,6 +28,9 @@
     <div class="tableArea">
         <div id="standings" class="standings"></div>
         <br>
+        <div class="btnContainer">
+            <button id="downBtn" class="genBtn">Download Table</button>
+        </div>
     </div>
 
    
@@ -39,4 +42,5 @@
     </script>
     <script src="{{ url_for('static', filename='js/blueprints/custom_dates.js') }}"></script>
     <script src="{{ url_for('static', filename='js/table.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/image.js') }}"></script>
 {% endblock %}
