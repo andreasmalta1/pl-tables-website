@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((data) => {
       table = createTable(data)
       sortTable(table, 0)
+      downloadBtn.classList.remove("hidden")
+      downloadBtn.classList.add("genBtn")
     })
     .catch((error) => {
       console.error(

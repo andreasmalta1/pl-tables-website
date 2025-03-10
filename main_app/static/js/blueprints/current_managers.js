@@ -152,6 +152,8 @@ managerBtns.forEach((btn) => {
         hideManagers()
         createManagerCard(data)
         highlightTeam(table, data)
+        downloadBtn.classList.remove("hidden")
+        downloadBtn.classList.add("genBtn")
       })
       .catch((error) => {
         console.error(

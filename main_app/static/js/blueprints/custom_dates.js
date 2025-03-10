@@ -57,6 +57,8 @@ fetch(`${datesUrl}/${startDateInput.value}/${endDateInput.value}`)
     }
     table = createTable(data)
     sortTable(table, 0)
+    downloadBtn.classList.remove("hidden")
+    downloadBtn.classList.add("genBtn")
   })
   .catch((error) => {
     console.error("There has been a problem with your fetch operation:", error)

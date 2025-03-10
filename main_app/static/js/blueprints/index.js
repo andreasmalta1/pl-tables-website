@@ -38,6 +38,8 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((response) => response.json())
     .then((data) => {
       seasonDiv.textContent = `Season ${data.season}`
+      downloadBtn.classList.remove("hidden")
+      downloadBtn.classList.add("genBtn")
     })
     .catch((error) => {
       console.error(

@@ -24,6 +24,8 @@ function getCurrentYearTable(firstYear) {
       }
       currentTable = createTable(data)
       sortTable(currentTable, 0)
+      downloadBtn.classList.remove("hidden")
+      downloadBtn.classList.add("genBtn")
     })
     .catch((error) => {
       console.error(
@@ -45,6 +47,8 @@ genBtn.addEventListener("click", () => {
       }
       table = createTable(data)
       sortTable(table, 0)
+      downloadBtn.classList.remove("hidden")
+      downloadBtn.classList.add("genBtn")
     })
     .catch((error) => {
       console.error(
