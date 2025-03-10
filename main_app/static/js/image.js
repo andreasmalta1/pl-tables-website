@@ -1,3 +1,5 @@
+// const deductionDiv = document.getElementById("deductions")
+
 function downloadImage(
   title,
   managerFace = null,
@@ -34,6 +36,16 @@ function downloadImage(
   let tableDataObj = {
     tableData: tableData,
     title: title,
+  }
+
+  if (deductionDiv && deductionDiv.hasChildNodes()) {
+    const deductionList = []
+    const deductions = deductionDiv.querySelectorAll("p")
+
+    deductions.forEach((deduction) => {
+      deductionList.push(deduction.textContent)
+    })
+    tableDataObj.deductions = deductionList
   }
 
   if (managerFace) {

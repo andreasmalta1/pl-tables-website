@@ -153,6 +153,7 @@ def download_table():
     dataObj = request.json.get("tableDataObj")
     table = dataObj.get("tableData")
     title = dataObj.get("title")
+    deductions = dataObj.get("deductions")
     manager_face = dataObj.get("managerFace")
     team_logo = dataObj.get("teamLogo")
     nation_logo = dataObj.get("nationLogo")
@@ -164,8 +165,12 @@ def download_table():
     image_path = os.path.join(os.getcwd(), "main_app", "static", "images", "pl.png")
     bg_img = mpimg.imread(image_path)
 
-    aspect_ratio = 12 / (20 * 0.5 + 2)
-    fig_height = len(table) * 0.5 + 2
+    aspect_ratio = 1.0
+    table_length = len(table)
+    if deductions:
+        table_length += len(deductions)
+
+    fig_height = table_length * 0.5 + 2
     fig_width = fig_height * aspect_ratio
     if fig_width > 20:
         fig_width = fig_width * 0.75
@@ -188,12 +193,12 @@ def download_table():
             if team_name == highlight_team:
                 ax.add_patch(
                     plt.Rectangle(
-                        (0, nrows - i - 1),  # Bottom-left corner
-                        ncols + 1,  # Width
-                        1,  # Height (one row)
+                        (0, nrows - i - 1),
+                        ncols + 1,
+                        1,
                         color=highlight_color,
-                        alpha=0.3,  # Transparency
-                        zorder=1,  # Place it behind the text
+                        alpha=0.3,
+                        zorder=1,
                     )
                 )
 
@@ -236,7 +241,7 @@ def download_table():
     ax_width = abs(ax_point_1[0] - ax_point_2[0])
     ax_height = abs(ax_point_1[1] - ax_point_2[1])
 
-    for index, c in enumerate(columns):
+    for index, _ in enumerate(columns):
         ax.annotate(
             xy=(positions[index], nrows + 0.25),
             text=columns[index],
@@ -309,20 +314,38 @@ def download_table():
         size=title_size,
     )
 
+    ax_place = -5
+
+    if deductions:
+        for deduction in deductions:
+            ax.annotate(
+                deduction,
+                (0, 0),
+                (0, ax_place),
+                fontsize=11,
+                xycoords="axes fraction",
+                textcoords="offset points",
+                va="top",
+            )
+
+            ax_place -= 25
+
     ax.annotate(
         f"Generated on {datetime.today().strftime('%Y-%m-%d')}",
         (0, 0),
-        (0, -2),
+        (0, ax_place),
         fontsize=10,
         xycoords="axes fraction",
         textcoords="offset points",
         va="top",
     )
 
+    ax_place -= 20
+
     ax.annotate(
         "Downloaded from pl-tables.com",
         (0, 0),
-        (0, -18.5),
+        (0, ax_place),
         fontsize=10,
         xycoords="axes fraction",
         textcoords="offset points",
