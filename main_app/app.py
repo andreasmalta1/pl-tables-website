@@ -3,7 +3,7 @@ from flask_login import LoginManager
 from flask_mail import Mail
 
 from dotenv import load_dotenv
-from .config import Config
+from main_app.config import Config
 from .models import db
 
 load_dotenv()

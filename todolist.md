@@ -2,8 +2,6 @@
 
 ## Version 3
 - Download images using backend
-    - Add black line after deductions
-    - Confirm everything looks okay even without deductions
     - Add loading state
 - Fix managers table issue
 - Add table loading spinner
