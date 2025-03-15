@@ -13,6 +13,10 @@ const deductionDiv = document.getElementById("deductions")
 const toggleArrowBtn = document.getElementById("toggleArrowBtn")
 const toggleArrowTitle = document.getElementById("toggleArrowTitle")
 const downloadBtn = document.getElementById("downBtn")
+const spinner = document.getElementById("spinner")
+
+let spinnerVisible = false
+let downloadBtnVisible = false
 
 getCurrentSeasonTable(firstSeason)
 
@@ -26,8 +30,7 @@ function getCurrentSeasonTable(firstSeason) {
       }
       currentTable = createTable(data)
       sortTable(currentTable, 0)
-      downloadBtn.classList.remove("hidden")
-      downloadBtn.classList.add("genBtn")
+      toggleDownloadBtn()
     })
     .catch((error) => {
       console.error(

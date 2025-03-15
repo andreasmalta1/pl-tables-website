@@ -3,6 +3,10 @@ const downloadTableUrl = `${SCRIPT_ROOT}/api/download-table`
 
 const tableDiv = document.getElementById("standings")
 const downloadBtn = document.getElementById("downBtn")
+const spinner = document.getElementById("spinner")
+
+let spinnerVisible = false
+let downloadBtnVisible = false
 
 document.addEventListener("DOMContentLoaded", () => {
   fetch(`${allTimeTableUrl}`)
@@ -10,8 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((data) => {
       table = createTable(data)
       sortTable(table, 0)
-      downloadBtn.classList.remove("hidden")
-      downloadBtn.classList.add("genBtn")
+      toggleDownloadBtn()
     })
     .catch((error) => {
       console.error(

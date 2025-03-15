@@ -1,5 +1,3 @@
-// const deductionDiv = document.getElementById("deductions")
-
 function downloadImage(
   title,
   managerFace = null,
@@ -12,7 +10,8 @@ function downloadImage(
   const headers = []
   const headerCells = table.querySelectorAll("thead tr th")
 
-  downloadBtn.textContent = "Processing"
+  toggleSpinner()
+  toggleDownloadBtn()
 
   headerCells.forEach((cell) => {
     headers.push(cell.textContent)
@@ -38,7 +37,11 @@ function downloadImage(
     title: title,
   }
 
-  if (deductionDiv && deductionDiv.hasChildNodes()) {
+  if (
+    typeof deductionDiv !== "undefined" &&
+    deductionDiv &&
+    deductionDiv.hasChildNodes()
+  ) {
     const deductionList = []
     const deductions = deductionDiv.querySelectorAll("p")
 
@@ -82,12 +85,35 @@ function downloadImage(
       document.body.appendChild(link)
       link.click()
       document.body.removeChild(link)
-      downloadBtn.textContent = "Download Table"
+      toggleSpinner()
+      toggleDownloadBtn()
     })
     .catch((error) => {
       console.error(
         "There has been a problem with your fetch operation:",
         error
       )
+      toggleSpinner()
+      toggleDownloadBtn()
     })
+}
+
+function toggleSpinner() {
+  if (spinnerVisible) {
+    spinner.style.display = "none"
+  } else {
+    spinner.style.display = "block"
+  }
+  spinnerVisible = !spinnerVisible
+}
+
+function toggleDownloadBtn() {
+  if (downloadBtnVisible) {
+    downloadBtn.classList.add("hidden")
+    downloadBtn.classList.remove("genBtn")
+  } else {
+    downloadBtn.classList.remove("hidden")
+    downloadBtn.classList.add("genBtn")
+  }
+  downloadBtnVisible = !downloadBtnVisible
 }

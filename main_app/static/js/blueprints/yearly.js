@@ -11,6 +11,10 @@ const genBtn = document.getElementById("genBtn")
 const toggleArrowBtn = document.getElementById("toggleArrowBtn")
 const toggleArrowTitle = document.getElementById("toggleArrowTitle")
 const downloadBtn = document.getElementById("downBtn")
+const spinner = document.getElementById("spinner")
+
+let spinnerVisible = false
+let downloadBtnVisible = false
 
 getCurrentYearTable(firstYear)
 
@@ -24,8 +28,7 @@ function getCurrentYearTable(firstYear) {
       }
       currentTable = createTable(data)
       sortTable(currentTable, 0)
-      downloadBtn.classList.remove("hidden")
-      downloadBtn.classList.add("genBtn")
+      toggleDownloadBtn()
     })
     .catch((error) => {
       console.error(

@@ -8,6 +8,10 @@ const tableDiv = document.getElementById("standings")
 const genBtn = document.getElementById("genBtn")
 const toggleArrow = document.getElementById("toggleArrow")
 const downloadBtn = document.getElementById("downBtn")
+const spinner = document.getElementById("spinner")
+
+let spinnerVisible = false
+let downloadBtnVisible = false
 
 let today = new Date()
 let todayFormatted = today.toISOString().split("T")[0]
@@ -57,8 +61,7 @@ fetch(`${datesUrl}/${startDateInput.value}/${endDateInput.value}`)
     }
     table = createTable(data)
     sortTable(table, 0)
-    downloadBtn.classList.remove("hidden")
-    downloadBtn.classList.add("genBtn")
+    toggleDownloadBtn()
   })
   .catch((error) => {
     console.error("There has been a problem with your fetch operation:", error)

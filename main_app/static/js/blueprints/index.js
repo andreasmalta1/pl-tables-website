@@ -7,6 +7,10 @@ const seasonDiv = document.getElementById("standingsTitle")
 const tableDiv = document.getElementById("standings")
 const deductionDiv = document.getElementById("deductions")
 const downloadBtn = document.getElementById("downBtn")
+const spinner = document.getElementById("spinner")
+
+let spinnerVisible = false
+let downloadBtnVisible = false
 
 document.addEventListener("DOMContentLoaded", () => {
   fetch(`${currentSeasonUrl}`)
@@ -38,8 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((response) => response.json())
     .then((data) => {
       seasonDiv.textContent = `Season ${data.season}`
-      downloadBtn.classList.remove("hidden")
-      downloadBtn.classList.add("genBtn")
+      toggleDownloadBtn()
     })
     .catch((error) => {
       console.error(

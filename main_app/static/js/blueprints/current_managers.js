@@ -12,6 +12,10 @@ const managersDiv = document.getElementById("managersTableDiv")
 const toggleArrowBtn = document.getElementById("toggleArrowBtn")
 const toggleArrowCard = document.getElementById("toggleArrowCard")
 const downloadBtn = document.getElementById("downBtn")
+const spinner = document.getElementById("spinner")
+
+let spinnerVisible = false
+let downloadBtnVisible = false
 
 let table
 
@@ -152,8 +156,7 @@ managerBtns.forEach((btn) => {
         hideManagers()
         createManagerCard(data)
         highlightTeam(table, data)
-        downloadBtn.classList.remove("hidden")
-        downloadBtn.classList.add("genBtn")
+        toggleDownloadBtn()
       })
       .catch((error) => {
         console.error(
