@@ -1,9 +1,13 @@
 # PL Tables website
-- Merge to master
-- Buy domain for website
-- Deploy using AWS or upgarde tier on render.com
 
 ## Version 3
-- Admin pages CSS + functionality
+- Download images using backend
+    - Add loading state
+- Fix managers table issue
+- Add table loading spinner
+- Add captcha
+- Redo in react
+- Firebase Integration
+- Admin pages CSS + functionality + flow
 - Page to see all results
 - API protection

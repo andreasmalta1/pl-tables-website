@@ -25,7 +25,7 @@ def login():
         user = User.query.filter_by(email=email).first()
 
         msg = Message(
-            "Login Attempt Newer",
+            "Login Attempt",
             sender=os.getenv("MAIL_USERNAME"),
             recipients=[os.getenv("MAIL_USERNAME")],
         )

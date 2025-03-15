@@ -32,6 +32,13 @@
         <br>
         <div id="deductions" class="deductions"></div>
         <br>
+        <div class="btnContainer">
+            <button id="downBtn" class="hidden">Download Table</button>
+        </div>
+        <div class="spinner-container">
+            <div class="spinner" id="spinner"></div>
+        </div>
+        <br>
     </div>
 {% endblock %}
 
@@ -41,4 +48,5 @@
     </script>
     <script src="{{ url_for('static', filename='js/blueprints/seasons.js') }}"></script>
     <script src="{{ url_for('static', filename='js/table.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/image.js') }}"></script>
 {% endblock %}

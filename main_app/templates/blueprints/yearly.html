@@ -30,7 +30,12 @@
     <div class="tableArea">
         <div id="standings" class="standings"></div>
         <br>
-        <div id="deductions" class="deductions"></div>
+        <div class="btnContainer">
+            <button id="downBtn" class="hidden">Download Table</button>
+        </div>
+        <div class="spinner-container">
+            <div class="spinner" id="spinner"></div>
+        </div>
         <br>
     </div>
 {% endblock %}
@@ -41,4 +46,5 @@
     </script>
     <script src="{{ url_for('static', filename='js/blueprints/yearly.js') }}"></script>
     <script src="{{ url_for('static', filename='js/table.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/image.js') }}"></script>
 {% endblock %}
