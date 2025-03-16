@@ -1,8 +1,6 @@
 # PL Tables website
 
 ## Version 3
-- Download images using backend
-    - Add loading state
 - Fix managers table issue
 - Add table loading spinner
 - Add captcha
