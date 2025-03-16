@@ -1,10 +1,17 @@
+import sys
 from flask import Flask, render_template
 from flask_login import LoginManager
 from flask_mail import Mail
-
 from dotenv import load_dotenv
-from main_app.config import Config
+
 from .models import db
+
+if sys.version_info >= (3, 12):
+    from .config import Config
+elif sys.version_info >= (3, 10):
+    from main_app.config import Config
+else:
+    raise RuntimeError("Unsupported Python version. Please use Python 3.10 or later.")
 
 load_dotenv()
 
