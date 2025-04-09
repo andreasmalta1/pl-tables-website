@@ -178,7 +178,7 @@ def download_table():
     fig = plt.figure(figsize=(fig_width, fig_height), dpi=300, facecolor="#EFE9E6")
     ax = plt.subplot()
 
-    ncols = 11
+    ncols = 12
     nrows = df.shape[0]
 
     ax.set_xlim(0, ncols + 1)
