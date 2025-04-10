@@ -1,8 +1,6 @@
 # PL Tables website
 
 ## Version 3
-- Fix managers table issue
-- Fix ‘Change Managerial Stint’
 - Add table loading spinner
 - Add captcha
 - Redo in react + tailwind
