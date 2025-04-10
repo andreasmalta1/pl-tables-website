@@ -6,6 +6,7 @@ input{
 .managersTableDiv{
   width: 60%;
   margin: 0 auto;
+  margin-bottom: 50px;
   transition: max-height 1s ease, opacity 1s ease, padding 1s ease;
 }
 

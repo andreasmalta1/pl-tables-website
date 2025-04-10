@@ -63,11 +63,13 @@
 }
 
 .toggleArrow{
-  margin-bottom: 20px;
   color: black;
   cursor: pointer;
   font-size: 24px;
   transition: transform 1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .arrowText{
