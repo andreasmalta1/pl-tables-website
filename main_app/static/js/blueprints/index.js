@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((data) => {
       table = createTable(data)
       sortTable(table, 0)
+      toggleDownloadBtn()
     })
     .catch((error) => {
       console.error(
@@ -42,7 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((response) => response.json())
     .then((data) => {
       seasonDiv.textContent = `Season ${data.season}`
-      toggleDownloadBtn()
     })
     .catch((error) => {
       console.error(
