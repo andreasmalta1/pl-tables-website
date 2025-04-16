@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((data) => {
       table = createTable(data)
       sortTable(table, 0)
-      toggleDownloadBtn()
     })
     .catch((error) => {
       console.error(
