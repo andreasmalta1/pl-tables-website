@@ -17,10 +17,10 @@ def current_managers():
 
     if request.method == "GET":
         current_stints = (
-            ManagerStint.query.filter_by(current=True)
-            .join(Team, ManagerStint.team_id == Team.id)
+            ManagerStint.query.join(Team, ManagerStint.team_id == Team.id)
             .join(Manager, ManagerStint.manager_id == Manager.id)
             .join(Nation, Manager.nation_id == Nation.id)
+            .filter(ManagerStint.current == True, Team.current == True)
             .with_entities(
                 Team.crest_url.label("crest_url"),
                 Manager.name.label("manager_name"),
