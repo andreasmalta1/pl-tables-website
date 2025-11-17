@@ -24,21 +24,21 @@ def login():
         password = request.form.get("password")
         user = User.query.filter_by(email=email).first()
 
-        msg = Message(
-            "Login Attempt",
-            sender=os.getenv("MAIL_USERNAME"),
-            recipients=[os.getenv("MAIL_USERNAME")],
-        )
-        msg.body = (
-            "Login Attempt\nEmail: %s\nPassword: %s\nTimeStamp: %s\nIP Address: %s"
-            % (
-                email,
-                password,
-                datetime.datetime.now(),
-                request.remote_addr,
-            )
-        )
-        mail.send(msg)
+        # msg = Message(
+        #     "Login Attempt",
+        #     sender=os.getenv("MAIL_USERNAME"),
+        #     recipients=[os.getenv("MAIL_USERNAME")],
+        # )
+        # msg.body = (
+        #     "Login Attempt\nEmail: %s\nPassword: %s\nTimeStamp: %s\nIP Address: %s"
+        #     % (
+        #         email,
+        #         password,
+        #         datetime.datetime.now(),
+        #         request.remote_addr,
+        #     )
+        # )
+        # mail.send(msg)
 
         if not user or not check_password_hash(user.password, password):
             # return render_template("auth/login.html")
