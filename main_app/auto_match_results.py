@@ -3,6 +3,7 @@
 import os
 import psycopg2
 import pandas as pd
+import soccerdata as sd
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -87,9 +88,11 @@ def main():
 
     teams_dict = {value: key for key, value in teams.items()}
 
-    html = pd.read_html(os.getenv("PL_CURRENT_SEASON_URL"), header=0)
+    fbref = sd.FBref(leagues="ENG-Premier League", seasons=season.split("/")[0])
+    schedule = fbref.read_schedule()
+    last_row = 0
     df = (
-        html[0][["Date", "Home", "Score", "Away"]]
+        schedule[["date", "home_team", "score", "away_team"]]
         .dropna()
         .reset_index()
         .iloc[last_row + 1 :, :]
@@ -99,11 +102,11 @@ def main():
 
     for index, row in df.iterrows():
         last_row += 1
-        score = row["Score"].split("–")
+        score = row["score"].split("–")
         home_score = int(score[0])
         away_score = int(score[1])
-        home_team_id = teams_dict[row["Home"]]
-        away_team_id = teams_dict[row["Away"]]
+        home_team_id = teams_dict[row["home_team"]]
+        away_team_id = teams_dict[row["away_team"]]
 
         results_to_post.append(
             [
@@ -112,7 +115,7 @@ def main():
                 away_team_id,
                 away_score,
                 season,
-                row["Date"],
+                row["date"],
             ]
         )
 
