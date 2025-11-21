@@ -78,12 +78,12 @@ def main():
             teams[team_id] = "Wolves"
 
         if "AFC" in team_value:
-            teams[team_id] = teams[team_id].replace("AFC ", "")
+            teams[team_id] = teams[team_id].replace("AFC ", "").replace(" AFC", "")
 
         if "FC" in team_value:
             teams[team_id] = teams[team_id].replace(" FC", "")
 
-        if "United" in team_value:
+        if "United" in team_value and "Leeds" not in team_value:
             teams[team_id] = teams[team_id].replace("United", "Utd")
 
     teams_dict = {value: key for key, value in teams.items()}
