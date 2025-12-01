@@ -90,7 +90,6 @@ def main():
 
     fbref = sd.FBref(leagues="ENG-Premier League", seasons=season.split("/")[0])
     schedule = fbref.read_schedule()
-    last_row = 0
     df = (
         schedule[["date", "home_team", "score", "away_team"]]
         .dropna()
