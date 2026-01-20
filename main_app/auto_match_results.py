@@ -78,7 +78,7 @@ def main():
         home_score = match.get("score").get("fullTime").get("home")
         away_score = match.get("score").get("fullTime").get("away")
         home_team_name = match.get("homeTeam").get("name")
-        away_team_name = match.get("homeTeam").get("name")
+        away_team_name = match.get("awayTeam").get("name")
         home_team_id = teams_dict.get(home_team_name) or teams_dict.get(
             home_team_name.replace(" FC", "")
         )
