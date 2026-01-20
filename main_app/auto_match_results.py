@@ -2,11 +2,16 @@
 
 import os
 import psycopg2
-import pandas as pd
-import soccerdata as sd
+import requests
 from dotenv import load_dotenv
 
 load_dotenv()
+
+API_KEY = os.getenv("FOOTBALL_API_KEY")
+URL = "http://api.football-data.org/v4/competitions/PL/matches"
+STATUS = "FINISHED"
+LIMIT = 380
+HEADERS = {"X-Auth-Token": API_KEY}
 
 
 def connect_to_db():
@@ -26,7 +31,7 @@ def post_results(results, conn, cur):
     try:
         for result in results:
             result = tuple(result)
-            insert_query = """INSERT INTO matches (home_team_id, home_score, away_team_id, away_score, season, date) VALUES (%s,%s,%s,%s,%s,%s)"""
+            insert_query = """INSERT INTO matches (id, home_team_id, home_score, away_team_id, away_score, season, date) VALUES (%s,%s,%s,%s,%s,%s,%s) ON CONFLICT (id) DO NOTHING;"""
             cur.execute(insert_query, result)
             conn.commit()
             print("Record inserted successfully into match table")
@@ -53,75 +58,49 @@ def main():
     cur.execute(get_current_season)
     season = cur.fetchall()[0][0]
 
-    get_last_row = """SELECT last_row FROM lastrow LIMIT 1"""
-    cur.execute(get_last_row)
-    last_row = cur.fetchall()[0][0]
-
     get_teams = """SELECT id, name FROM teams"""
     cur.execute(get_teams)
     teams = dict(cur.fetchall())
 
-    for team_id, team_value in teams.items():
-        if team_value == "Nottingham Forest":
-            teams[team_id] = "Nott'ham Forest"
-
-        if team_value == "Brighton & Hove Albion":
-            teams[team_id] = "Brighton"
-
-        if team_value == "West Ham United":
-            teams[team_id] = "West Ham"
-
-        if team_value == "Tottenham Hotspur":
-            teams[team_id] = "Tottenham"
-
-        if team_value == "Wolverhampton Wanderers":
-            teams[team_id] = "Wolves"
-
-        if "AFC" in team_value:
-            teams[team_id] = teams[team_id].replace("AFC ", "").replace(" AFC", "")
-
-        if "FC" in team_value:
-            teams[team_id] = teams[team_id].replace(" FC", "")
-
-        if "United" in team_value and "Leeds" not in team_value:
-            teams[team_id] = teams[team_id].replace("United", "Utd")
-
     teams_dict = {value: key for key, value in teams.items()}
 
-    fbref = sd.FBref(leagues="ENG-Premier League", seasons=season.split("/")[0])
-    schedule = fbref.read_schedule()
-    df = (
-        schedule[["date", "home_team", "score", "away_team"]]
-        .dropna()
-        .reset_index()
-        .iloc[last_row + 1 :, :]
+    api_data = requests.get(
+        url=f"{URL}?status={STATUS}&limit={LIMIT}",
+        headers=HEADERS,
     )
+
+    matches = api_data.json().get("matches")
 
     results_to_post = []
 
-    for index, row in df.iterrows():
-        last_row += 1
-        score = row["score"].split("–")
-        home_score = int(score[0])
-        away_score = int(score[1])
-        home_team_id = teams_dict[row["home_team"]]
-        away_team_id = teams_dict[row["away_team"]]
+    for match in matches:
+        match_id = match.get("id")
+        home_score = match.get("score").get("fullTime").get("home")
+        away_score = match.get("score").get("fullTime").get("away")
+        home_team_name = match.get("homeTeam").get("name")
+        away_team_name = match.get("homeTeam").get("name")
+        home_team_id = teams_dict.get(home_team_name) or teams_dict.get(
+            home_team_name.replace(" FC", "")
+        )
+        away_team_id = teams_dict.get(away_team_name) or teams_dict.get(
+            away_team_name.replace(" FC", "")
+        )
+        match_date = match.get("utcDate").split("T")[0]
 
         results_to_post.append(
             [
+                match_id,
                 home_team_id,
                 home_score,
                 away_team_id,
                 away_score,
                 season,
-                row["date"],
+                match_date,
             ]
         )
 
     if results_to_post:
         post_results(results_to_post, conn, cur)
-
-    update_row(last_row, conn, cur)
 
     disconnect_from_db(conn, cur)
 
