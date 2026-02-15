@@ -1,5 +1,6 @@
 import sys
 from flask import Flask, render_template
+from flask_cors import CORS
 from flask_login import LoginManager
 from flask_mail import Mail
 from dotenv import load_dotenv
@@ -24,6 +25,8 @@ def create_app():
     app.config["MAIL_USE_TLS"] = True
     app.config["MAIL_USE_SSL"] = False
     mail.init_app(app)
+
+    CORS(app)
 
     db.init_app(app)
 
