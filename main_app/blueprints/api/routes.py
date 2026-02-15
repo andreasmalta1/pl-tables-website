@@ -4,6 +4,7 @@ from datetime import date, datetime
 import os
 import io
 import base64
+import json
 import pandas as pd
 import matplotlib
 import urllib.request
@@ -18,25 +19,51 @@ from ...utils import generate_table
 
 api_blueprint = Blueprint("api", __name__)
 
+STATS_FILE = os.path.join("utils", "pl-yt-stats.json")
+
 
 @api_blueprint.route("/current-season", methods=["GET"])
 def index():
     season = Season.query.first().season
     standings_dict = get_matches_by_season(season)
-    return jsonify(standings_dict)
+
+    standings_list = []
+    for team_name, stats in standings_dict.items():
+        team_data = {"name": team_name, **stats}
+        standings_list.append(team_data)
+
+    return jsonify(standings_list)
 
 
 @api_blueprint.route("/all-time", methods=["GET"])
 def get_all_time():
     standings_dict = get_matches_by_season(season=None)
-    return jsonify(standings_dict)
+    standings_list = []
+    for team_name, stats in standings_dict.items():
+        team_data = {"name": team_name, **stats}
+        standings_list.append(team_data)
+
+    return jsonify(standings_list)
+
+
+@api_blueprint.route("/seasons-list", methods=["GET"])
+def get_seasons():
+    seasons_query = Match.query.with_entities(Match.season).distinct().all()
+    seasons = [season.season for season in seasons_query]
+    seasons.sort(reverse=True)
+    return jsonify(seasons)
 
 
 @api_blueprint.route("/seasons/<season>", methods=["GET"])
 def seasons(season):
     season = season.replace("-", "/")
     standings_dict = get_matches_by_season(season)
-    return jsonify(standings_dict)
+    standings_list = []
+    for team_name, stats in standings_dict.items():
+        team_data = {"name": team_name, **stats}
+        standings_list.append(team_data)
+
+    return jsonify(standings_list)
 
 
 @api_blueprint.route("/stints/<int:stint_id>", methods=["GET"])
@@ -366,6 +393,14 @@ def download_table():
     img_str = base64.b64encode(buf.getvalue()).decode("utf-8")
 
     return jsonify({"image": img_str})
+
+
+@api_blueprint.route("/yt-stats", methods=["GET"])
+def get_stats():
+    with open(STATS_FILE, "r") as f:
+        data = json.load(f)
+
+    return jsonify(data)
 
 
 def get_matches_by_season(season=None):
