@@ -1,20 +1,12 @@
 from flask import Blueprint, render_template, request
-from flask_login import current_user
 
 from ...models import Match, Season
-from ...utils import update_visits
 
 season_blueprint = Blueprint("season", __name__)
 
 
 @season_blueprint.route("/", methods=["GET"])
 def seasons():
-    admin = False
-    if current_user.is_authenticated:
-        admin = True
-
-    update_visits(request.remote_addr, "season", admin)
-
     if request.method == "GET":
         seasons_query = Match.query.with_entities(Match.season).distinct().all()
         current_season_query = (

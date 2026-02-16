@@ -9,7 +9,7 @@ from sqlalchemy.orm import aliased
 
 load_dotenv()
 
-from .models import Team, PointDeduction, Visit
+from .models import Team, PointDeduction
 
 
 def generate_table(matches, season):
@@ -166,9 +166,3 @@ def get_pl_matches():
     df = pd.DataFrame(data=data)
     csv_file_path = os.path.join("..", "csvs", "pl_results.csv")
     df.to_csv(csv_file_path)
-
-
-def update_visits(ip_address, page_name, admin):
-    """Add a user's visit to the Visit model"""
-    visit = Visit()
-    visit.update_visits(user_ip=ip_address, pagename=page_name, admin=admin)

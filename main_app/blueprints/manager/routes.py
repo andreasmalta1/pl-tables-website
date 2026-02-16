@@ -1,20 +1,12 @@
 from flask import Blueprint, render_template, request
-from flask_login import current_user
 
 from ...models import Team, Nation, Manager, ManagerStint
-from ...utils import update_visits
 
 manager_blueprint = Blueprint("manager", __name__)
 
 
 @manager_blueprint.route("/current", methods=["GET"])
 def current_managers():
-    admin = False
-    if current_user.is_authenticated:
-        admin = True
-
-    update_visits(request.remote_addr, "current_managers", admin)
-
     if request.method == "GET":
         current_stints = (
             ManagerStint.query.join(Team, ManagerStint.team_id == Team.id)
@@ -41,12 +33,6 @@ def current_managers():
 
 @manager_blueprint.route("/ended", methods=["GET"])
 def old_managers():
-    admin = False
-    if current_user.is_authenticated:
-        admin = True
-
-    update_visits(request.remote_addr, "old_managers", admin)
-
     if request.method == "GET":
         ended_stints = (
             ManagerStint.query.filter_by(current=False)
