@@ -1,10 +1,12 @@
 from flask import Blueprint, jsonify, request
+from sqlalchemy import func
 from sqlalchemy.orm import aliased
 from datetime import date, datetime
 import os
 import io
 import base64
 import json
+import hashlib
 import pandas as pd
 import matplotlib
 import urllib.request
@@ -401,6 +403,47 @@ def get_stats():
         data = json.load(f)
 
     return jsonify(data)
+
+
+@api_blueprint.route("/track-visit", methods=["POST"])
+def track_visit():
+    data = request.json
+
+    # Hash the IP so you aren't storing PII (Personal Identifiable Information)
+    ip_addr = request.remote_addr
+    ip_hash = hashlib.sha256(ip_addr.encode()).hexdigest()
+
+    new_visit = Visit(ip_hash=ip_hash, page_path=data.get("path"))
+    db.session.add(new_visit)
+    db.session.commit()
+    return jsonify({"status": "success"}), 201
+
+
+@api_blueprint.route("/visitor-stats", methods=["GET"])
+def get_visitor_stats():
+    total_views = Visit.query.count()
+    unique_visitors = db.session.query(Visit.ip_hash).distinct().count()
+
+    # Get views per day for the last 7 days
+    results = (
+        db.session.query(
+            func.date(Visit.timestamp).label("date"),
+            func.count(Visit.id).label("views"),
+        )
+        .group_by(func.date(Visit.timestamp))
+        .order_by(func.date(Visit.timestamp))
+        .all()
+    )
+
+    time_series = [{"date": str(r.date), "views": r.views} for r in results]
+
+    return jsonify(
+        {
+            "total_views": total_views,
+            "unique_visitors": unique_visitors,
+            "time_series": time_series,
+        }
+    )
 
 
 def get_matches_by_season(season=None):
