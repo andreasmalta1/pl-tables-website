@@ -123,10 +123,18 @@ def managers(stint_id):
     return jsonify(manager_info)
 
 
-@api_blueprint.route("/dates/<date_start>/<date_end>", methods=["GET"])
-def dates(date_start, date_end):
+@api_blueprint.route("/dates", methods=["GET"])
+def dates():
+    date_start = request.args.get("start")
+    date_end = request.args.get("end")
+
     standings_dict = get_matches_by_day(date_start, date_end)
-    return jsonify(standings_dict)
+    standings_list = []
+    for team_name, stats in standings_dict.items():
+        team_data = {"name": team_name, **stats}
+        standings_list.append(team_data)
+
+    return jsonify(standings_list)
 
 
 @api_blueprint.route("/years/<int:year>", methods=["GET"])
@@ -134,7 +142,12 @@ def calendar_year(year):
     date_start = date(year, 1, 1)
     date_end = date(year, 12, 31)
     standings_dict = get_matches_by_day(date_start, date_end)
-    return jsonify(standings_dict)
+    standings_list = []
+    for team_name, stats in standings_dict.items():
+        team_data = {"name": team_name, **stats}
+        standings_list.append(team_data)
+
+    return jsonify(standings_list)
 
 
 @api_blueprint.route("/deductions/<season>", methods=["GET"])
