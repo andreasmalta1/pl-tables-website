@@ -27,25 +27,14 @@ STATS_FILE = os.path.join("utils", "pl-yt-stats.json")
 @api_blueprint.route("/current-season", methods=["GET"])
 def index():
     season = Season.query.first().season
-    standings_dict = get_matches_by_season(season)
-
-    standings_list = []
-    for team_name, stats in standings_dict.items():
-        team_data = {"name": team_name, **stats}
-        standings_list.append(team_data)
-
-    return jsonify(standings_list)
+    standings = get_matches_by_season(season)
+    return jsonify(standings)
 
 
 @api_blueprint.route("/all-time", methods=["GET"])
 def get_all_time():
-    standings_dict = get_matches_by_season(season=None)
-    standings_list = []
-    for team_name, stats in standings_dict.items():
-        team_data = {"name": team_name, **stats}
-        standings_list.append(team_data)
-
-    return jsonify(standings_list)
+    standings = get_matches_by_season(season=None)
+    return jsonify(standings)
 
 
 @api_blueprint.route("/seasons-list", methods=["GET"])
@@ -59,13 +48,51 @@ def get_seasons():
 @api_blueprint.route("/seasons/<season>", methods=["GET"])
 def seasons(season):
     season = season.replace("-", "/")
-    standings_dict = get_matches_by_season(season)
-    standings_list = []
-    for team_name, stats in standings_dict.items():
-        team_data = {"name": team_name, **stats}
-        standings_list.append(team_data)
+    standings = get_matches_by_season(season)
+    return jsonify(standings)
 
-    return jsonify(standings_list)
+
+@api_blueprint.route("/manager-list/<manager_type>", methods=["GET"])
+def get_manager_list(manager_type):
+    if manager_type == "current":
+        managerial_stints = (
+            ManagerStint.query.join(Team, ManagerStint.team_id == Team.id)
+            .join(Manager, ManagerStint.manager_id == Manager.id)
+            .join(Nation, Manager.nation_id == Nation.id)
+            .filter(ManagerStint.current == True, Team.current == True)
+            .with_entities(
+                Team.crest_url.label("crest_url"),
+                Manager.name.label("manager_name"),
+                Manager.face_url.label("face_url"),
+                Nation.flag_url.label("flag_url"),
+                ManagerStint.id,
+                ManagerStint.date_start,
+                ManagerStint.current,
+            )
+            .all()
+        )
+
+    if manager_type == "past":
+        managerial_stints = (
+            ManagerStint.query.filter_by(current=False)
+            .join(Team, ManagerStint.team_id == Team.id)
+            .join(Manager, ManagerStint.manager_id == Manager.id)
+            .join(Nation, Manager.nation_id == Nation.id)
+            .with_entities(
+                Team.crest_url.label("crest_url"),
+                Manager.name.label("manager_name"),
+                Manager.face_url.label("face_url"),
+                Nation.flag_url.label("flag_url"),
+                ManagerStint.id,
+                ManagerStint.date_start,
+                ManagerStint.date_end,
+                ManagerStint.current,
+            )
+            .all()
+        )
+
+    stints = [row._asdict() for row in managerial_stints]
+    return jsonify(stints)
 
 
 @api_blueprint.route("/stints/<int:stint_id>", methods=["GET"])
@@ -81,73 +108,21 @@ def stints(stint_id):
     return jsonify(standings_dict)
 
 
-@api_blueprint.route("/managers/<int:stint_id>", methods=["GET"])
-def managers(stint_id):
-    ManagerTable = aliased(Manager, name="manager_table")
-    NationTable = aliased(Nation, name="nation_table")
-    TeamTable = aliased(Team, name="team_table")
-
-    manager_query = (
-        ManagerStint.query.filter_by(id=stint_id)
-        .join(ManagerTable, ManagerTable.id == ManagerStint.manager_id)
-        .join(NationTable, NationTable.id == ManagerTable.nation_id)
-        .join(TeamTable, TeamTable.id == ManagerStint.team_id)
-        .add_columns(
-            ManagerStint.date_start,
-            ManagerStint.date_end,
-            ManagerTable.name.label("manager_name"),
-            ManagerTable.face_url.label("manager_face_url"),
-            NationTable.name.label("nation_name"),
-            NationTable.flag_url.label("nation_flag_url"),
-            TeamTable.name.label("team_name"),
-            TeamTable.crest_url.label("team_crest_url"),
-        )
-        .first()
-    )
-
-    manager_info = {
-        "name": manager_query.manager_name,
-        "face_url": manager_query.manager_face_url,
-        "date_start": manager_query.date_start.strftime("%Y-%m-%d"),
-        "date_end": (
-            None
-            if not manager_query.date_end
-            else manager_query.date_end.strftime("%Y-%m-%d")
-        ),
-        "team_name": manager_query.team_name,
-        "team_crest_url": manager_query.team_crest_url,
-        "nation_name": manager_query.nation_name,
-        "nation_flag_url": manager_query.nation_flag_url,
-    }
-
-    return jsonify(manager_info)
-
-
 @api_blueprint.route("/dates", methods=["GET"])
 def dates():
     date_start = request.args.get("start")
     date_end = request.args.get("end")
 
-    standings_dict = get_matches_by_day(date_start, date_end)
-    standings_list = []
-    for team_name, stats in standings_dict.items():
-        team_data = {"name": team_name, **stats}
-        standings_list.append(team_data)
-
-    return jsonify(standings_list)
+    standings = get_matches_by_day(date_start, date_end)
+    return jsonify(standings)
 
 
 @api_blueprint.route("/years/<int:year>", methods=["GET"])
 def calendar_year(year):
     date_start = date(year, 1, 1)
     date_end = date(year, 12, 31)
-    standings_dict = get_matches_by_day(date_start, date_end)
-    standings_list = []
-    for team_name, stats in standings_dict.items():
-        team_data = {"name": team_name, **stats}
-        standings_list.append(team_data)
-
-    return jsonify(standings_list)
+    standings = get_matches_by_day(date_start, date_end)
+    return jsonify(standings)
 
 
 @api_blueprint.route("/deductions/<season>", methods=["GET"])
@@ -491,11 +466,12 @@ def get_matches_by_season(season=None):
         )
 
     standings = generate_table(matches, season)
-    standings_dict = {}
-    for team in standings:
-        standings_dict[team[0]] = team[1]
+    standings_list = []
+    for name, stats in standings:
+        item = {"name": name, **stats}
+        standings_list.append(item)
 
-    return standings_dict
+    return standings_list
 
 
 def get_matches_by_day(date_start, date_end):
@@ -516,11 +492,12 @@ def get_matches_by_day(date_start, date_end):
     )
 
     standings = generate_table(matches, None)
-    standings_dict = {}
-    for team in standings:
-        standings_dict[team[0]] = team[1]
+    standings_list = []
+    for name, stats in standings:
+        item = {"name": name, **stats}
+        standings_list.append(item)
 
-    return standings_dict
+    return standings_list
 
 
 def show_logo(url, ax):
@@ -528,3 +505,19 @@ def show_logo(url, ax):
     ax.imshow(icon, alpha=1)
     ax.axis("off")
     return ax
+
+
+# [
+#   {
+#     "draw": 42,
+#     "gd": 369,
+#     "goals_against": 204,
+#     "goals_for": 573,
+#     "loss": 18,
+#     "name": "Manchester City",
+#     "played": 227,
+#     "points": 543,
+#     "rk": 1,
+#     "url": "https://pl-table.s3.eu-central-1.amazonaws.com/images/team/manchester-city.png",
+#     "win": 167
+#   },
