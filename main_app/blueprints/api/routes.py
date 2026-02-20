@@ -1,20 +1,10 @@
 from flask import Blueprint, jsonify, request
 from sqlalchemy import func
 from sqlalchemy.orm import aliased
-from datetime import date, datetime
+from datetime import date
 import os
-import io
-import base64
 import json
 import hashlib
-import pandas as pd
-import matplotlib
-import urllib.request
-from PIL import Image
-
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
 
 from ...models import *
 from ...utils import generate_table

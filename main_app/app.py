@@ -34,13 +34,6 @@ def create_app():
     from . import init_db
 
     from .blueprints.api.routes import api_blueprint as api
-    from .blueprints.home.routes import home_blueprint as home
-    from .blueprints.all_time.routes import all_time_blueprint as all_time
-    from .blueprints.manager.routes import manager_blueprint as manager
-    from .blueprints.season.routes import season_blueprint as season
-    from .blueprints.year.routes import year_blueprint as year
-    from .blueprints.custom_date.routes import custom_date_blueprint as custom_date
-    from .blueprints.auth.routes import auth_blueprint as auth_blueprint
     from .blueprints.admin.routes import admin_blueprint as admin
     from .blueprints.contact_page.routes import contact_page_blueprint as contact_page
 
@@ -69,13 +62,6 @@ def create_app():
 
     # Register blueprints
     app.register_blueprint(api, url_prefix="/api")
-    app.register_blueprint(home)
-    app.register_blueprint(all_time, url_prefix="/league")
-    app.register_blueprint(manager, url_prefix="/managers")
-    app.register_blueprint(season, url_prefix="/seasons")
-    app.register_blueprint(year, url_prefix="/year")
-    app.register_blueprint(custom_date, url_prefix="/custom-date")
-    app.register_blueprint(auth_blueprint, url_prefix="/auth")
     app.register_blueprint(admin, url_prefix="/admin")
     app.register_blueprint(contact_page, url_prefix="/contact")
     app.register_error_handler(404, page_not_found)
