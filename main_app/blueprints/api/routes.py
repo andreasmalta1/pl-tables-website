@@ -136,16 +136,19 @@ def point_deductions(season):
     )
 
     if len(points_deductions) == 0:
-        return jsonify({})
+        return jsonify([])
 
-    deductions_dict = {}
+    deductions_list = []
     for deduction in points_deductions:
-        deductions_dict[deduction.id] = {
-            "team_name": deduction.team_name,
-            "reason": deduction.reason,
-            "points_deducted": deduction.points_deducted,
-        }
-    return jsonify(deductions_dict)
+        deductions_list.append(
+            {
+                "id": deduction.id,
+                "team_name": deduction.team_name,
+                "reason": deduction.reason,
+                "points_deducted": deduction.points_deducted,
+            }
+        )
+    return jsonify(deductions_list)
 
 
 @api_blueprint.route("/yt-stats", methods=["GET"])
