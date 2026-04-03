@@ -1,41 +1,29 @@
-from flask import Blueprint, render_template, request
-from flask_login import login_required
+from flask import Blueprint, render_template, request, jsonify
 from sqlalchemy.orm import aliased
 from datetime import datetime
 
 from ...models import *
+from ..auth.utils import login_required
 
 admin_blueprint = Blueprint("admin", __name__)
 
 
-@admin_blueprint.route("/", methods=["GET"])
-@login_required
-def index():
-    if request.method == "GET":
-        return render_template("admin/index.html")
-
-
-@admin_blueprint.route("/new-team", methods=["GET", "POST"])
+@admin_blueprint.route("/new-team", methods=["POST"])
 @login_required
 def new_team():
-    if request.method == "GET":
-        return render_template("admin/new_team.html")
-
     if request.method == "POST":
-        team_name = request.form.get("team_name")
-        shortcode = request.form.get("shortcode")
-        crest_url = request.form.get("crest_url")
+        team_name = request.json.get("teamName")
+        shortcode = request.json.get("shortcode")
+        crest_url = request.json.get("crestUrl")
 
         if not team_name or not shortcode or not crest_url:
-            error_message = "Invalid Inputs"
-            return render_template("admin/new_team.html", message=error_message)
+            return jsonify({"msg": "Invalid team data"}), 401
 
         shortcode = shortcode.upper().strip()
 
         team_check = Team.query.filter_by(shortcode=shortcode).first()
         if team_check:
-            error_message = "Shortcode already exists"
-            return render_template("admin/new_team.html", message=error_message)
+            return jsonify({"msg": "Shortcode already exists"}), 409
 
         new_team = Team(
             name=team_name.strip(),
@@ -47,11 +35,11 @@ def new_team():
         db.session.add(new_team)
         db.session.commit()
 
-        return render_template("admin/new_team.html", team=new_team)
+        return jsonify({"status": "success"}), 201
 
 
 @admin_blueprint.route("/new-nation", methods=["GET", "POST"])
-@login_required
+# @login_required
 def new_nation():
     if request.method == "GET":
         return render_template("admin/new_nation.html")
@@ -85,7 +73,7 @@ def new_nation():
 
 
 @admin_blueprint.route("/new-manager", methods=["GET", "POST"])
-@login_required
+# @login_required
 def new_manager():
     nations = Nation.query.order_by(Nation.name).all()
 
@@ -139,7 +127,7 @@ def new_manager():
 
 
 @admin_blueprint.route("/new-stint", methods=["GET", "POST"])
-@login_required
+# @login_required
 def new_stint():
     managers = Manager.query.order_by(Manager.name).all()
     teams = Team.query.order_by(Team.name).all()
@@ -228,7 +216,7 @@ def new_stint():
 
 
 @admin_blueprint.route("/end-stint", methods=["GET", "POST"])
-@login_required
+# @login_required
 def end_stint():
     TeamTable = aliased(Team, name="team_table")
     ManagerTable = aliased(Manager, name="manager_table")
@@ -302,7 +290,7 @@ def end_stint():
 
 
 @admin_blueprint.route("/new-point-deduction", methods=["GET", "POST"])
-@login_required
+# @login_required
 def new_point_deduction():
     teams = Team.query.order_by(Team.name).all()
     seasons_query = Match.query.with_entities(Match.season).distinct().all()
@@ -382,7 +370,7 @@ def new_point_deduction():
 
 
 @admin_blueprint.route("/new-season", methods=["GET", "POST"])
-@login_required
+# @login_required
 def new_season():
     season = Season.query.first().season
     current_teams = Team.query.filter_by(current=True).order_by(Team.name).all()
@@ -460,7 +448,7 @@ def new_season():
 
 
 @admin_blueprint.route("/new-match", methods=["GET", "POST"])
-@login_required
+# @login_required
 def new_match():
     current_season = Season.query.first().season
     current_teams = Team.query.filter_by(current=True).order_by(Team.name).all()

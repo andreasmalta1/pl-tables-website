@@ -18,13 +18,11 @@ def login():
             return jsonify({"msg": "Invalid credentials"}), 401
 
         session["user_id"] = user.id
-        print("SESSION AFTER LOGIN:", dict(session))
         return jsonify({"id": user.id, "email": user.email})
 
 
 @auth_blueprint.route("/current-user", methods=["GET"])
 def get_current_user():
-    print("SESSION ON CURRENT USER:", dict(session))
     user_id = session.get("user_id")
     if not user_id:
         return jsonify({"msg": "Invalid credentials"}), 401

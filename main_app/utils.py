@@ -132,7 +132,6 @@ def get_pl_matches():
     match_no = 1
     num_rounds = 42
     for year in range(1992, 2024):
-        print(year)
         if year > 1994:
             num_rounds = 38
         for round in range(1, num_rounds + 1):
