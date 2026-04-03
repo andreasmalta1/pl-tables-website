@@ -151,4 +151,4 @@ class User(UserMixin, db.Model):
 
     def __repr__(self):
         """Return the string representing a visit."""
-        return self.name
+        return f"{self.first_name} {self.last_name}"

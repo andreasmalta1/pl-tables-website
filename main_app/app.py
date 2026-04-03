@@ -1,8 +1,8 @@
 import sys
-from flask import Flask, render_template
+from flask import Flask
 from flask_cors import CORS
-from flask_login import LoginManager
 from flask_mail import Mail
+from flask_session import Session
 from dotenv import load_dotenv
 
 from .models import db
@@ -17,6 +17,7 @@ else:
 load_dotenv()
 
 mail = Mail()
+s = Session()
 
 
 def create_app():
@@ -25,16 +26,16 @@ def create_app():
     app.config["MAIL_USE_TLS"] = True
     app.config["MAIL_USE_SSL"] = False
     mail.init_app(app)
+    s.init_app(app)
 
-    CORS(app)
+    CORS(app, supports_credentials=True)
 
     db.init_app(app)
 
-    from .models import User
     from . import init_db
-
     from .blueprints.api.routes import api_blueprint as api
     from .blueprints.admin.routes import admin_blueprint as admin
+    from .blueprints.auth.routes import auth_blueprint as auth
     from .blueprints.contact_page.routes import contact_page_blueprint as contact_page
 
     with app.app_context():
@@ -48,22 +49,15 @@ def create_app():
         init_db.add_user()
         init_db.add_last_row()
 
-    login_manager = LoginManager()
-    login_manager.login_view = "auth.login"
-    login_manager.init_app(app)
-
-    @login_manager.user_loader
-    def load_user(user_id):
-        return User.query.get(int(user_id))
-
-    @app.errorhandler(404)
-    def page_not_found(e):
-        return render_template("error_handling/404.html"), 404
+    # @app.errorhandler(404)
+    # def page_not_found(e):
+    #     return render_template("error_handling/404.html"), 404
 
     # Register blueprints
     app.register_blueprint(api, url_prefix="/api")
     app.register_blueprint(admin, url_prefix="/admin")
+    app.register_blueprint(auth, url_prefix="/auth")
     app.register_blueprint(contact_page, url_prefix="/contact")
-    app.register_error_handler(404, page_not_found)
+    # app.register_error_handler(404, page_not_found)
 
     return app

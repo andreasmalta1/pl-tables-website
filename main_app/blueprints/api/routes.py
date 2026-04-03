@@ -162,8 +162,6 @@ def get_stats():
 @api_blueprint.route("/track-visit", methods=["POST"])
 def track_visit():
     data = request.json
-
-    # Hash the IP so you aren't storing PII (Personal Identifiable Information)
     ip_addr = request.remote_addr
     ip_hash = hashlib.sha256(ip_addr.encode()).hexdigest()
 
