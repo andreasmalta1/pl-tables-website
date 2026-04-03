@@ -17,7 +17,7 @@ def new_team():
         crest_url = request.json.get("crestUrl")
 
         if not team_name or not shortcode or not crest_url:
-            return jsonify({"msg": "Invalid team data"}), 401
+            return jsonify({"msg": "Missing data"}), 409
 
         shortcode = shortcode.upper().strip()
 
@@ -38,27 +38,22 @@ def new_team():
         return jsonify({"status": "success"}), 201
 
 
-@admin_blueprint.route("/new-nation", methods=["GET", "POST"])
-# @login_required
+@admin_blueprint.route("/new-nation", methods=["POST"])
+@login_required
 def new_nation():
-    if request.method == "GET":
-        return render_template("admin/new_nation.html")
-
     if request.method == "POST":
-        nation_name = request.form.get("nation_name")
-        shortcode = request.form.get("shortcode")
-        flag_url = request.form.get("flag_url")
+        nation_name = request.json.get("nationName")
+        shortcode = request.json.get("shortcode")
+        flag_url = request.json.get("flagUrl")
 
         if not nation_name or not shortcode or not flag_url:
-            error_message = "Invalid Inputs"
-            return render_template("admin/new_nation.html", message=error_message)
+            return jsonify({"msg": "Missing data"}), 409
 
         shortcode = shortcode.upper().strip()
 
         nation_check = Nation.query.filter_by(shortcode=shortcode).first()
         if nation_check:
-            error_message = "Shortcode already exists"
-            return render_template("admin/new_nation.html", message=error_message)
+            return jsonify({"msg": "Shortcode already exists"}), 409
 
         new_nation = Nation(
             name=nation_name.strip(),
@@ -69,36 +64,25 @@ def new_nation():
         db.session.add(new_nation)
         db.session.commit()
 
-        return render_template("admin/new_nation.html", nation=new_nation)
+        return jsonify({"status": "success"}), 201
 
 
-@admin_blueprint.route("/new-manager", methods=["GET", "POST"])
-# @login_required
+@admin_blueprint.route("/new-manager", methods=["POST"])
+@login_required
 def new_manager():
-    nations = Nation.query.order_by(Nation.name).all()
-
-    if request.method == "GET":
-        return render_template("admin/new_manager.html", nations=nations)
-
     if request.method == "POST":
-        manager_name = request.form.get("manager_name")
-        face_url = request.form.get("face_url")
-        nation_id = request.form.get("nation")
+        manager_name = request.json.get("managerName")
+        face_url = request.json.get("faceUrl")
+        nation_id = request.json.get("nationId")
 
         if not manager_name or not face_url or not nation_id:
-            error_message = "Invalid Inputs"
-            return render_template(
-                "admin/new_manager.html", nations=nations, message=error_message
-            )
+            return jsonify({"msg": "Missing data"}), 409
 
         nation_id = nation_id.strip()
 
         nation_check = Nation.query.filter_by(id=nation_id).first()
         if not nation_check:
-            error_message = "Chosen nation does not exist"
-            return render_template(
-                "admin/new_manager.html", nations=nations, message=error_message
-            )
+            return jsonify({"msg": "Nation does not exist"}), 409
 
         new_manager = Manager(
             name=manager_name.strip(),
@@ -109,46 +93,19 @@ def new_manager():
         db.session.add(new_manager)
         db.session.commit()
 
-        NationTable = aliased(Nation, name="nation_table")
-
-        manager = (
-            Manager.query.filter_by(id=new_manager.id)
-            .join(NationTable, NationTable.id == Manager.nation_id)
-            .add_columns(
-                Manager.name,
-                Manager.face_url,
-                NationTable.name.label("nation_name"),
-                NationTable.flag_url.label("flag_url"),
-            )
-            .first()
-        )
-
-        return render_template("admin/new_manager.html", manager=manager)
+        return jsonify({"status": "success"}), 201
 
 
-@admin_blueprint.route("/new-stint", methods=["GET", "POST"])
-# @login_required
+@admin_blueprint.route("/new-stint", methods=["POST"])
+@login_required
 def new_stint():
-    managers = Manager.query.order_by(Manager.name).all()
-    teams = Team.query.order_by(Team.name).all()
-
-    if request.method == "GET":
-        return render_template("admin/new_stint.html", managers=managers, teams=teams)
-
     if request.method == "POST":
-        manager_id = request.form.get("manager")
-        team_id = request.form.get("team")
-        current = request.form.get("current")
-        date_start = request.form.get("start-date")
+        manager_id = request.json.get("managerId")
+        team_id = request.json.get("teamId")
+        date_start = request.json.get("dateStart")
 
         if not manager_id or not team_id or not date_start:
-            error_message = "Invalid Inputs"
-            return render_template(
-                "admin/new_stint.html",
-                managers=managers,
-                teams=teams,
-                message=error_message,
-            )
+            return jsonify({"msg": "Missing data"}), 409
 
         team_id = team_id.strip()
         manager_id = manager_id.strip()
@@ -157,136 +114,48 @@ def new_stint():
         manager_check = Manager.query.filter_by(id=manager_id).first()
 
         if not team_check:
-            error_message = "Chosen team does not exist"
-            return render_template(
-                "admin/new_stint.html",
-                managers=managers,
-                teams=teams,
-                message=error_message,
-            )
+            return jsonify({"msg": "Chosen team does not exist"}), 409
 
         if not manager_check:
-            error_message = "Chosen manager does not exist"
-            return render_template(
-                "admin/new_stint.html",
-                managers=managers,
-                teams=teams,
-                message=error_message,
-            )
-
-        if not current:
-            current = False
-            date_end = request.form.get("end-date")
-
-        if current:
-            current = True
-            date_end = None
+            return jsonify({"msg": "Chosen manager does not exist"}), 409
 
         new_stint = ManagerStint(
             manager_id=manager_id,
             team_id=team_id,
             date_start=date_start,
-            date_end=date_end,
-            current=current,
+            date_end=None,
+            current=True,
         )
 
         db.session.add(new_stint)
         db.session.commit()
 
-        ManagerTable = aliased(Manager, name="manager_table")
-        TeamTable = aliased(Team, name="team_table")
-
-        stint = (
-            ManagerStint.query.filter_by(id=new_stint.id)
-            .join(ManagerTable, ManagerTable.id == ManagerStint.manager_id)
-            .join(TeamTable, TeamTable.id == ManagerStint.team_id)
-            .add_columns(
-                ManagerStint.date_start,
-                ManagerStint.date_end,
-                ManagerStint.current,
-                ManagerTable.name.label("manager_name"),
-                ManagerTable.face_url.label("face_url"),
-                TeamTable.name.label("team_name"),
-                TeamTable.crest_url.label("crest_url"),
-            )
-            .first()
-        )
-
-        return render_template("admin/new_stint.html", stint=stint)
+        return jsonify({"status": "success"}), 201
 
 
-@admin_blueprint.route("/end-stint", methods=["GET", "POST"])
-# @login_required
+@admin_blueprint.route("/end-stint", methods=["POST"])
+@login_required
 def end_stint():
-    TeamTable = aliased(Team, name="team_table")
-    ManagerTable = aliased(Manager, name="manager_table")
-
-    stints = (
-        ManagerStint.query.filter_by(current=True)
-        .join(TeamTable, TeamTable.id == ManagerStint.team_id)
-        .join(ManagerTable, ManagerTable.id == ManagerStint.manager_id)
-        .order_by(ManagerStint.date_start)
-        .add_columns(
-            ManagerStint.id,
-            TeamTable.name.label("team_name"),
-            ManagerTable.name.label("manager_name"),
-        )
-        .all()
-    )
-
-    if request.method == "GET":
-        return render_template("admin/end_stint.html", stints=stints)
-
     if request.method == "POST":
-        stint_id = request.form.get("stint")
-        date_end = request.form.get("end-date")
+        stint_id = request.json.get("stintId")
+        date_end = request.json.get("dateEnd")
 
         if not stint_id or not date_end:
-            error_message = "Invalid Inputs"
-            return render_template(
-                "admin/end_stint.html",
-                stints=stints,
-                message=error_message,
-            )
+            return jsonify({"msg": "Missing data"}), 409
 
         ended_stint = ManagerStint.query.filter_by(id=stint_id).first()
         if not ended_stint:
-            error_message = "Chosen stint does not exist"
-            return render_template(
-                "admin/end_stint.html",
-                stints=stints,
-                message=error_message,
-            )
+            return jsonify({"msg": "Chosen stint does not exist"}), 409
 
         if datetime.strptime(date_end, "%Y-%m-%d").date() < ended_stint.date_start:
-            error_message = "End date must be after start date"
-            return render_template(
-                "admin/end_stint.html",
-                stints=stints,
-                message=error_message,
-            )
+            return jsonify({"msg": "End date must be after start date"}), 409
 
         ended_stint.date_end = date_end
         ended_stint.current = False
 
         db.session.commit()
 
-        stint = (
-            ManagerStint.query.filter_by(id=ended_stint.id)
-            .join(ManagerTable, ManagerTable.id == ManagerStint.manager_id)
-            .join(TeamTable, TeamTable.id == ManagerStint.team_id)
-            .add_columns(
-                ManagerStint.date_start,
-                ManagerStint.date_end,
-                ManagerTable.name.label("manager_name"),
-                ManagerTable.face_url.label("face_url"),
-                TeamTable.name.label("team_name"),
-                TeamTable.crest_url.label("crest_url"),
-            )
-            .first()
-        )
-
-        return render_template("admin/end_stint.html", ended_stint=stint)
+        return jsonify({"status": "success"}), 201
 
 
 @admin_blueprint.route("/new-point-deduction", methods=["GET", "POST"])

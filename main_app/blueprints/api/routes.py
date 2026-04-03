@@ -151,6 +151,68 @@ def point_deductions(season):
     return jsonify(deductions_list)
 
 
+@api_blueprint.route("/teams", methods=["GET"])
+def get_teams():
+    teams = Team.query.order_by(Team.name).all()
+    teams_list = [
+        {"id": team.id, "name": team.name, "crest_url": team.crest_url}
+        for team in teams
+    ]
+
+    return jsonify(teams_list)
+
+
+@api_blueprint.route("/nations", methods=["GET"])
+def get_nations():
+    nations = Nation.query.order_by(Nation.name).all()
+    nations_list = [{"id": nation.id, "name": nation.name} for nation in nations]
+
+    return jsonify(nations_list)
+
+
+@api_blueprint.route("/managers", methods=["GET"])
+def get_managers():
+    managers = Manager.query.order_by(Manager.name).all()
+    managers_list = [
+        {"id": manager.id, "name": manager.name, "face_url": manager.face_url}
+        for manager in managers
+    ]
+
+    return jsonify(managers_list)
+
+
+@api_blueprint.route("/active-stints", methods=["GET"])
+def get_active_stints():
+    TeamTable = aliased(Team, name="team_table")
+    ManagerTable = aliased(Manager, name="manager_table")
+
+    stints = (
+        ManagerStint.query.filter_by(current=True)
+        .join(TeamTable, TeamTable.id == ManagerStint.team_id)
+        .join(ManagerTable, ManagerTable.id == ManagerStint.manager_id)
+        .order_by(ManagerStint.date_start)
+        .add_columns(
+            ManagerStint.id,
+            TeamTable.name.label("team_name"),
+            ManagerTable.name.label("manager_name"),
+            ManagerTable.face_url.label("face_url"),
+        )
+        .all()
+    )
+
+    stints_list = [
+        {
+            "id": stint.id,
+            "manager_name": stint.manager_name,
+            "team_name": stint.team_name,
+            "face_url": stint.face_url,
+        }
+        for stint in stints
+    ]
+
+    return jsonify(stints_list)
+
+
 @api_blueprint.route("/yt-stats", methods=["GET"])
 def get_stats():
     with open(STATS_FILE, "r") as f:
@@ -176,7 +238,6 @@ def get_visitor_stats():
     total_views = Visit.query.count()
     unique_visitors = db.session.query(Visit.ip_hash).distinct().count()
 
-    # Get views per day for the last 7 days
     results = (
         db.session.query(
             func.date(Visit.timestamp).label("date"),
