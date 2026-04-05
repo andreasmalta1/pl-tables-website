@@ -152,8 +152,13 @@ def point_deductions(season):
 
 
 @api_blueprint.route("/teams", methods=["GET"])
-def get_teams():
-    teams = Team.query.order_by(Team.name).all()
+@api_blueprint.route("/teams/<state>", methods=["GET"])
+def get_teams(state=None):
+    if state and state == "current":
+        teams = Team.query.filter_by(current=True).order_by(Team.name).all()
+    if not state:
+        teams = Team.query.order_by(Team.name).all()
+
     teams_list = [
         {"id": team.id, "name": team.name, "crest_url": team.crest_url}
         for team in teams
@@ -177,7 +182,6 @@ def get_managers():
         {"id": manager.id, "name": manager.name, "face_url": manager.face_url}
         for manager in managers
     ]
-
     return jsonify(managers_list)
 
 

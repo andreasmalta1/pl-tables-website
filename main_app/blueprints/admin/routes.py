@@ -158,33 +158,20 @@ def end_stint():
         return jsonify({"status": "success"}), 201
 
 
-@admin_blueprint.route("/new-point-deduction", methods=["GET", "POST"])
-# @login_required
+@admin_blueprint.route("/new-point-deduction", methods=["POST"])
+@login_required
 def new_point_deduction():
-    teams = Team.query.order_by(Team.name).all()
-    seasons_query = Match.query.with_entities(Match.season).distinct().all()
-    seasons = [season.season for season in seasons_query]
-    seasons.sort(reverse=True)
-
-    if request.method == "GET":
-        return render_template(
-            "admin/new_point_deduction.html", teams=teams, seasons=seasons
-        )
-
     if request.method == "POST":
-        team_id = request.form.get("team")
-        points_deducted = request.form.get("points-deducted")
-        reason = request.form.get("reason")
-        season = request.form.get("season")
+        team_id = request.json.get("teamId")
+        points_deducted = request.json.get("pointsDeducted")
+        reason = request.json.get("reason")
+        season = request.json.get("season")
 
         if not team_id or not points_deducted or not reason or not season:
-            error_message = "Invalid Inputs"
-            return render_template(
-                "admin/new_point_deduction.html",
-                teams=teams,
-                seasons=seasons,
-                message=error_message,
-            )
+            return jsonify({"msg": "Missing data"}), 409
+
+        seasons_query = Match.query.with_entities(Match.season).distinct().all()
+        seasons = [season.season for season in seasons_query]
 
         team_id = team_id.strip()
         season = season.strip()
@@ -193,22 +180,10 @@ def new_point_deduction():
         season_check = True if season in seasons else False
 
         if not team_check:
-            error_message = "Chosen team does not exist"
-            return render_template(
-                "admin/new_point_deduction.html",
-                teams=teams,
-                seasons=seasons,
-                message=error_message,
-            )
+            return jsonify({"msg": "Chosen team does not exist"}), 409
 
         if not season_check:
-            error_message = "Chosen season does not exist"
-            return render_template(
-                "admin/new_point_deduction.html",
-                teams=teams,
-                seasons=seasons,
-                message=error_message,
-            )
+            return jsonify({"msg": "Chosen season does not exist"}), 409
 
         new_deduction = PointDeduction(
             team_id=team_id,
@@ -220,197 +195,71 @@ def new_point_deduction():
         db.session.add(new_deduction)
         db.session.commit()
 
-        TeamTable = aliased(Team, name="team_table")
-
-        deduction = (
-            PointDeduction.query.filter_by(id=new_deduction.id)
-            .join(TeamTable, TeamTable.id == PointDeduction.team_id)
-            .add_columns(
-                PointDeduction.points_deducted,
-                PointDeduction.reason,
-                PointDeduction.season,
-                TeamTable.name.label("team_name"),
-                TeamTable.crest_url.label("crest_url"),
-            )
-            .first()
-        )
-
-        return render_template("admin/new_point_deduction.html", deduction=deduction)
+        return jsonify({"status": "success"}), 201
 
 
 @admin_blueprint.route("/new-season", methods=["GET", "POST"])
-# @login_required
+@login_required
 def new_season():
-    season = Season.query.first().season
-    current_teams = Team.query.filter_by(current=True).order_by(Team.name).all()
-    non_current_teams = Team.query.filter_by(current=False).order_by(Team.name).all()
-
-    current_year = int(season.split("/")[0])
-    new_season = f"{current_year + 1}/{current_year + 2}"
-
-    if request.method == "GET":
-        return render_template(
-            "admin/new_season.html",
-            current_teams=current_teams,
-            non_current_teams=non_current_teams,
-            season=new_season,
-        )
-
     if request.method == "POST":
-        relegated_teams = request.form.getlist("relegated-teams")
-        promoted_teams = request.form.getlist("promoted-teams")
-        new_season_entry = request.form.get("season")
-
-        if not relegated_teams or not promoted_teams or not new_season_entry:
-            error_message = "Invalid Inputs"
-            return render_template(
-                "admin/new_season.html",
-                current_teams=current_teams,
-                non_current_teams=non_current_teams,
-                season=new_season,
-                error_message=error_message,
-            )
-
-        relegated_teams_list = []
-        for team_id in relegated_teams:
-            team = Team.query.filter_by(id=int(team_id)).first()
-            error_message = "Team not found"
-            if not team:
-                return render_template(
-                    "admin/new_season.html",
-                    current_teams=current_teams,
-                    non_current_teams=non_current_teams,
-                    season=new_season,
-                    error_message=error_message,
-                )
-            team.current = False
-            relegated_teams_list.append(team)
-
-        promoted_teams_list = []
-        for team_id in promoted_teams:
-            team = Team.query.filter_by(id=int(team_id)).first()
-            if not team:
-                return render_template(
-                    "admin/new_season.html",
-                    current_teams=current_teams,
-                    non_current_teams=non_current_teams,
-                    season=new_season,
-                    error_message=error_message,
-                )
-            team.current = True
-            promoted_teams_list.append(team)
-
-        season = Season.query.first()
-        season.season = new_season
-
-        last_row = LastRow.query.first()
-        last_row.last_row = -1
+        data = request.json
+        Team.query.filter(Team.id.in_(data["relegate"])).update(
+            {"current": False}, synchronize_session=False
+        )
+        Team.query.filter(Team.id.in_(data["promote"])).update(
+            {"current": True}, synchronize_session=False
+        )
+        current_season = Season.query.order_by(Season.id.desc()).first()
+        year_start, year_end = map(int, current_season.season.split("/"))
+        new_season_str = f"{year_start + 1}/{year_end + 1}"
+        current_season.season = new_season_str
 
         db.session.commit()
-
-        return render_template(
-            "admin/new_season.html",
-            new_season=new_season,
-            promoted_teams=promoted_teams_list,
-            relegated_teams=relegated_teams_list,
+        return (
+            jsonify({"msg": f"Success! Welcome to the {new_season_str} Season."}),
+            201,
         )
 
 
 @admin_blueprint.route("/new-match", methods=["GET", "POST"])
-# @login_required
+@login_required
 def new_match():
-    current_season = Season.query.first().season
-    current_teams = Team.query.filter_by(current=True).order_by(Team.name).all()
-
-    if request.method == "GET":
-        return render_template(
-            "admin/new_match.html",
-            teams=current_teams,
-            season=current_season,
-        )
-
     if request.method == "POST":
-        new_matches = []
-        HomeTeam = aliased(Team, name="home_team")
-        AwayTeam = aliased(Team, name="away_team")
+        home_team_id = request.json.get("homeTeamId")
+        away_team_id = request.json.get("awayTeamId")
+        home_score = request.json.get("homeScore")
+        away_score = request.json.get("awayScore")
+        match_date = request.json.get("date")
 
-        home_team_ids = request.form.getlist("home-team")
-        away_team_ids = request.form.getlist("away-team")
-        home_scores = request.form.getlist("home-score")
-        away_scores = request.form.getlist("away-score")
-        match_dates = request.form.getlist("match-date")
+        current_season = Season.query.first().season
 
-        for home_team_id, away_team_id, home_score, away_score, match_date in zip(
-            home_team_ids, away_team_ids, home_scores, away_scores, match_dates
+        if (
+            not home_team_id
+            or not away_team_id
+            or not home_score
+            or not away_score
+            or not match_date
         ):
+            return jsonify({"msg": "Missing data"}), 409
 
-            if (
-                not home_team_id
-                or not away_team_id
-                or not home_score
-                or not away_score
-                or not match_date
-            ):
-                error_message = "Invalid Inputs"
-                return render_template(
-                    "admin/new_match.html",
-                    teams=current_teams,
-                    season=current_season,
-                    error_message=error_message,
-                )
+        home_team_check = Team.query.filter_by(id=int(home_team_id)).first()
+        if not home_team_check:
+            return jsonify({"msg": "Home team does not exist"}), 409
 
-            home_team_check = Team.query.filter_by(id=int(home_team_id)).first()
-            if not home_team_check:
-                error_message = "Home Team not found"
-                return render_template(
-                    "admin/new_match.html",
-                    teams=current_teams,
-                    season=current_season,
-                    error_message=error_message,
-                )
+        away_team_check = Team.query.filter_by(id=int(away_team_id)).first()
+        if not away_team_check:
+            return jsonify({"msg": "Away team does not exist"}), 409
 
-            away_team_check = Team.query.filter_by(id=int(away_team_id)).first()
-            if not away_team_check:
-                error_message = "Away Team not found"
-                return render_template(
-                    "admin/new_match.html",
-                    teams=current_teams,
-                    season=current_season,
-                    error_message=error_message,
-                )
-
-            new_match = Match(
-                home_team_id=home_team_id,
-                away_team_id=away_team_id,
-                home_score=home_score,
-                away_score=away_score,
-                season=current_season,
-                date=match_date,
-            )
-
-            db.session.add(new_match)
-            db.session.commit()
-
-            match = (
-                Match.query.filter_by(id=new_match.id)
-                .join(HomeTeam, HomeTeam.id == Match.home_team_id)
-                .join(AwayTeam, AwayTeam.id == Match.away_team_id)
-                .add_columns(
-                    HomeTeam.name.label("home_team_name"),
-                    Match.home_score,
-                    HomeTeam.crest_url.label("home_crest_url"),
-                    AwayTeam.name.label("away_team_name"),
-                    Match.away_score,
-                    AwayTeam.crest_url.label("away_crest_url"),
-                    Match.date,
-                    Match.season,
-                )
-                .first()
-            )
-
-            new_matches.append(match)
-
-        return render_template(
-            "admin/new_match.html",
-            new_matches=new_matches,
+        new_match = Match(
+            home_team_id=home_team_id,
+            away_team_id=away_team_id,
+            home_score=home_score,
+            away_score=away_score,
+            season=current_season,
+            date=match_date,
         )
+
+        db.session.add(new_match)
+        db.session.commit()
+
+        return jsonify({"status": "success"}), 201
