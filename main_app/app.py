@@ -55,7 +55,7 @@ def create_app():
 
     # Register blueprints
     app.register_blueprint(api, url_prefix="/api")
-    app.register_blueprint(admin, url_prefix="/admin")
+    app.register_blueprint(admin, url_prefix="/api/admin")
     app.register_blueprint(auth, url_prefix="/auth")
     app.register_blueprint(contact_page, url_prefix="/contact")
     # app.register_error_handler(404, page_not_found)
