@@ -8,8 +8,6 @@ load_dotenv()
 API_KEY = os.getenv("API_KEY")
 JSON_FILE = os.path.join("utils", "pl-yt-stats.json")
 
-
-# Official Channel IDs for the Premier League Big Six
 BIG_SIX_CHANNELS = {
     "Arsenal": "UCpryVRk_VDudG8SHXgWcG0w",
     "Chelsea": "UCU2PacFf99vhb3hNiYDmxww",
@@ -24,7 +22,6 @@ def get_channel_stats(api_key, channel_dict):
     youtube = build("youtube", "v3", developerKey=api_key)
     results = []
 
-    # Get stats in a single request for efficiency
     channel_ids = list(channel_dict.values())
     request = youtube.channels().list(
         part="snippet,statistics", id=",".join(channel_ids)
