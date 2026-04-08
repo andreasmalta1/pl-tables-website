@@ -1,7 +1,9 @@
-from flask import Blueprint, render_template, request, jsonify
-from sqlalchemy.orm import aliased
+import os
+from flask import Blueprint, request, jsonify
+from flask_mail import Message
 from datetime import datetime
 
+from ...app import mail
 from ...models import *
 from ..auth.utils import login_required
 
@@ -262,4 +264,33 @@ def new_match():
         db.session.add(new_match)
         db.session.commit()
 
+        return jsonify({"status": "success"}), 201
+
+
+@admin_blueprint.route("/contact", methods=["POST"])
+def contact_page():
+    """
+    Generate the contact us page.
+    The POST method, sends an email with the form data
+    """
+    if request.method == "POST":
+        contact_name = request.json.get("name")
+        contact_email = request.json.get("email")
+        subject = request.json.get("subject")
+        message = request.json.get("message")
+        if not contact_name or not contact_email or not subject or not message:
+            return jsonify({"msg": "Missing data"}), 409
+
+        msg = Message(
+            subject,
+            sender=contact_email,
+            recipients=[os.getenv("MAIL_USERNAME")],
+        )
+        msg.body = "From: %s <%s> \n%s\n\n\n%s" % (
+            contact_name,
+            contact_email,
+            message,
+            "Sent from PL Tables Website",
+        )
+        mail.send(msg)
         return jsonify({"status": "success"}), 201
