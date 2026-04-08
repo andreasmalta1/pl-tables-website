@@ -8,6 +8,9 @@ load_dotenv()
 API_KEY = os.getenv("API_KEY")
 JSON_FILE = os.path.join("utils", "pl-yt-stats.json")
 
+if not os.path.exists("utils"):
+    os.makedirs("utils")
+
 BIG_SIX_CHANNELS = {
     "Arsenal": "UCpryVRk_VDudG8SHXgWcG0w",
     "Chelsea": "UCU2PacFf99vhb3hNiYDmxww",
